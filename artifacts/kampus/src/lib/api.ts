@@ -4,7 +4,8 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
   const token = localStorage.getItem("kampus_token");
   if (token) headers.set("Authorization", `Bearer ${token}`);
 
-  const response = await fetch(`/api${path}`, { ...options, headers });
+  const apiBase = `${import.meta.env.BASE_URL}api`.replace(/\/+/g, "/");
+  const response = await fetch(`${apiBase}${path}`, { ...options, headers });
   if (!response.ok) {
     const payload = await response.json().catch(() => ({ error: "Terjadi kesalahan" }));
     throw new Error(payload.error || "Terjadi kesalahan");

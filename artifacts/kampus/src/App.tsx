@@ -58,6 +58,10 @@ const InDevelopment = () => (
   </div>
 );
 
+function DashboardPage({ children }: { children: React.ReactNode }) {
+  return <DashboardLayout>{children}</DashboardLayout>;
+}
+
 function Router() {
   return (
     <Switch>
@@ -72,61 +76,81 @@ function Router() {
       <Route path="/login" component={Login} />
 
       {/* MAHASISWA */}
-      <Route path="/dashboard/mahasiswa*">
-        <DashboardLayout>
-          <Switch>
-            <Route path="/dashboard/mahasiswa" component={MahasiswaDashboard} />
-            <Route path="/dashboard/mahasiswa/jadwal" component={MahasiswaJadwal} />
-            <Route path="/dashboard/mahasiswa/krs" component={MahasiswaKrs} />
-            <Route path="/dashboard/mahasiswa/nilai" component={MahasiswaNilai} />
-            <Route path="/dashboard/mahasiswa/absensi" component={MahasiswaAbsensi} />
-            <Route path="/dashboard/mahasiswa/diskusi" component={MahasiswaDiskusi} />
-            <Route component={InDevelopment} />
-          </Switch>
-        </DashboardLayout>
+      <Route path="/dashboard/mahasiswa">
+        <DashboardPage><MahasiswaDashboard /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/mahasiswa/jadwal">
+        <DashboardPage><MahasiswaJadwal /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/mahasiswa/krs">
+        <DashboardPage><MahasiswaKrs /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/mahasiswa/nilai">
+        <DashboardPage><MahasiswaNilai /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/mahasiswa/absensi">
+        <DashboardPage><MahasiswaAbsensi /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/mahasiswa/diskusi">
+        <DashboardPage><MahasiswaDiskusi /></DashboardPage>
       </Route>
 
       {/* DOSEN */}
-      <Route path="/dashboard/dosen*">
-        <DashboardLayout>
-          <Switch>
-            <Route path="/dashboard/dosen" component={DosenDashboard} />
-            <Route path="/dashboard/dosen/jadwal" component={DosenJadwal} />
-            <Route path="/dashboard/dosen/nilai" component={DosenNilai} />
-            <Route path="/dashboard/dosen/absensi" component={DosenAbsensi} />
-            <Route path="/dashboard/dosen/absensi-dosen" component={DosenAbsensiDosen} />
-            <Route path="/dashboard/dosen/diskusi" component={DosenDiskusi} />
-            <Route component={InDevelopment} />
-          </Switch>
-        </DashboardLayout>
+      <Route path="/dashboard/dosen">
+        <DashboardPage><DosenDashboard /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/dosen/jadwal">
+        <DashboardPage><DosenJadwal /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/dosen/nilai">
+        <DashboardPage><DosenNilai /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/dosen/absensi">
+        <DashboardPage><DosenAbsensi /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/dosen/absensi-dosen">
+        <DashboardPage><DosenAbsensiDosen /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/dosen/diskusi">
+        <DashboardPage><DosenDiskusi /></DashboardPage>
       </Route>
 
       {/* ADMIN */}
-      <Route path="/dashboard/admin*">
-        <DashboardLayout>
-          <Switch>
-            <Route path="/dashboard/admin" component={AdminDashboard} />
-            <Route path="/dashboard/admin/mahasiswa" component={AdminMahasiswa} />
-            <Route path="/dashboard/admin/dosen" component={AdminDosen} />
-            <Route path="/dashboard/admin/mata-kuliah" component={AdminMataKuliah} />
-            <Route path="/dashboard/admin/jadwal" component={AdminJadwal} />
-            <Route path="/dashboard/admin/krs" component={AdminKrs} />
-            <Route path="/dashboard/admin/content" component={AdminContent} />
-            <Route path="/dashboard/admin/sistem" component={AdminSystem} />
-            <Route component={InDevelopment} />
-          </Switch>
-        </DashboardLayout>
+      <Route path="/dashboard/admin">
+        <DashboardPage><AdminDashboard /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/admin/mahasiswa">
+        <DashboardPage><AdminMahasiswa /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/admin/dosen">
+        <DashboardPage><AdminDosen /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/admin/mata-kuliah">
+        <DashboardPage><AdminMataKuliah /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/admin/jadwal">
+        <DashboardPage><AdminJadwal /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/admin/krs">
+        <DashboardPage><AdminKrs /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/admin/content">
+        <DashboardPage><AdminContent /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/admin/sistem">
+        <DashboardPage><AdminSystem /></DashboardPage>
       </Route>
 
       {/* REKTOR */}
-      <Route path="/dashboard/rektor*">
-        <DashboardLayout>
-          <Switch>
-            <Route path="/dashboard/rektor" component={RektorDashboard} />
-            <Route path="/dashboard/rektor/akademik" component={RektorAkademik} />
-            <Route component={InDevelopment} />
-          </Switch>
-        </DashboardLayout>
+      <Route path="/dashboard/rektor">
+        <DashboardPage><RektorDashboard /></DashboardPage>
+      </Route>
+      <Route path="/dashboard/rektor/akademik">
+        <DashboardPage><RektorAkademik /></DashboardPage>
+      </Route>
+
+      <Route path="/dashboard/*">
+        <DashboardPage><InDevelopment /></DashboardPage>
       </Route>
 
       <Route component={NotFound} />

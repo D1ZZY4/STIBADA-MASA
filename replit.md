@@ -119,3 +119,9 @@ pnpm --filter @workspace/kampus run dev       # Frontend
 pnpm --filter @workspace/api-server run dev   # Backend
 pnpm --filter @workspace/api-spec run codegen # Regenerate API client
 ```
+
+## Runtime Notes
+
+- Development workflow runs the API server on port 8080 and the Kampus frontend on port 23485 with `BASE_PATH=/`.
+- Vite proxies `/api` requests to the API server during development.
+- Dashboard routes are defined explicitly in `artifacts/kampus/src/App.tsx` to avoid wildcard/nested router 404s.
