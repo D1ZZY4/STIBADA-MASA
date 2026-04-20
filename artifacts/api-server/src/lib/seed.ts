@@ -17,7 +17,7 @@ export async function seedIfEmpty(): Promise<void> {
 
   const dosenIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
   const dosenData = [
-    { _id: dosenIds[0], nidn: "0101019001", nama: "Dr. Arif Setiawan, M.T.", email: "arif@kampus.ac.id", prodi: "Teknik Informatika", jabatan: "Lektor Kepala", golongan: "IV/a", status: "aktif", keahlian: ["Machine Learning", "Data Science"], telepon: "08123456789", password: hashPassword("dosen123"), role: "dosen" },
+    { _id: dosenIds[0], nidn: "0123456789", nama: "Dr. Arif Setiawan, M.T.", email: "arif@kampus.ac.id", prodi: "Teknik Informatika", jabatan: "Lektor Kepala", golongan: "IV/a", status: "aktif", keahlian: ["Machine Learning", "Data Science"], telepon: "08123456789", password: hashPassword("dosen123"), role: "dosen" },
     { _id: dosenIds[1], nidn: "0202029002", nama: "Prof. Siti Rahayu, Ph.D.", email: "siti@kampus.ac.id", prodi: "Sistem Informasi", jabatan: "Guru Besar", golongan: "IV/d", status: "aktif", keahlian: ["Database", "Enterprise Systems"], telepon: "08234567890", password: hashPassword("dosen123"), role: "dosen" },
     { _id: dosenIds[2], nidn: "0303039003", nama: "Dr. Budi Santoso, M.M.", email: "budi@kampus.ac.id", prodi: "Manajemen Bisnis", jabatan: "Lektor", golongan: "III/d", status: "aktif", keahlian: ["Strategic Management", "Finance"], telepon: "08345678901", password: hashPassword("dosen123"), role: "dosen" },
     { _id: dosenIds[3], nidn: "0404049004", nama: "Dr. Dewi Lestari, S.H., M.H.", email: "dewi@kampus.ac.id", prodi: "Hukum", jabatan: "Lektor Kepala", golongan: "IV/b", status: "aktif", keahlian: ["Hukum Perdata", "Hukum Bisnis"], telepon: "08456789012", password: hashPassword("dosen123"), role: "dosen" },
