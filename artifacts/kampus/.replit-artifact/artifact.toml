@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Kampus Modern"
+version = "1.0.0"
+id = "artifacts/kampus"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23485
+
+[services.development]
+run = "pnpm --filter @workspace/kampus run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/kampus", "run", "build" ]
+publicDir = "artifacts/kampus/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23485"
+BASE_PATH = "/"

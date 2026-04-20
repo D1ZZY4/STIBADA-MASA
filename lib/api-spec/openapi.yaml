@@ -3,20 +3,44 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Kampus Modern API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication
+  - name: mahasiswa
+    description: Mahasiswa operations
+  - name: dosen
+    description: Dosen operations
+  - name: admin
+    description: Admin operations
+  - name: rektor
+    description: Rektor operations
+  - name: jadwal
+    description: Jadwal kuliah
+  - name: krs
+    description: Kartu Rencana Studi
+  - name: nilai
+    description: Nilai mahasiswa
+  - name: absensi
+    description: Absensi
+  - name: diskusi
+    description: Forum diskusi
+  - name: mata-kuliah
+    description: Mata kuliah
+  - name: stats
+    description: Statistics
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +48,807 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+      responses:
+        "200":
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "401":
+          description: Invalid credentials
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /mahasiswa:
+    get:
+      operationId: listMahasiswa
+      tags: [mahasiswa]
+      summary: List all mahasiswa
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: prodi
+          in: query
+          schema:
+            type: string
+        - name: semester
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of mahasiswa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MahasiswaListResponse"
+    post:
+      operationId: createMahasiswa
+      tags: [mahasiswa]
+      summary: Create mahasiswa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMahasiswaBody"
+      responses:
+        "201":
+          description: Mahasiswa created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mahasiswa"
+
+  /mahasiswa/{id}:
+    get:
+      operationId: getMahasiswa
+      tags: [mahasiswa]
+      summary: Get mahasiswa by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mahasiswa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mahasiswa"
+    put:
+      operationId: updateMahasiswa
+      tags: [mahasiswa]
+      summary: Update mahasiswa
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateMahasiswaBody"
+      responses:
+        "200":
+          description: Updated mahasiswa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mahasiswa"
+    delete:
+      operationId: deleteMahasiswa
+      tags: [mahasiswa]
+      summary: Delete mahasiswa
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+
+  /dosen:
+    get:
+      operationId: listDosen
+      tags: [dosen]
+      summary: List all dosen
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: prodi
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of dosen
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DosenListResponse"
+    post:
+      operationId: createDosen
+      tags: [dosen]
+      summary: Create dosen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDosenBody"
+      responses:
+        "201":
+          description: Dosen created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dosen"
+
+  /dosen/{id}:
+    get:
+      operationId: getDosen
+      tags: [dosen]
+      summary: Get dosen by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Dosen
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dosen"
+    put:
+      operationId: updateDosen
+      tags: [dosen]
+      summary: Update dosen
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateDosenBody"
+      responses:
+        "200":
+          description: Updated dosen
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dosen"
+
+  /mata-kuliah:
+    get:
+      operationId: listMataKuliah
+      tags: [mata-kuliah]
+      summary: List mata kuliah
+      parameters:
+        - name: prodi
+          in: query
+          schema:
+            type: string
+        - name: semester
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of mata kuliah
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MataKuliahListResponse"
+    post:
+      operationId: createMataKuliah
+      tags: [mata-kuliah]
+      summary: Create mata kuliah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMataKuliahBody"
+      responses:
+        "201":
+          description: Mata kuliah created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MataKuliah"
+
+  /mata-kuliah/{id}:
+    get:
+      operationId: getMataKuliah
+      tags: [mata-kuliah]
+      summary: Get mata kuliah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mata kuliah
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MataKuliah"
+    put:
+      operationId: updateMataKuliah
+      tags: [mata-kuliah]
+      summary: Update mata kuliah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateMataKuliahBody"
+      responses:
+        "200":
+          description: Updated mata kuliah
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MataKuliah"
+    delete:
+      operationId: deleteMataKuliah
+      tags: [mata-kuliah]
+      summary: Delete mata kuliah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+
+  /jadwal:
+    get:
+      operationId: listJadwal
+      tags: [jadwal]
+      summary: List jadwal kuliah
+      parameters:
+        - name: mahasiswaId
+          in: query
+          schema:
+            type: string
+        - name: dosenId
+          in: query
+          schema:
+            type: string
+        - name: hari
+          in: query
+          schema:
+            type: string
+        - name: semester
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of jadwal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JadwalListResponse"
+    post:
+      operationId: createJadwal
+      tags: [jadwal]
+      summary: Create jadwal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateJadwalBody"
+      responses:
+        "201":
+          description: Jadwal created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Jadwal"
+
+  /jadwal/{id}:
+    put:
+      operationId: updateJadwal
+      tags: [jadwal]
+      summary: Update jadwal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateJadwalBody"
+      responses:
+        "200":
+          description: Updated jadwal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Jadwal"
+    delete:
+      operationId: deleteJadwal
+      tags: [jadwal]
+      summary: Delete jadwal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+
+  /krs:
+    get:
+      operationId: listKrs
+      tags: [krs]
+      summary: List KRS
+      parameters:
+        - name: mahasiswaId
+          in: query
+          schema:
+            type: string
+        - name: semester
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of KRS
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KrsListResponse"
+    post:
+      operationId: createKrs
+      tags: [krs]
+      summary: Daftarkan mata kuliah KRS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateKrsBody"
+      responses:
+        "201":
+          description: KRS entry created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Krs"
+
+  /krs/{id}:
+    put:
+      operationId: updateKrs
+      tags: [krs]
+      summary: Update status KRS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateKrsBody"
+      responses:
+        "200":
+          description: Updated KRS
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Krs"
+    delete:
+      operationId: deleteKrs
+      tags: [krs]
+      summary: Hapus KRS entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+
+  /nilai:
+    get:
+      operationId: listNilai
+      tags: [nilai]
+      summary: List nilai mahasiswa
+      parameters:
+        - name: mahasiswaId
+          in: query
+          schema:
+            type: string
+        - name: dosenId
+          in: query
+          schema:
+            type: string
+        - name: mataKuliahId
+          in: query
+          schema:
+            type: string
+        - name: semester
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of nilai
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NilaiListResponse"
+    post:
+      operationId: createNilai
+      tags: [nilai]
+      summary: Input nilai mahasiswa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNilaiBody"
+      responses:
+        "201":
+          description: Nilai created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Nilai"
+
+  /nilai/{id}:
+    put:
+      operationId: updateNilai
+      tags: [nilai]
+      summary: Update nilai
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateNilaiBody"
+      responses:
+        "200":
+          description: Updated nilai
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Nilai"
+
+  /absensi:
+    get:
+      operationId: listAbsensi
+      tags: [absensi]
+      summary: List absensi
+      parameters:
+        - name: mahasiswaId
+          in: query
+          schema:
+            type: string
+        - name: dosenId
+          in: query
+          schema:
+            type: string
+        - name: jadwalId
+          in: query
+          schema:
+            type: string
+        - name: tanggal
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of absensi
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AbsensiListResponse"
+    post:
+      operationId: createAbsensi
+      tags: [absensi]
+      summary: Buat absensi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAbsensiBody"
+      responses:
+        "201":
+          description: Absensi created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Absensi"
+
+  /absensi/{id}:
+    put:
+      operationId: updateAbsensi
+      tags: [absensi]
+      summary: Update status absensi
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAbsensiBody"
+      responses:
+        "200":
+          description: Updated absensi
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Absensi"
+
+  /diskusi:
+    get:
+      operationId: listDiskusi
+      tags: [diskusi]
+      summary: List diskusi / pesan
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+        - name: roomId
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of diskusi
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiskusiListResponse"
+    post:
+      operationId: createDiskusi
+      tags: [diskusi]
+      summary: Kirim pesan diskusi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDiskusiBody"
+      responses:
+        "201":
+          description: Diskusi created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Diskusi"
+
+  /diskusi/rooms:
+    get:
+      operationId: listDiskusiRooms
+      tags: [diskusi]
+      summary: List ruang diskusi
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of rooms
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiskusiRoomListResponse"
+    post:
+      operationId: createDiskusiRoom
+      tags: [diskusi]
+      summary: Buat room diskusi baru
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDiskusiRoomBody"
+      responses:
+        "201":
+          description: Room created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiskusiRoom"
+
+  /stats/overview:
+    get:
+      operationId: getStatsOverview
+      tags: [stats]
+      summary: Get kampus overview stats
+      responses:
+        "200":
+          description: Overview stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsOverview"
+
+  /stats/mahasiswa:
+    get:
+      operationId: getStatsMahasiswa
+      tags: [stats]
+      summary: Get mahasiswa statistics breakdown
+      responses:
+        "200":
+          description: Mahasiswa stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsMahasiswa"
+
+  /stats/akademik:
+    get:
+      operationId: getStatsAkademik
+      tags: [stats]
+      summary: Get akademik statistics (nilai, kelulusan, dll)
+      responses:
+        "200":
+          description: Akademik stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsAkademik"
+
+  /stats/absensi-summary:
+    get:
+      operationId: getStatsAbsensiSummary
+      tags: [stats]
+      summary: Get absensi summary for a user
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+        - name: semester
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Absensi summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsAbsensiSummary"
+
+  /stats/ipk-trend:
+    get:
+      operationId: getStatsIpkTrend
+      tags: [stats]
+      summary: Get IPK trend over semesters
+      parameters:
+        - name: mahasiswaId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: IPK trend data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsIpkTrend"
+
+  /stats/jadwal-today:
+    get:
+      operationId: getStatsJadwalToday
+      tags: [stats]
+      summary: Get today's schedule count and overview
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Today jadwal overview
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsJadwalToday"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +859,995 @@ components:
       required:
         - status
 
+    LoginBody:
+      type: object
+      properties:
+        nim:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          enum: [mahasiswa, dosen, admin, rektor]
+      required:
+        - nim
+        - password
+        - role
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - token
+        - user
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        nama:
+          type: string
+        role:
+          type: string
+          enum: [mahasiswa, dosen, admin, rektor]
+        email:
+          type: string
+        avatar:
+          type: string
+        nim:
+          type: string
+        nidn:
+          type: string
+        prodi:
+          type: string
+      required:
+        - id
+        - nama
+        - role
+        - email
+
+    Mahasiswa:
+      type: object
+      properties:
+        id:
+          type: string
+        nim:
+          type: string
+        nama:
+          type: string
+        email:
+          type: string
+        prodi:
+          type: string
+        angkatan:
+          type: integer
+        semester:
+          type: integer
+        ipk:
+          type: number
+        sks:
+          type: integer
+        status:
+          type: string
+          enum: [aktif, cuti, lulus, drop_out]
+        avatar:
+          type: string
+        telepon:
+          type: string
+        alamat:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - nim
+        - nama
+        - email
+        - prodi
+        - angkatan
+        - semester
+        - status
+
+    MahasiswaListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Mahasiswa"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateMahasiswaBody:
+      type: object
+      properties:
+        nim:
+          type: string
+        nama:
+          type: string
+        email:
+          type: string
+        prodi:
+          type: string
+        angkatan:
+          type: integer
+        semester:
+          type: integer
+        telepon:
+          type: string
+        alamat:
+          type: string
+        password:
+          type: string
+      required:
+        - nim
+        - nama
+        - email
+        - prodi
+        - angkatan
+
+    UpdateMahasiswaBody:
+      type: object
+      properties:
+        nama:
+          type: string
+        email:
+          type: string
+        prodi:
+          type: string
+        semester:
+          type: integer
+        status:
+          type: string
+        telepon:
+          type: string
+        alamat:
+          type: string
+
+    Dosen:
+      type: object
+      properties:
+        id:
+          type: string
+        nidn:
+          type: string
+        nama:
+          type: string
+        email:
+          type: string
+        prodi:
+          type: string
+        jabatan:
+          type: string
+        golongan:
+          type: string
+        status:
+          type: string
+          enum: [aktif, tidak_aktif]
+        avatar:
+          type: string
+        telepon:
+          type: string
+        keahlian:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - nidn
+        - nama
+        - email
+        - prodi
+        - status
+
+    DosenListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Dosen"
+        total:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateDosenBody:
+      type: object
+      properties:
+        nidn:
+          type: string
+        nama:
+          type: string
+        email:
+          type: string
+        prodi:
+          type: string
+        jabatan:
+          type: string
+        golongan:
+          type: string
+        telepon:
+          type: string
+        keahlian:
+          type: array
+          items:
+            type: string
+        password:
+          type: string
+      required:
+        - nidn
+        - nama
+        - email
+        - prodi
+
+    UpdateDosenBody:
+      type: object
+      properties:
+        nama:
+          type: string
+        email:
+          type: string
+        prodi:
+          type: string
+        jabatan:
+          type: string
+        golongan:
+          type: string
+        status:
+          type: string
+        telepon:
+          type: string
+        keahlian:
+          type: array
+          items:
+            type: string
+
+    MataKuliah:
+      type: object
+      properties:
+        id:
+          type: string
+        kode:
+          type: string
+        nama:
+          type: string
+        sks:
+          type: integer
+        semester:
+          type: integer
+        prodi:
+          type: string
+        dosenId:
+          type: string
+        dosenNama:
+          type: string
+        deskripsi:
+          type: string
+        status:
+          type: string
+          enum: [aktif, tidak_aktif]
+        createdAt:
+          type: string
+      required:
+        - id
+        - kode
+        - nama
+        - sks
+        - semester
+        - prodi
+        - status
+
+    MataKuliahListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/MataKuliah"
+        total:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateMataKuliahBody:
+      type: object
+      properties:
+        kode:
+          type: string
+        nama:
+          type: string
+        sks:
+          type: integer
+        semester:
+          type: integer
+        prodi:
+          type: string
+        dosenId:
+          type: string
+        deskripsi:
+          type: string
+      required:
+        - kode
+        - nama
+        - sks
+        - semester
+        - prodi
+
+    UpdateMataKuliahBody:
+      type: object
+      properties:
+        nama:
+          type: string
+        sks:
+          type: integer
+        semester:
+          type: integer
+        prodi:
+          type: string
+        dosenId:
+          type: string
+        deskripsi:
+          type: string
+        status:
+          type: string
+
+    Jadwal:
+      type: object
+      properties:
+        id:
+          type: string
+        mataKuliahId:
+          type: string
+        mataKuliahNama:
+          type: string
+        mataKuliahKode:
+          type: string
+        dosenId:
+          type: string
+        dosenNama:
+          type: string
+        hari:
+          type: string
+          enum: [Senin, Selasa, Rabu, Kamis, Jumat, Sabtu]
+        jamMulai:
+          type: string
+        jamSelesai:
+          type: string
+        ruangan:
+          type: string
+        kelas:
+          type: string
+        semester:
+          type: string
+        sks:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - id
+        - mataKuliahId
+        - dosenId
+        - hari
+        - jamMulai
+        - jamSelesai
+        - ruangan
+        - kelas
+        - semester
+
+    JadwalListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Jadwal"
+        total:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateJadwalBody:
+      type: object
+      properties:
+        mataKuliahId:
+          type: string
+        dosenId:
+          type: string
+        hari:
+          type: string
+        jamMulai:
+          type: string
+        jamSelesai:
+          type: string
+        ruangan:
+          type: string
+        kelas:
+          type: string
+        semester:
+          type: string
+      required:
+        - mataKuliahId
+        - dosenId
+        - hari
+        - jamMulai
+        - jamSelesai
+        - ruangan
+        - kelas
+        - semester
+
+    UpdateJadwalBody:
+      type: object
+      properties:
+        hari:
+          type: string
+        jamMulai:
+          type: string
+        jamSelesai:
+          type: string
+        ruangan:
+          type: string
+        kelas:
+          type: string
+
+    Krs:
+      type: object
+      properties:
+        id:
+          type: string
+        mahasiswaId:
+          type: string
+        mahasiswaNama:
+          type: string
+        mataKuliahId:
+          type: string
+        mataKuliahNama:
+          type: string
+        mataKuliahKode:
+          type: string
+        sks:
+          type: integer
+        semester:
+          type: string
+        status:
+          type: string
+          enum: [pending, disetujui, ditolak]
+        kelas:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - mahasiswaId
+        - mataKuliahId
+        - semester
+        - status
+
+    KrsListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Krs"
+        total:
+          type: integer
+        totalSks:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateKrsBody:
+      type: object
+      properties:
+        mahasiswaId:
+          type: string
+        mataKuliahId:
+          type: string
+        semester:
+          type: string
+        kelas:
+          type: string
+      required:
+        - mahasiswaId
+        - mataKuliahId
+        - semester
+
+    UpdateKrsBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, disetujui, ditolak]
+
+    Nilai:
+      type: object
+      properties:
+        id:
+          type: string
+        mahasiswaId:
+          type: string
+        mahasiswaNama:
+          type: string
+        mahasiswaNim:
+          type: string
+        mataKuliahId:
+          type: string
+        mataKuliahNama:
+          type: string
+        mataKuliahKode:
+          type: string
+        dosenId:
+          type: string
+        semester:
+          type: string
+        nilaiTugas:
+          type: number
+        nilaiUts:
+          type: number
+        nilaiUas:
+          type: number
+        nilaiAkhir:
+          type: number
+        grade:
+          type: string
+        sks:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - id
+        - mahasiswaId
+        - mataKuliahId
+        - dosenId
+        - semester
+
+    NilaiListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Nilai"
+        total:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateNilaiBody:
+      type: object
+      properties:
+        mahasiswaId:
+          type: string
+        mataKuliahId:
+          type: string
+        dosenId:
+          type: string
+        semester:
+          type: string
+        nilaiTugas:
+          type: number
+        nilaiUts:
+          type: number
+        nilaiUas:
+          type: number
+      required:
+        - mahasiswaId
+        - mataKuliahId
+        - dosenId
+        - semester
+
+    UpdateNilaiBody:
+      type: object
+      properties:
+        nilaiTugas:
+          type: number
+        nilaiUts:
+          type: number
+        nilaiUas:
+          type: number
+
+    Absensi:
+      type: object
+      properties:
+        id:
+          type: string
+        mahasiswaId:
+          type: string
+        mahasiswaNama:
+          type: string
+        mahasiswaNim:
+          type: string
+        dosenId:
+          type: string
+        jadwalId:
+          type: string
+        mataKuliahNama:
+          type: string
+        tanggal:
+          type: string
+        status:
+          type: string
+          enum: [hadir, izin, sakit, alpha]
+        keterangan:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - mahasiswaId
+        - jadwalId
+        - tanggal
+        - status
+
+    AbsensiListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Absensi"
+        total:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateAbsensiBody:
+      type: object
+      properties:
+        mahasiswaId:
+          type: string
+        jadwalId:
+          type: string
+        dosenId:
+          type: string
+        tanggal:
+          type: string
+        status:
+          type: string
+          enum: [hadir, izin, sakit, alpha]
+        keterangan:
+          type: string
+      required:
+        - mahasiswaId
+        - jadwalId
+        - tanggal
+        - status
+
+    UpdateAbsensiBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [hadir, izin, sakit, alpha]
+        keterangan:
+          type: string
+
+    Diskusi:
+      type: object
+      properties:
+        id:
+          type: string
+        roomId:
+          type: string
+        senderId:
+          type: string
+        senderNama:
+          type: string
+        senderRole:
+          type: string
+        senderAvatar:
+          type: string
+        pesan:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - roomId
+        - senderId
+        - pesan
+        - createdAt
+
+    DiskusiListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Diskusi"
+        total:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateDiskusiBody:
+      type: object
+      properties:
+        roomId:
+          type: string
+        senderId:
+          type: string
+        pesan:
+          type: string
+      required:
+        - roomId
+        - senderId
+        - pesan
+
+    DiskusiRoom:
+      type: object
+      properties:
+        id:
+          type: string
+        nama:
+          type: string
+        type:
+          type: string
+          enum: [kelas, personal, umum]
+        participants:
+          type: array
+          items:
+            type: string
+        lastMessage:
+          type: string
+        lastMessageAt:
+          type: string
+        unreadCount:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - id
+        - nama
+        - type
+
+    DiskusiRoomListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/DiskusiRoom"
+        total:
+          type: integer
+      required:
+        - data
+        - total
+
+    CreateDiskusiRoomBody:
+      type: object
+      properties:
+        nama:
+          type: string
+        type:
+          type: string
+          enum: [kelas, personal, umum]
+        participants:
+          type: array
+          items:
+            type: string
+      required:
+        - nama
+        - type
+
+    StatsOverview:
+      type: object
+      properties:
+        totalMahasiswa:
+          type: integer
+        totalDosen:
+          type: integer
+        totalMataKuliah:
+          type: integer
+        totalProdi:
+          type: integer
+        mahasiswaAktif:
+          type: integer
+        dosenAktif:
+          type: integer
+        rataIpk:
+          type: number
+        tingkatKelulusan:
+          type: number
+        mahasiswaBaru:
+          type: integer
+        dosenBaru:
+          type: integer
+      required:
+        - totalMahasiswa
+        - totalDosen
+        - totalMataKuliah
+        - totalProdi
+
+    StatsMahasiswa:
+      type: object
+      properties:
+        byProdi:
+          type: array
+          items:
+            type: object
+            properties:
+              prodi:
+                type: string
+              total:
+                type: integer
+            required:
+              - prodi
+              - total
+        byStatus:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              total:
+                type: integer
+            required:
+              - status
+              - total
+        byAngkatan:
+          type: array
+          items:
+            type: object
+            properties:
+              angkatan:
+                type: integer
+              total:
+                type: integer
+            required:
+              - angkatan
+              - total
+      required:
+        - byProdi
+        - byStatus
+        - byAngkatan
+
+    StatsAkademik:
+      type: object
+      properties:
+        distribusiNilai:
+          type: array
+          items:
+            type: object
+            properties:
+              grade:
+                type: string
+              total:
+                type: integer
+              persentase:
+                type: number
+            required:
+              - grade
+              - total
+              - persentase
+        rataIpkByProdi:
+          type: array
+          items:
+            type: object
+            properties:
+              prodi:
+                type: string
+              rataIpk:
+                type: number
+            required:
+              - prodi
+              - rataIpk
+        tingkatAbsensi:
+          type: number
+      required:
+        - distribusiNilai
+        - rataIpkByProdi
+        - tingkatAbsensi
+
+    StatsAbsensiSummary:
+      type: object
+      properties:
+        totalPertemuan:
+          type: integer
+        hadir:
+          type: integer
+        izin:
+          type: integer
+        sakit:
+          type: integer
+        alpha:
+          type: integer
+        persentaseKehadiran:
+          type: number
+        byMataKuliah:
+          type: array
+          items:
+            type: object
+            properties:
+              mataKuliah:
+                type: string
+              hadir:
+                type: integer
+              total:
+                type: integer
+              persentase:
+                type: number
+            required:
+              - mataKuliah
+              - hadir
+              - total
+              - persentase
+      required:
+        - totalPertemuan
+        - hadir
+        - izin
+        - sakit
+        - alpha
+        - persentaseKehadiran
+
+    StatsIpkTrend:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              semester:
+                type: string
+              ipk:
+                type: number
+              sks:
+                type: integer
+            required:
+              - semester
+              - ipk
+              - sks
+        currentIpk:
+          type: number
+        totalSks:
+          type: integer
+      required:
+        - data
+        - currentIpk
+        - totalSks
+
+    StatsJadwalToday:
+      type: object
+      properties:
+        totalJadwal:
+          type: integer
+        selesai:
+          type: integer
+        berlangsung:
+          type: integer
+        belumMulai:
+          type: integer
+        jadwal:
+          type: array
+          items:
+            $ref: "#/components/schemas/Jadwal"
+      required:
+        - totalJadwal
+        - selesai
+        - berlangsung
+        - belumMulai
+        - jadwal

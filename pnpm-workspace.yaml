@@ -71,6 +71,7 @@ onlyBuiltDependencies:
   - '@swc/core'
   - esbuild
   - msw
+  - mongodb-memory-server
   - unrs-resolver
 
 overrides:
