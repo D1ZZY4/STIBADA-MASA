@@ -237,44 +237,81 @@ export default function Home() {
         </section>
 
         <section id="pendaftaran" className="bg-[#e8e2d4] px-4 py-16">
-          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="space-y-5">
-              <img src={images.admission} alt="Mahasiswa baru STIBADA MASA" className="h-64 w-full rounded-[2rem] object-cover shadow-lg" loading="lazy" />
-              <Badge variant="outline" className="rounded-full bg-white/70">Informasi Pendaftaran</Badge>
-              <h2 className="text-3xl font-bold sm:text-4xl">Proses PMB ringkas, transparan, dan dapat dipantau daring.</h2>
-              <div className="grid gap-4">
-                {[["Jadwal", data.admission.jadwal, Calendar], ["Biaya", data.admission.biaya, WalletMoney], ["Kontak PMB", data.admission.kontak, MessageQuestion]].map(([label, value, Icon]) => {
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <Badge variant="outline" className="rounded-full bg-white/70">Penerimaan Mahasiswa Baru</Badge>
+                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Proses PMB ringkas, transparan, dan dapat dipantau daring.</h2>
+              </div>
+              <Calendar variant="Bulk" className="text-primary shrink-0" size={42} />
+            </div>
+
+            <div className="relative overflow-hidden rounded-[2rem] shadow-lg">
+              <img src={images.admission} alt="Mahasiswa baru STIBADA MASA" className="h-56 w-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2f4f46]/90 via-[#2f4f46]/50 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-center px-8 text-white">
+                <p className="text-xl font-bold">PMB 2026/2027 Sedang Dibuka</p>
+                <p className="mt-2 max-w-lg text-sm leading-6 text-white/80">Daftarkan diri sekarang melalui formulir daring. Tersedia jalur reguler, prestasi, dan transfer.</p>
+                <div className="mt-4">
+                  <a href="#formulir-pmb"><Button size="sm" className="rounded-xl bg-white text-[#2f4f46] hover:bg-white/90">Daftar Sekarang</Button></a>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
+              <div className="space-y-4">
+                <p className="font-semibold text-foreground/70 text-sm uppercase tracking-wide">Informasi Pendaftaran</p>
+                {[["Jadwal Pendaftaran", data.admission.jadwal, Calendar], ["Biaya Kuliah", data.admission.biaya, WalletMoney], ["Kontak PMB", data.admission.kontak, MessageQuestion]].map(([label, value, Icon]) => {
                   const IconComponent = Icon as typeof Calendar;
                   return (
-                    <div key={label as string} className="flex gap-4 rounded-3xl bg-white/78 p-5 shadow-sm">
-                      <IconComponent variant="Bulk" className="text-primary" />
+                    <div key={label as string} className="flex items-start gap-4 rounded-2xl bg-white/80 p-5 shadow-sm border border-[#d8cfbd]">
+                      <div className="rounded-xl bg-primary/10 p-2.5 shrink-0">
+                        <IconComponent variant="Bulk" className="text-primary" size={20} />
+                      </div>
                       <div>
-                        <p className="font-semibold">{label as string}</p>
-                        <p className="text-sm text-muted-foreground">{value as string}</p>
+                        <p className="font-semibold text-sm">{label as string}</p>
+                        <p className="text-sm text-muted-foreground mt-0.5 leading-5">{value as string}</p>
                       </div>
                     </div>
                   );
                 })}
+                <div className="rounded-2xl bg-primary p-5 text-white shadow-sm">
+                  <p className="font-semibold">Langkah Pendaftaran</p>
+                  <ol className="mt-3 space-y-2 text-sm text-white/85">
+                    <li className="flex gap-2"><span className="font-bold shrink-0">1.</span> Isi formulir pendaftaran daring</li>
+                    <li className="flex gap-2"><span className="font-bold shrink-0">2.</span> Tim PMB akan menghubungi via email/WA</li>
+                    <li className="flex gap-2"><span className="font-bold shrink-0">3.</span> Ikuti seleksi dan verifikasi dokumen</li>
+                    <li className="flex gap-2"><span className="font-bold shrink-0">4.</span> Selesaikan pembayaran dan registrasi</li>
+                  </ol>
+                </div>
               </div>
+
+              <Card id="formulir-pmb" className="rounded-[2rem] border-[#d8cfbd] bg-white/90 shadow-xl overflow-hidden">
+                <div className="relative">
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=85" alt="Formulir pendaftaran" className="h-36 w-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute bottom-4 left-6 text-white">
+                    <p className="text-lg font-bold">Formulir Pendaftaran Daring</p>
+                    <p className="text-xs text-white/80">Isi data dengan lengkap dan benar</p>
+                  </div>
+                </div>
+                <CardContent className="pt-5">
+                  <form onSubmit={submit} className="grid gap-4">
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="space-y-2"><Label htmlFor="nama">Nama Lengkap</Label><Input id="nama" value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} required /></div>
+                      <div className="space-y-2"><Label htmlFor="telepon">Telepon / WhatsApp</Label><Input id="telepon" value={form.telepon} onChange={(e) => setForm({ ...form, telepon: e.target.value })} required /></div>
+                    </div>
+                    <div className="space-y-2"><Label htmlFor="email">Alamat Email</Label><Input id="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required /></div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="space-y-2"><Label htmlFor="program">Program Studi Pilihan</Label><Input id="program" value={form.program} onChange={(e) => setForm({ ...form, program: e.target.value })} required /></div>
+                      <div className="space-y-2"><Label htmlFor="jalur">Jalur Pendaftaran</Label><Input id="jalur" value={form.jalur} onChange={(e) => setForm({ ...form, jalur: e.target.value })} /></div>
+                    </div>
+                    <div className="space-y-2"><Label htmlFor="pesan">Catatan / Pesan</Label><Textarea id="pesan" value={form.pesan} onChange={(e) => setForm({ ...form, pesan: e.target.value })} rows={3} /></div>
+                    <Button disabled={loading} className="rounded-2xl w-full">{loading ? "Mengirim..." : "Kirim Formulir Pendaftaran"}</Button>
+                  </form>
+                </CardContent>
+              </Card>
             </div>
-            <Card className="rounded-[2rem] border-[#d8cfbd] bg-white/86 shadow-xl">
-              <CardHeader><CardTitle>Formulir Pendaftaran Daring</CardTitle></CardHeader>
-              <CardContent>
-                <form onSubmit={submit} className="grid gap-4">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2"><Label htmlFor="nama">Nama Lengkap</Label><Input id="nama" value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} required /></div>
-                    <div className="space-y-2"><Label htmlFor="telepon">Telepon</Label><Input id="telepon" value={form.telepon} onChange={(e) => setForm({ ...form, telepon: e.target.value })} required /></div>
-                  </div>
-                  <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required /></div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2"><Label htmlFor="program">Program Pilihan</Label><Input id="program" value={form.program} onChange={(e) => setForm({ ...form, program: e.target.value })} required /></div>
-                    <div className="space-y-2"><Label htmlFor="jalur">Jalur</Label><Input id="jalur" value={form.jalur} onChange={(e) => setForm({ ...form, jalur: e.target.value })} /></div>
-                  </div>
-                  <div className="space-y-2"><Label htmlFor="pesan">Catatan</Label><Textarea id="pesan" value={form.pesan} onChange={(e) => setForm({ ...form, pesan: e.target.value })} /></div>
-                  <Button disabled={loading} className="rounded-2xl">{loading ? "Mengirim..." : "Kirim Formulir"}</Button>
-                </form>
-              </CardContent>
-            </Card>
           </div>
         </section>
 
