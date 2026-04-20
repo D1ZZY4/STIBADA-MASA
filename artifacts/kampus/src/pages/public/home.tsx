@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
-import { Book, Calendar, Gallery, Login, MedalStar, MessageQuestion, SecuritySafe, Teacher, WalletMoney, DirectboxNotif, UserOctagon } from "iconsax-react";
+import { Calendar, Gallery, Login, MedalStar, MessageQuestion, SecuritySafe, Teacher, WalletMoney, DirectboxNotif, UserOctagon, Eye, Routing } from "iconsax-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -21,7 +21,8 @@ type LandingData = {
 
 const fallback: LandingData = {
   content: [
-    { id: "visi", key: "visi", type: "profile", title: "Visi STIBADA MASA", content: "Menjadi kampus yang membentuk insan akademik beradab, adaptif, dan berdampak." },
+    { id: "visi", key: "visi", type: "profile", title: "Visi STIBADA MASA", content: "Menjadi perguruan tinggi yang membentuk insan akademik beradab, adaptif, dan berdampak bagi masyarakat." },
+    { id: "misi", key: "misi", type: "profile", title: "Misi STIBADA MASA", content: "Menguatkan pembelajaran, penelitian, pengabdian, tata kelola, dan jejaring digital yang relevan dengan kebutuhan zaman." },
   ],
   announcements: [],
   programs: [],
@@ -97,9 +98,7 @@ export default function Home() {
       <header className="sticky top-0 z-40 border-b border-[#ded8ca] bg-[#f4f1ea]/88 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
           <a href="#beranda" className="flex items-center gap-3" aria-label="STIBADA MASA Beranda">
-            <div className="rounded-2xl bg-primary p-2.5 text-primary-foreground shadow-sm">
-              <Book size={28} variant="Bulk" />
-            </div>
+            <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-12 w-12 object-contain" />
             <div>
               <p className="text-lg font-bold tracking-tight">STIBADA MASA</p>
               <p className="text-xs text-muted-foreground">Sistem Kampus Terpadu</p>
@@ -190,7 +189,12 @@ export default function Home() {
               {profile.slice(0, 2).map((item, index) => (
                 <Card key={item.id} className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
                   <img src={images.profile[index % images.profile.length]} alt={item.title} className="h-36 w-full object-cover" loading="lazy" />
-                  <CardHeader><CardTitle>{item.title}</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      {item.key === "visi" ? <Eye variant="Bulk" size={20} className="text-primary shrink-0" /> : <Routing variant="Bulk" size={20} className="text-primary shrink-0" />}
+                      {item.title}
+                    </CardTitle>
+                  </CardHeader>
                   <CardContent className="text-sm leading-6 text-muted-foreground">{item.content}</CardContent>
                 </Card>
               ))}
@@ -342,16 +346,21 @@ export default function Home() {
         </section>
 
         <section id="login" className="px-4 py-16">
-          <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white/88 shadow-xl lg:grid-cols-[1fr_0.9fr]">
-            <img src={images.login} alt="Portal login akademik STIBADA MASA" className="h-full min-h-[360px] w-full object-cover" loading="lazy" />
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white/88 shadow-xl lg:grid lg:grid-cols-[1fr_0.9fr]">
+            <img src={images.login} alt="Portal login akademik STIBADA MASA" className="h-64 w-full object-cover lg:h-full lg:min-h-[360px]" loading="lazy" />
             <div className="flex flex-col justify-center gap-6 p-8 lg:p-12">
               <Badge className="w-fit rounded-full">Login/Masuk Portal</Badge>
               <div>
                 <h2 className="text-3xl font-bold">Masuk sesuai peran Anda.</h2>
                 <p className="mt-3 text-muted-foreground">Mahasiswa, dosen, admin, dan rektor menggunakan halaman login khusus sebelum masuk ke dashboard masing-masing.</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {["Mahasiswa", "Dosen", "Admin", "Rektor"].map((role) => <div key={role} className="rounded-2xl bg-[#f4f1ea] p-4 font-semibold">{role}</div>)}
+              <div className="grid grid-cols-2 gap-3">
+                {[["Mahasiswa", "Jadwal, KRS, nilai"], ["Dosen", "Nilai & absensi"], ["Admin", "Kelola sistem"], ["Rektor", "Statistik kampus"]].map(([role, desc]) => (
+                  <div key={role} className="rounded-2xl bg-[#f4f1ea] p-4">
+                    <p className="font-semibold">{role}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+                  </div>
+                ))}
               </div>
               <Link href="/login"><Button size="lg" className="w-fit rounded-2xl gap-2"><UserOctagon size={20} /> Buka Halaman Login</Button></Link>
             </div>
@@ -359,24 +368,41 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-[#ded8ca] bg-[#2f4f46] px-4 py-10 text-white">
-        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-3">
-          <div>
-            <p className="text-xl font-bold">STIBADA MASA</p>
-            <p className="mt-2 text-sm text-white/72">Platform kampus modern untuk layanan akademik, administrasi, komunikasi, dan pendaftaran mahasiswa baru.</p>
-          </div>
-          <div>
-            <p className="font-semibold">Kontak PMB</p>
-            <p className="mt-2 text-sm text-white/72">pmb@stibadamasa.ac.id</p>
-            <p className="text-sm text-white/72">Senin-Jumat, 08.00-16.00 WIB</p>
-          </div>
-          <div>
-            <p className="font-semibold">Akses Cepat</p>
-            <div className="mt-2 flex flex-wrap gap-3 text-sm text-white/72">
-              <a href="#pendaftaran">Pendaftaran</a>
-              <a href="#prodi">Program Studi</a>
-              <Link href="/login">Login Portal</Link>
+      <footer className="border-t border-[#ded8ca] bg-[#2f4f46] px-4 pt-12 pb-6 text-white">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 md:grid-cols-3 pb-10 border-b border-white/15">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-12 w-12 object-contain" />
+                <div>
+                  <p className="text-lg font-bold leading-tight">STIBADA MASA</p>
+                  <p className="text-xs text-white/60">Sekolah Tinggi Ilmu Bahasa Arab Dan Dakwah</p>
+                </div>
+              </div>
+              <p className="text-sm leading-6 text-white/65">Platform kampus modern untuk layanan akademik, administrasi, komunikasi, dan pendaftaran mahasiswa baru STIBADA MASA.</p>
             </div>
+            <div className="space-y-4">
+              <p className="font-semibold text-white/90">Kontak & Informasi</p>
+              <ul className="space-y-2 text-sm text-white/65">
+                <li>📧 pmb@stibadamasa.ac.id</li>
+                <li>🕐 Senin–Jumat, 08.00–16.00 WIB</li>
+                <li>📍 Masjid Agung Sunan Ampel, Surabaya</li>
+              </ul>
+            </div>
+            <div className="space-y-4">
+              <p className="font-semibold text-white/90">Tautan Cepat</p>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#pendaftaran" className="text-white/65 hover:text-white transition-colors">Pendaftaran Mahasiswa Baru</a></li>
+                <li><a href="#prodi" className="text-white/65 hover:text-white transition-colors">Program Studi</a></li>
+                <li><a href="#beasiswa" className="text-white/65 hover:text-white transition-colors">Beasiswa</a></li>
+                <li><a href="#pengumuman" className="text-white/65 hover:text-white transition-colors">Pengumuman</a></li>
+                <li><Link href="/login" className="text-white/65 hover:text-white transition-colors">Login Portal Akademik</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-white/45">
+            <p>© {new Date().getFullYear()} STIBADA MASA. Hak Cipta Dilindungi.</p>
+            <p>Sekolah Tinggi Ilmu Bahasa Arab Dan Dakwah — Masjid Agung Sunan Ampel</p>
           </div>
         </div>
       </footer>
