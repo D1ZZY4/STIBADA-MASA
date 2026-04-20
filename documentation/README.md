@@ -22,7 +22,7 @@ Kampus Modern adalah sistem informasi kampus untuk STIBADA MASA yang mencakup:
 
 - Desain modern, minimalis, rounded, responsif, dan konsisten.
 - Palet warna khas: hijau kampus gelap, sage, pasir emas, krem hangat, dan aksen netral.
-- Ikon modern diprioritaskan menggunakan Iconsax React untuk komponen baru.
+- Ikon modern diprioritaskan menggunakan Phosphor Icons untuk komponen baru agar konsisten dengan halaman publik dan dashboard yang sudah ada.
 - Backend memakai driver `mongodb` langsung tanpa ORM/ODM agar query dan indeks tetap eksplisit.
 - API dilindungi token, role authorization, validasi input, CSP, audit logs, dan rate limiting.
 - Dokumentasi API sumber utama berada di `lib/api-spec/openapi.yaml` dan dapat diakses melalui `/api/docs`.

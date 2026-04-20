@@ -357,9 +357,6 @@ importers:
       framer-motion:
         specifier: 'catalog:'
         version: 12.35.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      iconsax-react:
-        specifier: ^0.0.6
-        version: 0.0.6(react@19.1.0)
       input-otp:
         specifier: ^1.4.2
         version: 1.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -2415,11 +2412,6 @@ packages:
   human-signals@8.0.1:
     resolution: {integrity: sha512-eKCa6bwnJhvxj14kZk5NCPc6Hb6BdsU9DZcOnmQKSnO1VKrfV0zCvtttPZUsBvjmNDn8rpcJfpwSYnHBjc95MQ==}
     engines: {node: '>=18.18.0'}
-
-  iconsax-react@0.0.6:
-    resolution: {integrity: sha512-EsRmvIcBgphiyhcOfoi5u7SO7/1xfh9OvyucmmACrgp/wxlZt03TRtmizJMmlj3oBobeSaDEwCRYtXzwLchrkQ==}
-    peerDependencies:
-      react: '*'
 
   iconv-lite@0.7.2:
     resolution: {integrity: sha512-im9DjEDQ55s9fL4EYzOAv0yMqmMBSZp6G0VvFyTMPKWxiSBHUj9NW/qqLmXUwXrrM7AvqSlTCfvqRb0cM8yYqw==}
@@ -5236,11 +5228,6 @@ snapshots:
       - supports-color
 
   human-signals@8.0.1: {}
-
-  iconsax-react@0.0.6(react@19.1.0):
-    dependencies:
-      prop-types: 15.8.1
-      react: 19.1.0
 
   iconv-lite@0.7.2:
     dependencies:

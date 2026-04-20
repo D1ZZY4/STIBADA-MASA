@@ -12,7 +12,7 @@ pnpm workspace monorepo using TypeScript. Full-stack Indonesian university (kamp
 - **TypeScript version**: 5.9
 - **Frontend**: React 19 + React Compiler + Vite + Tailwind CSS + shadcn/ui
 - **Backend**: Express 5 + MongoDB native driver + mongodb-memory-server
-- **Icons**: lucide-react + iconsax-react + recharts
+- **Icons**: Phosphor Icons + lucide-react + recharts
 - **API codegen**: Orval (from OpenAPI spec in lib/api-spec/openapi.yaml)
 - **API client**: @workspace/api-client-react (auto-generated React Query hooks)
 - **Build**: esbuild
@@ -102,7 +102,7 @@ Set `MONGODB_URI` env var to use a real MongoDB instance.
 
 - `/` is the public STIBADA MASA landing page with admissions, programs, scholarships, gallery, announcements, and online PMB form.
 - Landing page uses campus/activity imagery throughout public sections and avoids exposing technical API/WebSocket copy to public users.
-- `/pengumuman` now uses a more polished responsive layout with Iconsax icons, category filters, search, a featured announcement card, and a side information panel.
+- `/pengumuman` now uses a more polished responsive layout with Phosphor icons, visible campus imagery, category filters, search, a featured announcement card, and a side information panel.
 - `/login` is the role-based portal login with a dedicated visual panel and role selector.
 - Admin can manage public content at `/dashboard/admin/content`, KRS at `/dashboard/admin/krs`, and system/integration readiness at `/dashboard/admin/sistem`.
 - API adds CSP/security headers, rate limiting, password hashing via Node crypto scrypt, signed auth tokens, audit trail entries, analytics events, OpenAPI exposure at `/api/docs`, and WebSocket notifications at `/api/ws`.

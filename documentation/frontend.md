@@ -27,7 +27,7 @@ Komponen baru sebaiknya menggunakan:
 - Rounded card minimal `rounded-2xl` sampai `rounded-[2rem]`
 - Border lembut `#ded8ca`
 - Background transparan hangat `bg-white/80`, `bg-[#f8f5ec]`, atau `bg-[#f4f1ea]`
-- Ikon dari `iconsax-react` dengan variant `Bulk`, `TwoTone`, atau `Linear`
+- Ikon dari `@phosphor-icons/react` dengan `weight` seperti `duotone`, `bold`, atau `regular`
 
 ## Halaman Pengumuman
 
@@ -41,6 +41,8 @@ Fungsi halaman:
 - Menyediakan filter kategori: Semua, Pendaftaran, Akademik, Kegiatan, dan Beasiswa.
 - Menampilkan satu pengumuman utama sebagai sorotan, lalu pengumuman lain dalam kartu rapi.
 - Menyediakan panel ringkasan dan kategori di sisi kanan pada desktop.
+- Menampilkan gambar kegiatan kampus pada hero dan kartu sorotan agar halaman lebih visual dan mudah dipahami.
+- Menggunakan Phosphor Icons untuk pencarian, kategori, tanggal, status verifikasi, dan navigasi.
 
 ## Responsivitas
 

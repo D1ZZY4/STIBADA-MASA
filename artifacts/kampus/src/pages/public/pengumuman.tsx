@@ -4,20 +4,24 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch, trackEvent } from "@/lib/api";
 import {
-  ArchiveBook,
-  ArrowRight2,
-  Calendar2,
-  DirectboxNotif,
-  FilterSearch,
-  NotificationBing,
-  SearchNormal1,
-  TickCircle,
+  Archive,
+  ArrowRight,
+  BellRinging,
+  CalendarBlank,
+  CheckCircle,
+  FunnelSimple,
+  ImageSquare,
+  MagnifyingGlass,
+  Newspaper,
   TrendUp,
-} from "iconsax-react";
+} from "@phosphor-icons/react";
 
 type Announcement = { id: string; title: string; content: string; createdAt: string };
 
 const categories = ["Semua", "Pendaftaran", "Akademik", "Kegiatan", "Beasiswa"];
+
+const announcementImage =
+  "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=80";
 
 const fallback: Announcement[] = [
   { id: "1", title: "Pendaftaran Mahasiswa Baru Dibuka", content: "PMB STIBADA MASA tahun akademik 2026/2027 resmi dibuka mulai 1 Januari 2026. Tersedia jalur reguler, prestasi, tahfidz, dan transfer. Daftarkan diri Anda sekarang melalui formulir pendaftaran daring.", createdAt: new Date().toISOString() },
@@ -88,14 +92,14 @@ export default function Pengumuman() {
             </p>
             <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
-                { label: "Update cepat", value: `${announcements.length} info`, icon: NotificationBing },
-                { label: "Kategori", value: "5 kanal", icon: ArchiveBook },
-                { label: "Pencarian", value: "Instan", icon: FilterSearch },
+                { label: "Update cepat", value: `${announcements.length} info`, icon: BellRinging },
+                { label: "Kategori", value: "5 kanal", icon: Archive },
+                { label: "Pencarian", value: "Instan", icon: FunnelSimple },
               ].map((item) => {
                 const Icon = item.icon;
                 return (
                   <div key={item.label} className="rounded-3xl border border-white/12 bg-white/10 p-4 backdrop-blur-md">
-                    <Icon size={22} variant="Bulk" className="mb-3 text-[#d8c08a]" />
+                    <Icon size={22} weight="duotone" className="mb-3 text-[#d8c08a]" />
                     <p className="text-lg font-bold">{item.value}</p>
                     <p className="text-xs text-white/58">{item.label}</p>
                   </div>
@@ -105,9 +109,21 @@ export default function Pengumuman() {
           </div>
 
           <div className="rounded-[2rem] border border-white/14 bg-[#f4f1ea]/96 p-4 shadow-2xl shadow-black/20">
+            <div className="relative mb-4 overflow-hidden rounded-[1.5rem]">
+              <img
+                src={announcementImage}
+                alt="Mahasiswa membaca pengumuman kampus"
+                className="h-44 w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#203d37]/72 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-white/88 px-3 py-1.5 text-xs font-semibold text-[#203d37] backdrop-blur">
+                <ImageSquare size={15} weight="duotone" />
+                Visual pengumuman kampus
+              </div>
+            </div>
             <div className="flex items-center gap-3 rounded-3xl bg-white p-3 shadow-sm">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#2a6b5a]/10 text-[#2a6b5a]">
-                <SearchNormal1 size={20} variant="TwoTone" />
+                <MagnifyingGlass size={20} weight="duotone" />
               </div>
               <div className="min-w-0 flex-1">
                 <label htmlFor="announcement-search" className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a7854]">
@@ -145,7 +161,7 @@ export default function Pengumuman() {
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_320px]">
           {filtered.length === 0 ? (
             <div className="rounded-[2rem] border border-[#ded8ca] bg-white/82 px-6 py-20 text-center text-muted-foreground shadow-sm lg:col-span-2">
-              <DirectboxNotif size={44} variant="Bulk" className="mx-auto mb-4 text-[#b8a16d]" />
+              <Newspaper size={44} weight="duotone" className="mx-auto mb-4 text-[#b8a16d]" />
               <p className="font-semibold text-foreground">Tidak ada pengumuman yang ditemukan.</p>
               <p className="mt-1 text-sm">Coba gunakan kata kunci lain atau pilih kategori Semua.</p>
             </div>
@@ -154,6 +170,17 @@ export default function Pengumuman() {
               <div className="space-y-5">
                 {featured && (
                   <Card className="overflow-hidden rounded-[2rem] border-[#ded8ca] bg-white shadow-sm">
+                    <div className="relative h-56 overflow-hidden">
+                      <img
+                        src={announcementImage}
+                        alt="Suasana kegiatan dan informasi kampus"
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#203d37]/78 via-[#203d37]/10 to-transparent" />
+                      <div className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-[#203d37] backdrop-blur">
+                        Pengumuman terbaru
+                      </div>
+                    </div>
                     <CardHeader className="border-b border-[#eee7d7] bg-[#fbfaf6] p-5 sm:p-6">
                       <div className="flex flex-wrap items-center gap-2">
                         <Badge className="rounded-full bg-[#8a7854] text-white hover:bg-[#8a7854]">Sorotan</Badge>
@@ -163,7 +190,7 @@ export default function Pengumuman() {
                       </div>
                       <CardTitle className="mt-3 text-2xl leading-tight text-[#203d37] sm:text-3xl">{featured.title}</CardTitle>
                       <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-                        <Calendar2 size={16} variant="TwoTone" className="text-[#2a6b5a]" />
+                        <CalendarBlank size={16} weight="duotone" className="text-[#2a6b5a]" />
                         {formatDate(featured.createdAt)}
                       </div>
                     </CardHeader>
@@ -171,11 +198,11 @@ export default function Pengumuman() {
                       <p className="text-sm leading-7 text-[#52645f] sm:text-base">{featured.content}</p>
                       <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold text-[#2a6b5a]">
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a6b5a]/8 px-3 py-1.5">
-                          <TickCircle size={15} variant="Bulk" />
+                          <CheckCircle size={15} weight="duotone" />
                           Terverifikasi publik
                         </span>
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#b8a16d]/14 px-3 py-1.5 text-[#8a7854]">
-                          <TrendUp size={15} variant="Bulk" />
+                          <TrendUp size={15} weight="duotone" />
                           Prioritas informasi
                         </span>
                       </div>
@@ -193,7 +220,7 @@ export default function Pengumuman() {
                               {getCategory(item)}
                             </Badge>
                             <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                              <Calendar2 size={14} variant="TwoTone" />
+                              <CalendarBlank size={14} weight="duotone" />
                               {formatDate(item.createdAt)}
                             </span>
                           </div>
@@ -201,7 +228,7 @@ export default function Pengumuman() {
                           <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#52645f]">{item.content}</p>
                         </div>
                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#2a6b5a]/8 text-[#2a6b5a] transition-colors group-hover:bg-[#2a6b5a] group-hover:text-white">
-                          <ArrowRight2 size={18} variant="Linear" />
+                          <ArrowRight size={18} weight="bold" />
                         </div>
                       </CardContent>
                     </Card>
@@ -213,7 +240,7 @@ export default function Pengumuman() {
                 <Card className="rounded-[2rem] border-[#ded8ca] bg-[#203d37] text-white shadow-sm">
                   <CardHeader>
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
-                      <NotificationBing size={24} variant="Bulk" className="text-[#d8c08a]" />
+                      <BellRinging size={24} weight="duotone" className="text-[#d8c08a]" />
                     </div>
                     <CardTitle className="text-xl">Pusat Informasi</CardTitle>
                   </CardHeader>
@@ -238,7 +265,7 @@ export default function Pengumuman() {
                         className="flex w-full items-center justify-between rounded-2xl border border-[#eee7d7] bg-white px-4 py-3 text-left text-sm font-semibold text-[#52645f] transition-colors hover:border-[#b8a16d] hover:text-[#203d37]"
                       >
                         {category}
-                        <ArrowRight2 size={15} variant="Linear" />
+                        <ArrowRight size={15} weight="bold" />
                       </button>
                     ))}
                   </CardContent>
