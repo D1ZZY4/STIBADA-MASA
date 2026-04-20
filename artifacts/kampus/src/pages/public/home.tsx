@@ -193,38 +193,45 @@ export default function Home() {
               <p className="text-muted-foreground">Bagian ini menjelaskan arah kampus, layanan akademik, keamanan portal, dan komunikasi digital STIBADA MASA.</p>
             </div>
 
-            <div className="grid gap-5 lg:grid-cols-4">
-              <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-lg lg:col-span-2 lg:row-span-2">
-                <img src={images.campus} alt="Suasana akademik STIBADA MASA" className="h-full min-h-[520px] w-full object-cover" loading="lazy" />
+            <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
+              <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-lg">
+                <img src={images.campus} alt="Suasana akademik STIBADA MASA" className="h-full min-h-[480px] w-full object-cover" loading="lazy" />
                 <div className="absolute inset-x-5 bottom-5 rounded-[1.6rem] bg-white/86 p-5 shadow-lg backdrop-blur">
                   <p className="text-lg font-bold">STIBADA MASA</p>
                   <p className="mt-1 text-sm text-muted-foreground">Lingkungan belajar modern untuk akademik, administrasi, dan kolaborasi civitas kampus.</p>
                 </div>
               </div>
 
-              {profile.slice(0, 2).map((item, index) => (
-                <Card key={item.id} className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
-                  <img src={images.profile[index % images.profile.length]} alt={item.title} className="h-36 w-full object-cover" loading="lazy" />
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      {item.key === "visi" ? <Eye variant="Bulk" size={20} className="text-primary shrink-0" /> : <Routing variant="Bulk" size={20} className="text-primary shrink-0" />}
-                      {item.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-sm leading-6 text-muted-foreground">{item.content}</CardContent>
-                </Card>
-              ))}
+              <div className="grid grid-cols-2 gap-5 content-start">
+                {profile.slice(0, 2).map((item, index) => (
+                  <Card key={item.id} className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
+                    <img src={images.profile[index % images.profile.length]} alt={item.title} className="h-32 w-full object-cover" loading="lazy" />
+                    <CardHeader className="pb-2">
+                      <CardTitle className="flex items-center gap-2 text-base">
+                        {item.key === "visi" ? <Eye variant="Bulk" size={18} className="text-primary shrink-0" /> : <Routing variant="Bulk" size={18} className="text-primary shrink-0" />}
+                        {item.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-sm leading-6 text-muted-foreground">{item.content}</CardContent>
+                  </Card>
+                ))}
 
-              <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
-                <img src={images.profile[2]} alt="Keamanan portal akademik" className="h-36 w-full object-cover" loading="lazy" />
-                <CardHeader><CardTitle className="flex items-center gap-2"><SecuritySafe variant="Bulk" /> Keamanan Portal</CardTitle></CardHeader>
-                <CardContent className="text-sm leading-6 text-muted-foreground">Autentikasi berbasis peran, hash password, rate limiting, audit trail, dan opsi 2FA untuk admin/rektor.</CardContent>
-              </Card>
-              <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85" alt="Notifikasi dan koordinasi kampus" className="h-36 w-full object-cover" loading="lazy" />
-                <CardHeader><CardTitle className="flex items-center gap-2"><DirectboxNotif variant="Bulk" /> Notifikasi Instan</CardTitle></CardHeader>
-                <CardContent className="text-sm leading-6 text-muted-foreground">Pengumuman, pesan diskusi, dan pembaruan status disiapkan untuk real-time notification.</CardContent>
-              </Card>
+                <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
+                  <img src={images.profile[2]} alt="Keamanan portal akademik" className="h-32 w-full object-cover" loading="lazy" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center gap-2 text-base"><SecuritySafe variant="Bulk" size={18} /> Keamanan Portal</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-sm leading-6 text-muted-foreground">Autentikasi berbasis peran, hash password, rate limiting, audit trail, dan opsi 2FA.</CardContent>
+                </Card>
+
+                <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
+                  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85" alt="Notifikasi dan koordinasi kampus" className="h-32 w-full object-cover" loading="lazy" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center gap-2 text-base"><DirectboxNotif variant="Bulk" size={18} /> Notifikasi Instan</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-sm leading-6 text-muted-foreground">Pengumuman, diskusi, dan pembaruan status secara real-time.</CardContent>
+                </Card>
+              </div>
             </div>
           </div>
         </section>
@@ -273,9 +280,12 @@ export default function Home() {
 
         <section id="prodi" className="px-4 py-16">
           <div className="mx-auto max-w-7xl space-y-8">
-            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-              <div><Badge variant="outline" className="rounded-full bg-white/70">Program Studi</Badge><h2 className="mt-3 text-3xl font-bold">Kurikulum, profil dosen, dan prospek karir.</h2></div>
-              <Teacher variant="Bulk" className="text-primary" size={42} />
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <Badge variant="outline" className="rounded-full bg-white/70">Program Studi</Badge>
+                <h2 className="mt-3 text-3xl font-bold">Kurikulum, profil dosen, dan prospek karir.</h2>
+              </div>
+              <Teacher variant="Bulk" className="text-primary shrink-0" size={42} />
             </div>
             <div className="grid gap-5 md:grid-cols-3">
               {data.programs.map((program, index) => (
@@ -294,20 +304,31 @@ export default function Home() {
         </section>
 
         <section id="beasiswa" className="bg-[#ebe5d8] px-4 py-16">
-          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-            <div className="space-y-5">
-              <img src={images.scholarship[0]} alt="Informasi beasiswa STIBADA MASA" className="h-72 w-full rounded-[2rem] object-cover shadow-lg" loading="lazy" />
-              <div className="rounded-[2rem] bg-[#2f4f46] p-6 text-white">
-                <div className="flex items-center gap-3"><MedalStar variant="Bulk" /><h2 className="text-3xl font-bold">Beasiswa</h2></div>
-                <p className="mt-3 text-sm leading-6 text-white/74">Informasi jenis beasiswa, kriteria, dan panduan pengajuan dibuat ringkas agar calon mahasiswa mudah memahami peluang bantuan biaya.</p>
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <Badge variant="outline" className="rounded-full bg-white/70">Beasiswa</Badge>
+                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Program beasiswa untuk mahasiswa berprestasi.</h2>
+              </div>
+              <MedalStar variant="Bulk" className="text-primary shrink-0" size={42} />
+            </div>
+            <div className="relative overflow-hidden rounded-[2rem] shadow-lg">
+              <img src={images.scholarship[0]} alt="Informasi beasiswa STIBADA MASA" className="h-52 w-full object-cover object-top" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2f4f46]/90 via-[#2f4f46]/60 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-center px-8 text-white">
+                <p className="text-xl font-bold">Raih masa depan dengan dukungan STIBADA MASA</p>
+                <p className="mt-2 max-w-lg text-sm leading-6 text-white/80">Tersedia berbagai jalur beasiswa berdasarkan prestasi akademik, hafalan Al-Qur'an, dan kebutuhan ekonomi.</p>
               </div>
             </div>
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-3">
               {data.scholarships.map((item, index) => (
                 <Card key={item.id} className="overflow-hidden rounded-3xl border-[#d8cfbd] bg-white/86 shadow-sm">
-                  <img src={images.scholarship[(index + 1) % images.scholarship.length]} alt={item.nama} className="h-40 w-full object-cover" loading="lazy" />
-                  <CardHeader><CardTitle>{item.nama}</CardTitle></CardHeader>
-                  <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground"><p>{item.kriteria}</p><p>{item.panduan}</p></CardContent>
+                  <img src={images.scholarship[index % images.scholarship.length]} alt={item.nama} className="h-40 w-full object-cover" loading="lazy" />
+                  <CardHeader><CardTitle className="text-base">{item.nama}</CardTitle></CardHeader>
+                  <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
+                    <p><span className="font-semibold text-foreground">Kriteria:</span> {item.kriteria}</p>
+                    <p><span className="font-semibold text-foreground">Panduan:</span> {item.panduan}</p>
+                  </CardContent>
                 </Card>
               ))}
             </div>
@@ -316,15 +337,23 @@ export default function Home() {
 
         <section id="galeri" className="px-4 py-16">
           <div className="mx-auto max-w-7xl space-y-8">
-            <div className="flex items-center gap-3"><Gallery variant="Bulk" className="text-primary" /><h2 className="text-3xl font-bold">Dokumentasi & Galeri</h2></div>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <Badge variant="outline" className="rounded-full bg-white/70">Galeri</Badge>
+                <h2 className="mt-3 text-3xl font-bold">Dokumentasi &amp; Kegiatan Kampus</h2>
+              </div>
+              <Gallery variant="Bulk" className="text-primary shrink-0" size={42} />
+            </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {data.gallery.map((item, index) => (
-                <div key={item.id} className="overflow-hidden rounded-3xl border border-[#ded8ca] bg-white/86 shadow-sm">
-                  <img src={images.gallery[index % images.gallery.length]} alt={item.title} className="h-48 w-full object-cover" loading="lazy" />
+                <div key={item.id} className="group overflow-hidden rounded-3xl border border-[#ded8ca] bg-white shadow-sm">
+                  <div className="overflow-hidden">
+                    <img src={images.gallery[index % images.gallery.length]} alt={item.title} className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                  </div>
                   <div className="p-5">
-                    <Badge variant="secondary" className="rounded-full">{item.category}</Badge>
-                    <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
+                    <Badge variant="secondary" className="rounded-full text-xs">{item.category}</Badge>
+                    <h3 className="mt-3 font-semibold leading-tight">{item.title}</h3>
+                    <p className="mt-1.5 text-sm text-muted-foreground leading-5">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -333,30 +362,39 @@ export default function Home() {
         </section>
 
         <section id="pengumuman" className="bg-primary/5 px-4 py-16">
-          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_1fr] lg:items-stretch">
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] shadow-lg">
-              <img src={images.announcement} alt="Pengumuman dan berita kampus" className="h-full min-h-[420px] w-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#203b35]/86 via-[#203b35]/18 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
-                <div className="flex items-center gap-3"><DirectboxNotif variant="Bulk" /><h2 className="text-3xl font-bold">Pengumuman Umum</h2></div>
-                <p className="mt-3 text-sm leading-6 text-white/74">Berita terbaru, agenda kampus, informasi akademik, dan notifikasi penting untuk civitas serta calon mahasiswa.</p>
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <Badge variant="outline" className="rounded-full bg-white/70">Pengumuman</Badge>
+                <h2 className="mt-3 text-3xl font-bold">Berita &amp; Pengumuman Terbaru</h2>
               </div>
+              <DirectboxNotif variant="Bulk" className="text-primary shrink-0" size={42} />
             </div>
-            <div className="grid content-start gap-5">
-              {data.announcements.length === 0 ? (
-                <Card className="rounded-3xl border-[#ded8ca] bg-white/84">
-                  <CardHeader><CardTitle>Belum ada pengumuman baru</CardTitle></CardHeader>
-                  <CardContent className="text-muted-foreground">Informasi terbaru akan tampil di sini setelah admin menerbitkan pengumuman.</CardContent>
-                </Card>
-              ) : data.announcements.map((item) => (
-                <Card key={item.id} className="rounded-3xl border-[#ded8ca] bg-white/84 shadow-sm">
-                  <CardHeader>
-                    <Badge variant="outline" className="w-fit rounded-full bg-white/70">{new Date(item.createdAt).toLocaleDateString("id-ID")}</Badge>
-                    <CardTitle>{item.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="leading-6 text-muted-foreground">{item.content}</CardContent>
-                </Card>
-              ))}
+            <div className="grid gap-5 lg:grid-cols-[1fr_1fr] lg:items-stretch">
+              <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] shadow-lg">
+                <img src={images.announcement} alt="Pengumuman dan berita kampus" className="h-full min-h-[320px] w-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#203b35]/90 via-[#203b35]/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
+                  <p className="text-xl font-bold">Informasi Kampus</p>
+                  <p className="mt-2 text-sm leading-6 text-white/80">Berita terbaru, agenda kampus, dan notifikasi penting untuk seluruh civitas dan calon mahasiswa STIBADA MASA.</p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4">
+                {data.announcements.length === 0 ? (
+                  <Card className="rounded-3xl border-[#ded8ca] bg-white/84">
+                    <CardHeader><CardTitle>Belum ada pengumuman baru</CardTitle></CardHeader>
+                    <CardContent className="text-muted-foreground">Informasi terbaru akan tampil di sini setelah admin menerbitkan pengumuman.</CardContent>
+                  </Card>
+                ) : data.announcements.map((item) => (
+                  <Card key={item.id} className="rounded-3xl border-[#ded8ca] bg-white/84 shadow-sm">
+                    <CardHeader className="pb-2">
+                      <Badge variant="outline" className="w-fit rounded-full bg-white/70 text-xs">{new Date(item.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</Badge>
+                      <CardTitle className="text-base">{item.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-sm leading-6 text-muted-foreground">{item.content}</CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </section>
