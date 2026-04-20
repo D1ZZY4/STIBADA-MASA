@@ -1,0 +1,67 @@
+‎  Instruksi untuk AI Agent:  
+‎  - Pastikan setiap halaman dan fitur memiliki fungsi yang jelas dan terdefinisi dengan baik sesuai deskripsi di atas.  
+‎  - Implementasikan desain yang konsisten dengan tema modern, minimalis, dan rounded yang telah ditentukan.  
+‎  - Gunakan palet warna yang unik dan tidak umum, hindari warna-warna standar atau yang sering direkomendasikan oleh AI.  
+‎  - Optimalkan penggunaan library icon `Iconsax React` sebagai prioritas utama untuk tampilan modern dan konsisten.  
+‎  - Terapkan struktur folder dan konvensi penamaan file yang rapi, logis, dan mudah dipelihara di sisi frontend dan backend.  
+‎  - Untuk backend, fokus pada penggunaan driver MongoDB asli (`mongodb`) tanpa middleware ORM/ODM seperti Mongoose untuk memberikan kontrol yang lebih granular atas operasi database.  
+‎  - Berikan penjelasan detail untuk setiap komponen UI dan logika backend yang relevan agar mudah dipahami dan dikembangkan lebih lanjut.  
+‎  - Sertakan contoh implementasi untuk fitur-fitur kunci seperti autentikasi pengguna, manajemen data dinamis, dan integrasi API.  
+‎  - Desain harus responsif agar dapat diakses dengan baik di berbagai perangkat (desktop, tablet, mobile).  
+‎    
+‎  Penambahan untuk Kesempurnaan:  
+‎    
+‎  Integrasi Sistem Eksternal:  
+‎  - Sistem Pembayaran Online: Integrasi dengan payment gateway terkemuka untuk memfasilitasi pembayaran biaya kuliah, pendaftaran, atau layanan kampus lainnya.  
+‎  - Sistem Perpustakaan Digital: Koneksi ke katalog perpustakaan digital untuk memberikan akses ke e-book, jurnal, dan materi bacaan relevan lainnya.  
+‎  - Sistem E-Learning (jika ada): Integrasi dengan platform e-learning yang sudah ada untuk sinkronisasi materi perkuliahan, tugas, dan forum diskusi.  
+‎    
+‎  Fitur Keamanan Tambahan:  
+‎  - Otentikasi Dua Faktor (2FA): Implementasi opsional untuk meningkatkan keamanan akun pengguna, terutama untuk peran admin dan rektor.  
+‎  - Logging Aktivitas Pengguna: Pencatatan detail setiap aksi yang dilakukan oleh pengguna (terutama admin) untuk keperluan audit trail.  
+‎  - Enkripsi Data Sensitif: Memastikan data penting seperti password dan informasi pribadi terenkripsi dengan aman di database.  
+‎  - Teknik Obfuscation dan Minifikasi: Terapkan teknik ini pada kode frontend untuk mempersulit inspeksi dan mencegah kebocoran data sensitif melalui developer tools.  
+‎  - Content Security Policy (CSP): Gunakan CSP untuk membatasi sumber daya yang dapat dimuat oleh browser, mengurangi risiko serangan cross-site scripting (XSS).  
+‎  - Perlindungan API Endpoint: Lindungi API endpoint dengan mekanisme otentikasi dan otorisasi yang kuat, serta validasi input yang ketat untuk mencegah injeksi atau akses tidak sah.  
+‎  - Rate Limiting: Terapkan rate limiting pada API untuk mencegah serangan brute-force atau denial-of-service.  
+‎  - Penggunaan HTTPS: Wajibkan penggunaan HTTPS untuk semua komunikasi antara client dan server guna mengenkripsi data yang ditransmisikan.  
+‎  - Pencegahan Kebocoran Data Klien: Pastikan tidak ada kebocoran data sensitif melalui inspeksi developer tools pada sisi klien.  
+‎    
+‎  Optimalisasi Kinerja:  
+‎  - Lazy Loading: Implementasikan lazy loading untuk komponen UI yang tidak langsung terlihat agar mempercepat waktu muat halaman.  
+‎  - Caching Data: Terapkan strategi caching untuk data yang sering diakses guna mengurangi beban pada database.  
+‎  - Kompresi Asset: Optimalkan ukuran file JavaScript, CSS, dan gambar untuk meningkatkan performa aplikasi.  
+‎    
+‎  Aksesibilitas:  
+‎  - Kepatuhan Standar WCAG: Pastikan aplikasi dapat diakses oleh pengguna dengan disabilitas, misalnya melalui penggunaan ARIA attributes dan kontras warna yang memadai.  
+‎    
+‎  Notifikasi Real-time:  
+‎  - Penggunaan WebSocket: Terapkan WebSocket untuk notifikasi instan seperti pesan baru di fitur diskusi, pengumuman penting, atau pembaruan status.  
+‎    
+‎  Analitik Pengguna:  
+‎  - Integrasi dengan Alat Analitik: Integrasikan dengan alat analitik (misalnya, Google Analytics atau solusi kustom) untuk memantau perilaku pengguna dan mengidentifikasi area yang perlu ditingkatkan.  
+‎    
+‎  Manajemen Cache Frontend:  
+‎  - Strategi Caching Frontend: Implementasikan strategi caching di sisi frontend untuk data yang sering diambil, seperti jadwal kuliah atau pengumuman, demi meningkatkan responsivitas.  
+‎    
+‎  Sistem Backup Database:  
+‎  - Mekanisme Backup Otomatis: Siapkan mekanisme backup database otomatis secara berkala untuk mencegah kehilangan data.  
+‎    
+‎  Dokumentasi Teknis Lengkap:  
+‎  - Dokumentasi API: Selain penjelasan komponen UI dan logika backend, sertakan dokumentasi API (misalnya, menggunakan Swagger/OpenAPI) dan panduan setup proyek yang detail.  
+‎    
+‎  Pengelolaan Lingkungan (Environment Management):  
+‎  - Konfigurasi `.env`: Sediakan konfigurasi yang jelas untuk berbagai lingkungan pengembangan (development, staging, production) menggunakan file `.env` dan variabel lingkungan.  
+‎    
+‎  Fitur Pencarian Lanjutan:  
+‎  - Pencarian Efisien: Implementasikan fitur pencarian yang efisien di seluruh platform, misalnya pencarian program studi, dosen, mata kuliah, atau pengumuman.  
+‎    
+‎  Manajemen Izin Akses yang Granular:  
+‎  - Sistem Peran dan Izin Detail: Kembangkan sistem peran dan izin yang lebih detail, memungkinkan admin untuk mengonfigurasi akses spesifik untuk setiap peran pengguna di luar kategori dasar (mahasiswa, dosen, admin, rektor).  
+‎    
+‎  Integrasi Sistem Informasi Akademik (SIAKAD) yang Ada (jika ada):  
+‎  - Sinkronisasi Data: Jika STIBADA MASA sudah memiliki sistem informasi akademik yang berjalan, pertimbangkan integrasi untuk sinkronisasi data mahasiswa, mata kuliah, dan nilai.  
+‎    
+‎  Otomatisasi Proses:  
+‎  - Otomatisasi Alur Kerja: Otomatiskan proses seperti pengiriman email konfirmasi pendaftaran, pemberitahuan batas waktu pengisian KRS, atau pengingat jadwal kuliah.
+‎
