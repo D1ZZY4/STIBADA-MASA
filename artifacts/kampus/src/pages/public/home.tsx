@@ -9,16 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PublicLayout } from "@/components/layout/public-layout";
 import { apiFetch, trackEvent } from "@/lib/api";
+import { contentBody, contentImage, contentTitle, fallbackImages, type LandingData } from "@/lib/site-content";
 import { toast } from "sonner";
-
-type LandingData = {
-  content: { id: string; key: string; type: string; title: string; content: string }[];
-  announcements: { id: string; title: string; content: string; createdAt: string }[];
-  programs: { id: string; kode: string; nama: string; kurikulum: string[]; dosen: string; prospek: string[] }[];
-  scholarships: { id: string; nama: string; kriteria: string; panduan: string }[];
-  gallery: { id: string; title: string; category: string; description: string }[];
-  admission: { biaya: string; kontak: string; jadwal: string };
-};
 
 const fallback: LandingData = {
   content: [
@@ -46,26 +38,6 @@ const fallback: LandingData = {
     { id: "gal4", title: "Ekstrakurikuler Seni Hadrah", category: "Ekskul", description: "Pembinaan minat bakat mahasiswa." },
   ],
   admission: { biaya: "Mulai Rp 3.500.000 per semester", kontak: "pmb@stibadamasa.ac.id", jadwal: "Gelombang 1: Januari–Maret 2026" },
-};
-
-const images = {
-  hero: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=85",
-  campus: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1000&q=85",
-  profile: [
-    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=85",
-    "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=900&q=85",
-  ],
-  programs: [
-    "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=85",
-    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85",
-    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85",
-  ],
-  gallery: [
-    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85",
-    "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85",
-    "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=85",
-    "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=900&q=85",
-  ],
 };
 
 function SectionHeader({ badge, title, href, hrefLabel = "Lihat Selengkapnya" }: { badge: string; title: string; href: string; hrefLabel?: string }) {
@@ -100,6 +72,12 @@ export default function Beranda() {
   }, []);
 
   const profile = useMemo(() => data.content.filter((c) => c.type === "profile"), [data.content]);
+  const heroTitle = contentTitle(data.content, "home.hero", "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel (STIBADA MASA) Surabaya");
+  const heroBody = contentBody(data.content, "home.hero", "Platform akademik terpadu untuk pendaftaran, jadwal kuliah, KRS, nilai, absensi, diskusi, dan statistik pimpinan.");
+  const profileTitle = contentTitle(data.content, "home.profile", "Visi, misi, dan keunggulan STIBADA MASA.");
+  const profileBody = contentBody(data.content, "home.profile", "Kampus berbasis nilai Islam dengan pendekatan modern, menghasilkan lulusan beradab, adaptif, dan berdampak.");
+  const portalTitle = contentTitle(data.content, "home.portal", "Masuk sesuai peran Anda.");
+  const portalBody = contentBody(data.content, "home.portal", "Mahasiswa, dosen, admin, dan rektor menggunakan portal terpisah dengan akses khusus sesuai peran.");
 
   return (
     <PublicLayout>
@@ -110,11 +88,10 @@ export default function Beranda() {
           <div className="space-y-7">
             <Badge className="rounded-full px-4 py-2">PMB 2026/2027 sedang dibuka</Badge>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel{" "}
-              <span className="text-primary">(STIBADA MASA)</span> Surabaya
+              {heroTitle}
             </h1>
             <p className="max-w-xl text-lg leading-7 text-muted-foreground">
-              Platform akademik terpadu untuk pendaftaran, jadwal kuliah, KRS, nilai, absensi, diskusi, dan statistik pimpinan.
+              {heroBody}
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/pendaftaran"><Button size="lg" className="rounded-2xl gap-2">Daftar Sekarang</Button></Link>
@@ -130,7 +107,7 @@ export default function Beranda() {
             </div>
           </div>
           <div className="relative">
-            <img src={images.hero} alt="Kampus STIBADA MASA" className="h-[480px] w-full rounded-[2.4rem] object-cover shadow-2xl" />
+            <img src={contentImage(data.content, "home.hero", fallbackImages.hero)} alt="Kampus STIBADA MASA" className="h-[480px] w-full rounded-[2.4rem] object-cover shadow-2xl" />
             <div className="absolute bottom-5 left-5 right-5 grid grid-cols-4 gap-3 rounded-[1.7rem] border border-white/40 bg-white/84 p-4 shadow-xl backdrop-blur">
               {[["Mahasiswa", "Jadwal & KRS"], ["Dosen", "Nilai & Absensi"], ["Admin", "Kelola Sistem"], ["Rektor", "Statistik"]].map(([t, d]) => (
                 <div key={t}><p className="font-semibold text-sm">{t}</p><p className="text-xs text-muted-foreground">{d}</p></div>
@@ -146,22 +123,22 @@ export default function Beranda() {
           <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
             <div>
               <Badge variant="outline" className="rounded-full bg-white/70">Profil Kampus</Badge>
-              <h2 className="mt-3 text-2xl font-bold sm:text-3xl">Visi, misi, dan keunggulan STIBADA MASA.</h2>
+              <h2 className="mt-3 text-2xl font-bold sm:text-3xl">{profileTitle}</h2>
             </div>
-            <p className="text-muted-foreground self-end">Kampus berbasis nilai Islam dengan pendekatan modern, menghasilkan lulusan beradab, adaptif, dan berdampak.</p>
+            <p className="text-muted-foreground self-end">{profileBody}</p>
           </div>
           <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
             <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-lg">
-              <img src={images.campus} alt="Kampus" className="h-full min-h-[400px] w-full object-cover" loading="lazy" />
+              <img src={contentImage(data.content, "home.profile", fallbackImages.campus)} alt="Kampus" className="h-full min-h-[400px] w-full object-cover" loading="lazy" />
               <div className="absolute inset-x-5 bottom-5 rounded-[1.6rem] bg-white/86 p-5 shadow-lg backdrop-blur">
                 <p className="text-lg font-bold">STIBADA MASA</p>
-                <p className="mt-1 text-sm text-muted-foreground">Lingkungan belajar modern untuk akademik, administrasi, dan kolaborasi civitas kampus.</p>
+                <p className="mt-1 text-sm text-muted-foreground">{profileBody}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-5">
               {profile.slice(0, 2).map((item, i) => (
                 <Card key={item.id} className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
-                  <img src={images.profile[i % images.profile.length]} alt={item.title} className="h-32 w-full object-cover" loading="lazy" />
+                  <img src={item.image || fallbackImages.gallery[i % fallbackImages.gallery.length]} alt={item.title} className="h-32 w-full object-cover" loading="lazy" />
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2 text-sm">
                       {item.key === "visi"
@@ -174,22 +151,22 @@ export default function Beranda() {
                 </Card>
               ))}
               <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85" alt="Keamanan" className="h-32 w-full object-cover" loading="lazy" />
+                <img src={contentImage(data.content, "home.security", fallbackImages.scholarships[2])} alt="Keamanan" className="h-32 w-full object-cover" loading="lazy" />
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center gap-2 text-sm">
-                    <ShieldCheck size={16} weight="duotone" className="text-primary shrink-0" /> Keamanan Portal
+                    <ShieldCheck size={16} weight="duotone" className="text-primary shrink-0" /> {contentTitle(data.content, "home.security", "Keamanan Portal")}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-xs leading-5 text-muted-foreground">Auth berbasis peran, hash password, rate limiting, dan audit trail.</CardContent>
+                <CardContent className="text-xs leading-5 text-muted-foreground">{contentBody(data.content, "home.security", "Auth berbasis peran, hash password, rate limiting, dan audit trail.")}</CardContent>
               </Card>
               <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85" alt="Notifikasi" className="h-32 w-full object-cover" loading="lazy" />
+                <img src={contentImage(data.content, "home.notification", fallbackImages.gallery[5])} alt="Notifikasi" className="h-32 w-full object-cover" loading="lazy" />
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center gap-2 text-sm">
-                    <BellRinging size={16} weight="duotone" className="text-primary shrink-0" /> Notifikasi Instan
+                    <BellRinging size={16} weight="duotone" className="text-primary shrink-0" /> {contentTitle(data.content, "home.notification", "Notifikasi Instan")}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-xs leading-5 text-muted-foreground">Pengumuman dan diskusi real-time via WebSocket.</CardContent>
+                <CardContent className="text-xs leading-5 text-muted-foreground">{contentBody(data.content, "home.notification", "Pengumuman dan diskusi real-time via WebSocket.")}</CardContent>
               </Card>
             </div>
           </div>
@@ -219,7 +196,7 @@ export default function Beranda() {
           <div className="grid gap-5 md:grid-cols-3">
             {data.programs.slice(0, 3).map((p, i) => (
               <Card key={p.id} className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/82 shadow-sm">
-                <img src={images.programs[i % images.programs.length]} alt={p.nama} className="h-40 w-full object-cover" loading="lazy" />
+                <img src={p.image || fallbackImages.programs[i % fallbackImages.programs.length]} alt={p.nama} className="h-40 w-full object-cover" loading="lazy" />
                 <CardHeader className="pb-2"><Badge className="w-fit rounded-full text-xs mb-1">{p.kode}</Badge><CardTitle className="text-base">{p.nama}</CardTitle></CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-1">
                   <p><span className="font-medium text-foreground">Dosen:</span> {p.dosen}</p>
@@ -257,7 +234,7 @@ export default function Beranda() {
             {data.gallery.slice(0, 4).map((item, i) => (
               <div key={item.id} className="group overflow-hidden rounded-3xl border border-[#ded8ca] bg-white shadow-sm">
                 <div className="overflow-hidden">
-                  <img src={images.gallery[i % images.gallery.length]} alt={item.title} className="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                  <img src={item.image || fallbackImages.gallery[i % fallbackImages.gallery.length]} alt={item.title} className="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                 </div>
                 <div className="p-4">
                   <Badge variant="secondary" className="rounded-full text-xs">{item.category}</Badge>
@@ -291,12 +268,12 @@ export default function Beranda() {
       {/* PORTAL LOGIN CTA */}
       <section className="px-4 py-14">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white/88 shadow-xl lg:grid lg:grid-cols-[1fr_0.9fr]">
-          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=85" alt="Portal" className="h-64 w-full object-cover lg:h-full lg:min-h-[360px]" loading="lazy" />
+          <img src={contentImage(data.content, "home.portal", fallbackImages.portal)} alt="Portal" className="h-64 w-full object-cover lg:h-full lg:min-h-[360px]" loading="lazy" />
           <div className="flex flex-col justify-center gap-6 p-8 lg:p-12">
             <Badge className="w-fit rounded-full">Login Portal Akademik</Badge>
             <div>
-              <h2 className="text-2xl font-bold">Masuk sesuai peran Anda.</h2>
-              <p className="mt-2 text-muted-foreground text-sm leading-6">Mahasiswa, dosen, admin, dan rektor menggunakan portal terpisah dengan akses khusus sesuai peran.</p>
+              <h2 className="text-2xl font-bold">{portalTitle}</h2>
+              <p className="mt-2 text-muted-foreground text-sm leading-6">{portalBody}</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[["Mahasiswa", "Jadwal, KRS, nilai"], ["Dosen", "Nilai & absensi"], ["Admin", "Kelola sistem"], ["Rektor", "Statistik kampus"]].map(([role, desc]) => (

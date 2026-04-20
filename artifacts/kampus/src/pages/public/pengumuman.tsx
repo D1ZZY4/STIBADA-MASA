@@ -3,6 +3,7 @@ import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch, trackEvent } from "@/lib/api";
+import { contentBody, contentImage, contentTitle, fallbackImages, type PublicContentItem } from "@/lib/site-content";
 import {
   Archive,
   ArrowRight,
@@ -16,7 +17,7 @@ import {
   TrendUp,
 } from "@phosphor-icons/react";
 
-type Announcement = { id: string; title: string; content: string; createdAt: string };
+type Announcement = { id: string; title: string; content: string; createdAt: string; category?: string; image?: string };
 
 const categories = ["Semua", "Pendaftaran", "Akademik", "Kegiatan", "Beasiswa"];
 
@@ -49,13 +50,15 @@ function formatDate(value: string) {
 
 export default function Pengumuman() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(fallback);
+  const [content, setContent] = useState<PublicContentItem[]>([]);
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("Semua");
 
   useEffect(() => {
     trackEvent("public_pengumuman_view");
-    apiFetch<{ announcements: Announcement[] }>("/public/landing").then((d) => {
+    apiFetch<{ announcements: Announcement[]; content: PublicContentItem[] }>("/public/landing").then((d) => {
       if (d.announcements?.length) setAnnouncements([...d.announcements, ...fallback.slice(d.announcements.length)]);
+      setContent(d.content || []);
     }).catch(() => undefined);
   }, []);
 
@@ -85,10 +88,10 @@ export default function Pengumuman() {
               Informasi Resmi Kampus
             </Badge>
             <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-              Pengumuman yang rapi, mudah dicari, dan selalu terbaru.
+              {contentTitle(content, "pengumuman.hero", "Pengumuman yang rapi, mudah dicari, dan selalu terbaru.")}
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-white/72 sm:text-lg">
-              Temukan berita akademik, PMB, beasiswa, dan agenda penting STIBADA MASA dalam satu halaman yang terstruktur.
+              {contentBody(content, "pengumuman.hero", "Temukan berita akademik, PMB, beasiswa, dan agenda penting STIBADA MASA dalam satu halaman yang terstruktur.")}
             </p>
             <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
@@ -111,7 +114,7 @@ export default function Pengumuman() {
           <div className="rounded-[2rem] border border-white/14 bg-[#f4f1ea]/96 p-4 shadow-2xl shadow-black/20">
             <div className="relative mb-4 overflow-hidden rounded-[1.5rem]">
               <img
-                src={announcementImage}
+                src={contentImage(content, "pengumuman.hero", announcementImage)}
                 alt="Mahasiswa membaca pengumuman kampus"
                 className="h-44 w-full object-cover"
               />
@@ -172,7 +175,7 @@ export default function Pengumuman() {
                   <Card className="overflow-hidden rounded-[2rem] border-[#ded8ca] bg-white shadow-sm">
                     <div className="relative h-56 overflow-hidden">
                       <img
-                        src={announcementImage}
+                        src={featured.image || contentImage(content, "pengumuman.hero", fallbackImages.announcement)}
                         alt="Suasana kegiatan dan informasi kampus"
                         className="h-full w-full object-cover"
                       />

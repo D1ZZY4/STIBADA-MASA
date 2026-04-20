@@ -3,6 +3,7 @@ import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch, trackEvent } from "@/lib/api";
+import { contentBody, contentImage, contentTitle, fallbackImages, type PublicContentItem } from "@/lib/site-content";
 import { ChalkboardTeacher, MagnifyingGlass, BookOpen, Briefcase, UsersThree } from "@phosphor-icons/react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -23,11 +24,15 @@ const images = [
 
 export default function ProgramStudi() {
   const [programs, setPrograms] = useState<Program[]>(fallbackPrograms);
+  const [content, setContent] = useState<PublicContentItem[]>([]);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
     trackEvent("public_prodi_view");
-    apiFetch<{ programs: Program[] }>("/public/landing").then((d) => { if (d.programs?.length) setPrograms(d.programs); }).catch(() => undefined);
+    apiFetch<{ programs: Program[]; content: PublicContentItem[] }>("/public/landing").then((d) => {
+      if (d.programs?.length) setPrograms(d.programs);
+      setContent(d.content || []);
+    }).catch(() => undefined);
   }, []);
 
   const filtered = programs.filter((p) => p.nama.toLowerCase().includes(query.toLowerCase()) || p.kode.toLowerCase().includes(query.toLowerCase()));
@@ -37,8 +42,8 @@ export default function ProgramStudi() {
       <section className="relative overflow-hidden bg-[#2f4f46] px-4 py-16 text-white">
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full bg-white/20 text-white hover:bg-white/20">Akademik</Badge>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Program Studi</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">Pilih program studi yang sesuai dengan minat, bakat, dan tujuan karir Anda.</p>
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "program-studi.hero", "Program Studi")}</h1>
+          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">{contentBody(content, "program-studi.hero", "Pilih program studi yang sesuai dengan minat, bakat, dan tujuan karir Anda.")}</p>
           <div className="mt-6 flex max-w-md items-center gap-2 rounded-2xl bg-white/15 px-4 py-2 backdrop-blur-sm">
             <MagnifyingGlass size={18} className="text-white/60 shrink-0" />
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari program studi..." className="flex-1 bg-transparent text-sm text-white placeholder:text-white/50 outline-none" />
@@ -56,7 +61,7 @@ export default function ProgramStudi() {
                 <div key={program.id} className="overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-sm">
                   <div className="grid lg:grid-cols-[380px_1fr]">
                     <div className="relative">
-                      <img src={images[index % images.length]} alt={program.nama} className="h-56 w-full object-cover lg:h-full" />
+                      <img src={(program as Program & { image?: string }).image || contentImage(content, `program-studi.card.${index + 1}`, images[index % images.length] || fallbackImages.programs[index % fallbackImages.programs.length])} alt={program.nama} className="h-56 w-full object-cover lg:h-full" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                       <div className="absolute bottom-4 left-4">
                         <Badge className="rounded-full bg-white/90 text-foreground font-bold">{program.kode}</Badge>

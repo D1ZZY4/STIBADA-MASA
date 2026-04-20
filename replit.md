@@ -87,7 +87,7 @@ lib/
 - Manajemen jadwal (CRUD)
 - Persetujuan KRS
 - Kelola konten publik
-- Pengaturan sistem dan kesiapan integrasi
+- Pengaturan sistem website: editor teks, gambar tiap halaman publik, pengumuman, dan layout/kontak global
 
 ### Rektor
 - Executive dashboard (stats overview)
@@ -104,7 +104,9 @@ Set `MONGODB_URI` env var to use a real MongoDB instance.
 - Landing page uses campus/activity imagery throughout public sections and avoids exposing technical API/WebSocket copy to public users.
 - `/pengumuman` now uses a more polished responsive layout with Phosphor icons, visible campus imagery, category filters, search, a featured announcement card, and a side information panel.
 - `/login` is the role-based portal login with a dedicated visual panel and role selector.
-- Admin can manage public content at `/dashboard/admin/content`, KRS at `/dashboard/admin/krs`, and system/integration readiness at `/dashboard/admin/sistem`.
+- Admin can manage public content at `/dashboard/admin/content`, KRS at `/dashboard/admin/krs`, and full public website configuration at `/dashboard/admin/sistem`.
+- `/dashboard/admin/sistem` now controls editable public page content keys (for example `home.hero`, `pendaftaran.form`, `pengumuman.hero`), image URLs, announcement CRUD, and global layout/contact settings.
+- Public pages consume `/api/public/landing` dynamic content with safe fallbacks, so edited titles, descriptions, footer/contact text, announcement images, hero images, and content images can be changed without code edits.
 - API adds CSP/security headers, rate limiting, password hashing via Node crypto scrypt, signed auth tokens, audit trail entries, analytics events, OpenAPI exposure at `/api/docs`, and WebSocket notifications at `/api/ws`.
 
 ## Documentation

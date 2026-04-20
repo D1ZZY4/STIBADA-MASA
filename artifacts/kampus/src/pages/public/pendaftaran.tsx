@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch, trackEvent } from "@/lib/api";
+import { contentBody, contentImage, contentTitle, fallbackImages, type PublicContentItem, type SiteSettings } from "@/lib/site-content";
 import { toast } from "sonner";
 import {
   CalendarBlank, Wallet, ChatCircleDots, FileText,
@@ -40,8 +41,16 @@ const jalurOptions = [
 export default function Pendaftaran() {
   const [form, setForm] = useState({ nama: "", email: "", telepon: "", program: "Pendidikan Agama Islam", jalur: "Reguler", pesan: "" });
   const [loading, setLoading] = useState(false);
+  const [content, setContent] = useState<PublicContentItem[]>([]);
+  const [settings, setSettings] = useState<SiteSettings>({});
 
-  useEffect(() => { trackEvent("public_pendaftaran_view"); }, []);
+  useEffect(() => {
+    trackEvent("public_pendaftaran_view");
+    apiFetch<{ content: PublicContentItem[]; settings?: SiteSettings }>("/public/landing").then((data) => {
+      setContent(data.content || []);
+      setSettings(data.settings || {});
+    }).catch(() => undefined);
+  }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,10 +73,10 @@ export default function Pendaftaran() {
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full bg-white/20 text-white hover:bg-white/20">PMB 2026/2027</Badge>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Pendaftaran Mahasiswa Baru</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">Mulai perjalanan akademikmu di STIBADA MASA. Proses pendaftaran mudah, transparan, dan dapat dipantau secara daring.</p>
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "pendaftaran.hero", "Pendaftaran Mahasiswa Baru")}</h1>
+          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">{contentBody(content, "pendaftaran.hero", "Mulai perjalanan akademikmu di STIBADA MASA. Proses pendaftaran mudah, transparan, dan dapat dipantau secara daring.")}</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {([["Jadwal", "Jan–Agustus 2026", CalendarBlank], ["Biaya", "Mulai Rp 3.500.000/sem", Wallet], ["Kontak", "pmb@stibadamasa.ac.id", ChatCircleDots]] as const).map(([label, val, Icon]) => (
+            {([["Jadwal", settings.admissionSchedule || "Jan–Agustus 2026", CalendarBlank], ["Biaya", settings.admissionFee || "Mulai Rp 3.500.000/sem", Wallet], ["Kontak", settings.contactEmail || "pmb@stibadamasa.ac.id", ChatCircleDots]] as const).map(([label, val, Icon]) => (
               <div key={label} className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-sm">
                 <Icon size={20} weight="duotone" className="shrink-0 text-white/80" />
                 <div><p className="text-xs text-white/60">{label}</p><p className="font-semibold text-sm">{val}</p></div>
@@ -125,17 +134,17 @@ export default function Pendaftaran() {
 
               <div className="rounded-2xl bg-primary/8 border border-primary/15 p-5">
                 <div className="flex items-center gap-2 mb-2"><Phone size={18} weight="duotone" className="text-primary" /><p className="font-semibold text-sm">Butuh Bantuan?</p></div>
-                <p className="text-sm text-muted-foreground">Hubungi tim PMB melalui <span className="font-medium text-primary">pmb@stibadamasa.ac.id</span> atau datang ke kantor PMB Senin–Jumat 08.00–16.00 WIB.</p>
+                <p className="text-sm text-muted-foreground">{contentBody(content, "pendaftaran.help", `Hubungi tim PMB melalui ${settings.contactEmail || "pmb@stibadamasa.ac.id"} atau datang ke kantor PMB Senin–Jumat 08.00–16.00 WIB.`)}</p>
               </div>
             </div>
 
             <Card id="formulir" className="rounded-[2rem] border-[#d8cfbd] bg-white/90 shadow-xl overflow-hidden">
               <div className="relative">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=85" alt="Formulir" className="h-40 w-full object-cover" />
+                <img src={contentImage(content, "pendaftaran.form", fallbackImages.registrationForm)} alt="Formulir" className="h-40 w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-4 left-6 text-white">
-                  <p className="text-lg font-bold">Formulir Pendaftaran Daring</p>
-                  <p className="text-xs text-white/75">Isi dengan data yang benar dan lengkap</p>
+                  <p className="text-lg font-bold">{contentTitle(content, "pendaftaran.form", "Formulir Pendaftaran Daring")}</p>
+                  <p className="text-xs text-white/75">{contentBody(content, "pendaftaran.form", "Isi dengan data yang benar dan lengkap")}</p>
                 </div>
               </div>
               <CardContent className="pt-6 pb-6">

@@ -9,14 +9,14 @@ import { apiFetch } from "@/lib/api";
 import { toast } from "sonner";
 
 type ContentResponse = {
-  content: { id: string; key: string; type: string; title: string; content: string; status: string }[];
+  content: { id: string; key: string; page?: string; section?: string; type: string; title: string; content: string; image?: string; status: string }[];
   applications: { id: string; nama: string; email: string; telepon: string; program: string; status: string; createdAt: string }[];
   auditLogs: { id: string; actorRole: string; action: string; target: string; createdAt: string }[];
 };
 
 export default function AdminContent() {
   const [data, setData] = useState<ContentResponse>({ content: [], applications: [], auditLogs: [] });
-  const [form, setForm] = useState({ key: "", type: "announcement", title: "", content: "", status: "published" });
+  const [form, setForm] = useState({ key: "", page: "Global", section: "Umum", type: "page", title: "", content: "", image: "", status: "published" });
 
   const load = () => apiFetch<ContentResponse>("/content").then(setData).catch((error) => toast.error(error.message));
 
@@ -29,7 +29,7 @@ export default function AdminContent() {
     try {
       await apiFetch("/content", { method: "POST", body: JSON.stringify(form) });
       toast.success("Konten publik tersimpan");
-      setForm({ key: "", type: "announcement", title: "", content: "", status: "published" });
+      setForm({ key: "", page: "Global", section: "Umum", type: "page", title: "", content: "", image: "", status: "published" });
       load();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Gagal menyimpan");
@@ -51,8 +51,13 @@ export default function AdminContent() {
                 <div className="space-y-2"><Label>Key</Label><Input value={form.key} onChange={(e) => setForm({ ...form, key: e.target.value })} placeholder="pengumuman-krs" required /></div>
                 <div className="space-y-2"><Label>Tipe</Label><Input value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} placeholder="announcement" required /></div>
               </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2"><Label>Halaman</Label><Input value={form.page} onChange={(e) => setForm({ ...form, page: e.target.value })} placeholder="Beranda" /></div>
+                <div className="space-y-2"><Label>Section</Label><Input value={form.section} onChange={(e) => setForm({ ...form, section: e.target.value })} placeholder="Hero" /></div>
+              </div>
               <div className="space-y-2"><Label>Judul</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required /></div>
               <div className="space-y-2"><Label>Isi</Label><Textarea value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} required /></div>
+              <div className="space-y-2"><Label>URL Gambar</Label><Input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="https://..." /></div>
               <Button className="rounded-2xl">Simpan Konten</Button>
             </form>
           </CardContent>
@@ -62,8 +67,9 @@ export default function AdminContent() {
           <CardContent className="space-y-3">
             {data.content.map((item) => (
               <div key={item.id} className="rounded-2xl border p-4">
-                <div className="flex items-center justify-between gap-3"><p className="font-semibold">{item.title}</p><Badge>{item.type}</Badge></div>
+                <div className="flex items-center justify-between gap-3"><p className="font-semibold">{item.title}</p><div className="flex gap-2"><Badge>{item.type}</Badge>{item.page && <Badge variant="outline">{item.page}</Badge>}</div></div>
                 <p className="mt-2 text-sm text-muted-foreground">{item.content}</p>
+                {item.image && <img src={item.image} alt={item.title} className="mt-3 h-28 w-full rounded-2xl object-cover" loading="lazy" />}
               </div>
             ))}
           </CardContent>

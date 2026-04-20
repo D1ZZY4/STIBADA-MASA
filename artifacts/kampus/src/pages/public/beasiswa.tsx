@@ -3,11 +3,12 @@ import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch, trackEvent } from "@/lib/api";
+import { contentBody, contentTitle, fallbackImages, type PublicContentItem } from "@/lib/site-content";
 import { Medal, CheckCircle, FileText, Info } from "@phosphor-icons/react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
-type Scholarship = { id: string; nama: string; kriteria: string; panduan: string };
+type Scholarship = { id: string; nama: string; kriteria: string; panduan: string; image?: string };
 
 const fallback: Scholarship[] = [
   { id: "1", nama: "Beasiswa Prestasi MASA", kriteria: "IPK/rapor unggul (≥ 3.50) dan aktif berorganisasi selama SMA/MA.", panduan: "Unggah portofolio, transkrip nilai, dan surat rekomendasi kepala sekolah." },
@@ -33,9 +34,13 @@ const timeline = [
 
 export default function Beasiswa() {
   const [scholarships, setScholarships] = useState<Scholarship[]>(fallback);
+  const [content, setContent] = useState<PublicContentItem[]>([]);
   useEffect(() => {
     trackEvent("public_beasiswa_view");
-    apiFetch<{ scholarships: Scholarship[] }>("/public/landing").then((d) => { if (d.scholarships?.length) setScholarships(d.scholarships); }).catch(() => undefined);
+    apiFetch<{ scholarships: Scholarship[]; content: PublicContentItem[] }>("/public/landing").then((d) => {
+      if (d.scholarships?.length) setScholarships(d.scholarships);
+      setContent(d.content || []);
+    }).catch(() => undefined);
   }, []);
 
   return (
@@ -45,8 +50,8 @@ export default function Beasiswa() {
         <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
           <div className="space-y-4">
             <Badge variant="outline" className="rounded-full bg-white/70">Program Beasiswa</Badge>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Raih Masa Depan dengan Beasiswa STIBADA MASA</h1>
-            <p className="max-w-xl text-lg leading-7 text-muted-foreground">Tersedia berbagai jalur beasiswa untuk mendukung mahasiswa berprestasi dan yang membutuhkan bantuan pembiayaan.</p>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "beasiswa.hero", "Raih Masa Depan dengan Beasiswa STIBADA MASA")}</h1>
+            <p className="max-w-xl text-lg leading-7 text-muted-foreground">{contentBody(content, "beasiswa.hero", "Tersedia berbagai jalur beasiswa untuk mendukung mahasiswa berprestasi dan yang membutuhkan bantuan pembiayaan.")}</p>
             <Link href="/pendaftaran">
               <Button size="lg" className="rounded-2xl gap-2"><Medal size={18} weight="duotone" />Daftar Beasiswa Sekarang</Button>
             </Link>
@@ -69,7 +74,7 @@ export default function Beasiswa() {
             {scholarships.map((item, index) => (
               <Card key={item.id} className="overflow-hidden rounded-3xl border-[#d8cfbd] bg-white/86 shadow-sm">
                 <div className="relative">
-                  <img src={images[index % images.length]} alt={item.nama} className="h-44 w-full object-cover" loading="lazy" />
+                  <img src={item.image || images[index % images.length] || fallbackImages.scholarships[index % fallbackImages.scholarships.length]} alt={item.nama} className="h-44 w-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <div className="absolute bottom-3 left-4">
                     <Medal size={22} weight="duotone" className="text-yellow-300" />

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
-import { trackEvent } from "@/lib/api";
+import { apiFetch, trackEvent } from "@/lib/api";
+import { contentBody, contentTitle, type PublicContentItem, type SiteSettings } from "@/lib/site-content";
 import {
   CalendarBlank, Wallet, ChatCircleDots, CheckCircle,
   Phone, Envelope, MapPin, Info, FileText,
@@ -56,7 +57,23 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function InformasiPMB() {
-  useEffect(() => { trackEvent("public_info_pmb_view"); }, []);
+  const [content, setContent] = useState<PublicContentItem[]>([]);
+  const [settings, setSettings] = useState<SiteSettings>({});
+
+  useEffect(() => {
+    trackEvent("public_info_pmb_view");
+    apiFetch<{ content: PublicContentItem[]; settings?: SiteSettings }>("/public/landing").then((data) => {
+      setContent(data.content || []);
+      setSettings(data.settings || {});
+    }).catch(() => undefined);
+  }, []);
+
+  const kontakData = [
+    { icon: Envelope, label: "Email PMB", nilai: settings.contactEmail || "pmb@stibadamasa.ac.id" },
+    { icon: Phone, label: "WhatsApp PMB", nilai: settings.contactPhone || "+62 812-3456-7890" },
+    { icon: MapPin, label: "Alamat", nilai: settings.address || "Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya 60151" },
+    { icon: CalendarBlank, label: "Jam Layanan", nilai: settings.contactPhone || "Senin–Jumat, 08.00–16.00 WIB" },
+  ];
 
   return (
     <PublicLayout>
@@ -65,11 +82,11 @@ export default function InformasiPMB() {
         <div className="mx-auto max-w-7xl grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="space-y-4">
             <Badge className="rounded-full bg-white/20 text-white hover:bg-white/20">PMB 2026/2027</Badge>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Informasi PMB</h1>
-            <p className="max-w-xl text-lg leading-7 text-white/80">Detail lengkap biaya, jadwal penerimaan per gelombang, kontak PMB, dan FAQ calon mahasiswa.</p>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "informasi-pmb.hero", "Informasi PMB")}</h1>
+            <p className="max-w-xl text-lg leading-7 text-white/80">{contentBody(content, "informasi-pmb.hero", "Detail lengkap biaya, jadwal penerimaan per gelombang, kontak PMB, dan FAQ calon mahasiswa.")}</p>
           </div>
           <div className="grid gap-2 text-sm">
-            {[["Jadwal", "3 gelombang penerimaan"], ["Biaya", "Mulai Rp 3,5 jt/semester"], ["Kontak", "pmb@stibadamasa.ac.id"]].map(([l, v]) => (
+            {[["Jadwal", settings.admissionSchedule || "3 gelombang penerimaan"], ["Biaya", settings.admissionFee || "Mulai Rp 3,5 jt/semester"], ["Kontak", settings.contactEmail || "pmb@stibadamasa.ac.id"]].map(([l, v]) => (
               <div key={l} className="flex items-center gap-3 rounded-xl bg-white/12 px-4 py-2.5">
                 <span className="w-14 shrink-0 text-white/60 text-xs">{l}</span>
                 <span className="font-semibold">{v}</span>
@@ -156,7 +173,7 @@ export default function InformasiPMB() {
               <h2 className="mt-3 text-2xl font-bold">Hubungi Tim PMB</h2>
             </div>
             <div className="space-y-3">
-              {kontak.map(({ icon: Icon, label, nilai }) => (
+              {kontakData.map(({ icon: Icon, label, nilai }) => (
                 <div key={label} className="flex items-start gap-4 rounded-2xl border border-[#ded8ca] bg-white/80 p-4 shadow-sm">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                     <Icon size={18} weight="duotone" className="text-primary" />

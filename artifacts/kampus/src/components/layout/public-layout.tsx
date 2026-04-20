@@ -5,6 +5,8 @@ import {
   Phone, MapPin, ArrowRight,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
+import { apiFetch } from "@/lib/api";
+import { contentBody, fallbackSiteSettings, type PublicContentItem, type SiteSettings } from "@/lib/site-content";
 
 const navLinks = [
   { href: "/", label: "Beranda" },
@@ -16,7 +18,7 @@ const navLinks = [
   { href: "/informasi-pmb", label: "Info PMB" },
 ];
 
-function PublicNavbar() {
+function PublicNavbar({ settings }: { settings: SiteSettings }) {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -36,8 +38,8 @@ function PublicNavbar() {
         <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="STIBADA MASA Beranda">
           <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-10 w-10 object-contain" />
           <div>
-            <p className="text-sm font-bold leading-tight tracking-tight">STIBADA MASA</p>
-            <p className="hidden text-[10px] leading-tight text-muted-foreground sm:block">Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah</p>
+            <p className="text-sm font-bold leading-tight tracking-tight">{settings.brandName || "STIBADA MASA"}</p>
+            <p className="hidden text-[10px] leading-tight text-muted-foreground sm:block">{settings.tagline || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah"}</p>
           </div>
         </Link>
 
@@ -137,7 +139,7 @@ function PublicNavbar() {
   );
 }
 
-function PublicFooter() {
+function PublicFooter({ settings, content }: { settings: SiteSettings; content: PublicContentItem[] }) {
   return (
     <footer className="border-t border-[#ded8ca] bg-[#2f4f46] px-4 pt-12 pb-6 text-white">
       <div className="mx-auto max-w-7xl">
@@ -146,19 +148,19 @@ function PublicFooter() {
             <div className="flex items-center gap-3">
               <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-12 w-12 object-contain" />
               <div>
-                <p className="text-lg font-bold leading-tight">STIBADA MASA</p>
-                <p className="text-xs text-white/60 leading-snug">Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah<br />Masjid Agung Sunan Ampel</p>
+                <p className="text-lg font-bold leading-tight">{settings.brandName || "STIBADA MASA"}</p>
+                <p className="text-xs text-white/60 leading-snug">{settings.tagline || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah"}<br />Masjid Agung Sunan Ampel</p>
               </div>
             </div>
-            <p className="text-sm leading-6 text-white/65 max-w-sm">Platform akademik modern untuk layanan belajar-mengajar, administrasi, komunikasi, dan penerimaan mahasiswa baru STIBADA MASA Surabaya.</p>
+            <p className="text-sm leading-6 text-white/65 max-w-sm">{contentBody(content, "layout.footer", "Platform akademik modern untuk layanan belajar-mengajar, administrasi, komunikasi, dan penerimaan mahasiswa baru STIBADA MASA Surabaya.")}</p>
           </div>
 
           <div className="space-y-4">
             <p className="font-semibold text-white/90">Kontak & Informasi</p>
             <ul className="space-y-2.5 text-sm">
-              <li className="flex items-start gap-2 text-white/65"><Envelope size={15} weight="duotone" className="mt-0.5 shrink-0" />pmb@stibadamasa.ac.id</li>
-              <li className="flex items-start gap-2 text-white/65"><Phone size={15} weight="duotone" className="mt-0.5 shrink-0" />Senin–Jumat, 08.00–16.00 WIB</li>
-              <li className="flex items-start gap-2 text-white/65"><MapPin size={15} weight="duotone" className="mt-0.5 shrink-0" />Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya</li>
+              <li className="flex items-start gap-2 text-white/65"><Envelope size={15} weight="duotone" className="mt-0.5 shrink-0" />{settings.contactEmail || "pmb@stibadamasa.ac.id"}</li>
+              <li className="flex items-start gap-2 text-white/65"><Phone size={15} weight="duotone" className="mt-0.5 shrink-0" />{settings.contactPhone || "Senin–Jumat, 08.00–16.00 WIB"}</li>
+              <li className="flex items-start gap-2 text-white/65"><MapPin size={15} weight="duotone" className="mt-0.5 shrink-0" />{settings.address || "Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya"}</li>
             </ul>
           </div>
 
@@ -177,7 +179,7 @@ function PublicFooter() {
 
         <div className="pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-white/40">
           <p>© {new Date().getFullYear()} STIBADA MASA. Hak Cipta Dilindungi.</p>
-          <p>Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah — Masjid Agung Sunan Ampel, Surabaya</p>
+          <p>{settings.footerNote || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah — Masjid Agung Sunan Ampel, Surabaya"}</p>
         </div>
       </div>
     </footer>
@@ -185,11 +187,21 @@ function PublicFooter() {
 }
 
 export function PublicLayout({ children }: { children: React.ReactNode }) {
+  const [settings, setSettings] = useState<SiteSettings>(fallbackSiteSettings);
+  const [content, setContent] = useState<PublicContentItem[]>([]);
+
+  useEffect(() => {
+    apiFetch<{ settings?: SiteSettings; content?: PublicContentItem[] }>("/public/landing").then((data) => {
+      setSettings({ ...fallbackSiteSettings, ...(data.settings || {}) });
+      setContent(data.content || []);
+    }).catch(() => undefined);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#f4f1ea] text-foreground">
-      <PublicNavbar />
+      <PublicNavbar settings={settings} />
       <main>{children}</main>
-      <PublicFooter />
+      <PublicFooter settings={settings} content={content} />
     </div>
   );
 }

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch, trackEvent } from "@/lib/api";
+import { contentBody, contentTitle, fallbackImages, type PublicContentItem } from "@/lib/site-content";
 import { Images, MagnifyingGlass } from "@phosphor-icons/react";
 
-type GalleryItem = { id: string; title: string; category: string; description: string };
+type GalleryItem = { id: string; title: string; category: string; description: string; image?: string };
 
 const fallback: GalleryItem[] = [
   { id: "1", title: "Wisuda Sarjana 2025", category: "Wisuda", description: "Momen pelepasan lulusan STIBADA MASA angkatan 2025." },
@@ -32,13 +33,15 @@ const allCategories = ["Semua", "Wisuda", "Seminar", "Olahraga", "Ekskul", "Akad
 
 export default function Galeri() {
   const [items, setItems] = useState<GalleryItem[]>(fallback);
+  const [content, setContent] = useState<PublicContentItem[]>([]);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("Semua");
 
   useEffect(() => {
     trackEvent("public_galeri_view");
-    apiFetch<{ gallery: GalleryItem[] }>("/public/landing").then((d) => {
+    apiFetch<{ gallery: GalleryItem[]; content: PublicContentItem[] }>("/public/landing").then((d) => {
       if (d.gallery?.length) setItems([...d.gallery, ...fallback.slice(d.gallery.length)]);
+      setContent(d.content || []);
     }).catch(() => undefined);
   }, []);
 
@@ -53,8 +56,8 @@ export default function Galeri() {
       <section className="relative overflow-hidden bg-[#2f4f46] px-4 py-16 text-white">
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full bg-white/20 text-white hover:bg-white/20">Galeri</Badge>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Dokumentasi & Kegiatan Kampus</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">Rekam jejak kegiatan akademik, non-akademik, dan momen berharga civitas STIBADA MASA.</p>
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "galeri.hero", "Dokumentasi & Kegiatan Kampus")}</h1>
+          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">{contentBody(content, "galeri.hero", "Rekam jejak kegiatan akademik, non-akademik, dan momen berharga civitas STIBADA MASA.")}</p>
         </div>
       </section>
 
@@ -82,7 +85,7 @@ export default function Galeri() {
               {filtered.map((item, index) => (
                 <div key={item.id} className="group overflow-hidden rounded-3xl border border-[#ded8ca] bg-white shadow-sm">
                   <div className="overflow-hidden">
-                    <img src={photos[index % photos.length]} alt={item.title} className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                    <img src={item.image || photos[index % photos.length] || fallbackImages.gallery[index % fallbackImages.gallery.length]} alt={item.title} className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                   </div>
                   <div className="p-5">
                     <Badge variant="secondary" className="rounded-full text-xs">{item.category}</Badge>
