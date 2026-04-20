@@ -35,6 +35,17 @@ const images = {
   campus: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1000&q=85",
   admission: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1000&q=85",
   login: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=85",
+  profile: [
+    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=85",
+  ],
+  scholarship: [
+    "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85",
+  ],
+  announcement: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1100&q=85",
   programs: [
     "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=85",
     "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85",
@@ -157,23 +168,42 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-14">
-          <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-            <img src={images.campus} alt="Mahasiswa berdiskusi di area kampus" className="h-full min-h-[360px] rounded-[2rem] object-cover shadow-lg" loading="lazy" />
-            <div className="grid gap-5 md:grid-cols-2">
-              {profile.map((item) => (
-                <Card key={item.id} className="rounded-3xl border-[#ded8ca] bg-white/78">
+        <section className="px-4 py-16">
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+              <div>
+                <Badge variant="outline" className="rounded-full bg-white/70">Profil Kampus</Badge>
+                <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">Visi, misi, dan layanan digital kampus dibuat lebih jelas.</h2>
+              </div>
+              <p className="text-muted-foreground">Bagian ini menjelaskan arah kampus, layanan akademik, keamanan portal, dan komunikasi digital STIBADA MASA.</p>
+            </div>
+
+            <div className="grid gap-5 lg:grid-cols-4">
+              <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-lg lg:col-span-2 lg:row-span-2">
+                <img src={images.campus} alt="Suasana akademik STIBADA MASA" className="h-full min-h-[520px] w-full object-cover" loading="lazy" />
+                <div className="absolute inset-x-5 bottom-5 rounded-[1.6rem] bg-white/86 p-5 shadow-lg backdrop-blur">
+                  <p className="text-lg font-bold">STIBADA MASA</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Lingkungan belajar modern untuk akademik, administrasi, dan kolaborasi civitas kampus.</p>
+                </div>
+              </div>
+
+              {profile.slice(0, 2).map((item, index) => (
+                <Card key={item.id} className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
+                  <img src={images.profile[index % images.profile.length]} alt={item.title} className="h-36 w-full object-cover" loading="lazy" />
                   <CardHeader><CardTitle>{item.title}</CardTitle></CardHeader>
-                  <CardContent className="text-muted-foreground">{item.content}</CardContent>
+                  <CardContent className="text-sm leading-6 text-muted-foreground">{item.content}</CardContent>
                 </Card>
               ))}
-              <Card className="rounded-3xl border-[#ded8ca] bg-white/78">
+
+              <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
+                <img src={images.profile[2]} alt="Keamanan portal akademik" className="h-36 w-full object-cover" loading="lazy" />
                 <CardHeader><CardTitle className="flex items-center gap-2"><SecuritySafe variant="Bulk" /> Keamanan Portal</CardTitle></CardHeader>
-                <CardContent className="text-muted-foreground">Autentikasi berbasis peran, hash password, rate limiting, audit trail, dan opsi 2FA untuk admin/rektor.</CardContent>
+                <CardContent className="text-sm leading-6 text-muted-foreground">Autentikasi berbasis peran, hash password, rate limiting, audit trail, dan opsi 2FA untuk admin/rektor.</CardContent>
               </Card>
-              <Card className="rounded-3xl border-[#ded8ca] bg-white/78">
+              <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85" alt="Notifikasi dan koordinasi kampus" className="h-36 w-full object-cover" loading="lazy" />
                 <CardHeader><CardTitle className="flex items-center gap-2"><DirectboxNotif variant="Bulk" /> Notifikasi Instan</CardTitle></CardHeader>
-                <CardContent className="text-muted-foreground">Pengumuman, pesan diskusi, dan pembaruan status disiapkan untuk real-time notification.</CardContent>
+                <CardContent className="text-sm leading-6 text-muted-foreground">Pengumuman, pesan diskusi, dan pembaruan status disiapkan untuk real-time notification.</CardContent>
               </Card>
             </div>
           </div>
@@ -244,11 +274,21 @@ export default function Home() {
         </section>
 
         <section id="beasiswa" className="bg-[#ebe5d8] px-4 py-16">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <div className="flex items-center gap-3"><MedalStar variant="Bulk" className="text-primary" /><h2 className="text-3xl font-bold">Beasiswa</h2></div>
-            <div className="grid gap-5 md:grid-cols-3">
-              {data.scholarships.map((item) => (
-                <Card key={item.id} className="rounded-3xl border-[#d8cfbd] bg-white/82 shadow-sm"><CardHeader><CardTitle>{item.nama}</CardTitle></CardHeader><CardContent className="space-y-3 text-sm text-muted-foreground"><p>{item.kriteria}</p><p>{item.panduan}</p></CardContent></Card>
+          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div className="space-y-5">
+              <img src={images.scholarship[0]} alt="Informasi beasiswa STIBADA MASA" className="h-72 w-full rounded-[2rem] object-cover shadow-lg" loading="lazy" />
+              <div className="rounded-[2rem] bg-[#2f4f46] p-6 text-white">
+                <div className="flex items-center gap-3"><MedalStar variant="Bulk" /><h2 className="text-3xl font-bold">Beasiswa</h2></div>
+                <p className="mt-3 text-sm leading-6 text-white/74">Informasi jenis beasiswa, kriteria, dan panduan pengajuan dibuat ringkas agar calon mahasiswa mudah memahami peluang bantuan biaya.</p>
+              </div>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {data.scholarships.map((item, index) => (
+                <Card key={item.id} className="overflow-hidden rounded-3xl border-[#d8cfbd] bg-white/86 shadow-sm">
+                  <img src={images.scholarship[(index + 1) % images.scholarship.length]} alt={item.nama} className="h-40 w-full object-cover" loading="lazy" />
+                  <CardHeader><CardTitle>{item.nama}</CardTitle></CardHeader>
+                  <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground"><p>{item.kriteria}</p><p>{item.panduan}</p></CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -273,11 +313,29 @@ export default function Home() {
         </section>
 
         <section id="pengumuman" className="bg-primary/5 px-4 py-16">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <div className="flex items-center gap-3"><DirectboxNotif variant="Bulk" className="text-primary" /><h2 className="text-3xl font-bold">Pengumuman Umum</h2></div>
-            <div className="grid gap-5 md:grid-cols-2">
-              {data.announcements.map((item) => (
-                <Card key={item.id} className="rounded-3xl border-[#ded8ca] bg-white/84"><CardHeader><CardTitle>{item.title}</CardTitle></CardHeader><CardContent className="text-muted-foreground">{item.content}</CardContent></Card>
+          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_1fr] lg:items-stretch">
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] shadow-lg">
+              <img src={images.announcement} alt="Pengumuman dan berita kampus" className="h-full min-h-[420px] w-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#203b35]/86 via-[#203b35]/18 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
+                <div className="flex items-center gap-3"><DirectboxNotif variant="Bulk" /><h2 className="text-3xl font-bold">Pengumuman Umum</h2></div>
+                <p className="mt-3 text-sm leading-6 text-white/74">Berita terbaru, agenda kampus, informasi akademik, dan notifikasi penting untuk civitas serta calon mahasiswa.</p>
+              </div>
+            </div>
+            <div className="grid content-start gap-5">
+              {data.announcements.length === 0 ? (
+                <Card className="rounded-3xl border-[#ded8ca] bg-white/84">
+                  <CardHeader><CardTitle>Belum ada pengumuman baru</CardTitle></CardHeader>
+                  <CardContent className="text-muted-foreground">Informasi terbaru akan tampil di sini setelah admin menerbitkan pengumuman.</CardContent>
+                </Card>
+              ) : data.announcements.map((item) => (
+                <Card key={item.id} className="rounded-3xl border-[#ded8ca] bg-white/84 shadow-sm">
+                  <CardHeader>
+                    <Badge variant="outline" className="w-fit rounded-full bg-white/70">{new Date(item.createdAt).toLocaleDateString("id-ID")}</Badge>
+                    <CardTitle>{item.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="leading-6 text-muted-foreground">{item.content}</CardContent>
+                </Card>
               ))}
             </div>
           </div>
