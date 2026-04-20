@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Login, HambergerMenu, CloseCircle, Book2, Call, Location, Sms } from "iconsax-react";
+import { LoginCurve, HambergerMenu, CloseCircle, Sms, Call, Location, ArrowRight2 } from "iconsax-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -27,63 +27,109 @@ function PublicNavbar() {
   useEffect(() => setOpen(false), [location]);
 
   return (
-    <header className={`sticky top-0 z-40 border-b transition-all duration-200 ${scrolled ? "border-[#ded8ca] bg-[#f4f1ea]/95 backdrop-blur-xl shadow-sm" : "border-transparent bg-[#f4f1ea]/80 backdrop-blur-md"}`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-        <Link href="/" className="flex items-center gap-3" aria-label="STIBADA MASA Beranda">
+    <header className={`sticky top-0 z-40 border-b transition-all duration-200 ${scrolled ? "border-[#ded8ca] bg-[#f4f1ea]/96 backdrop-blur-xl shadow-sm" : "border-transparent bg-[#f4f1ea]/90 backdrop-blur-md"}`}>
+      {/* TOP BAR */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+        {/* LOGO */}
+        <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="STIBADA MASA Beranda">
           <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-10 w-10 object-contain" />
-          <div className="hidden sm:block">
-            <p className="text-base font-bold leading-tight tracking-tight">STIBADA MASA</p>
-            <p className="text-[11px] text-muted-foreground leading-none">Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah</p>
+          <div>
+            <p className="text-sm font-bold leading-tight tracking-tight">STIBADA MASA</p>
+            <p className="hidden text-[10px] leading-tight text-muted-foreground sm:block">Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah</p>
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi publik">
+        {/* DESKTOP NAV — shown at lg+ */}
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navigasi utama">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`rounded-xl px-3 py-1.5 text-sm font-medium transition-colors ${location === link.href ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-black/5 hover:text-foreground"}`}
+              className={`rounded-xl px-3 py-1.5 text-sm font-medium transition-colors whitespace-nowrap ${
+                location === link.href
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-black/5 hover:text-foreground"
+              }`}
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Link href="/login" className="hidden sm:block">
+        {/* RIGHT ACTIONS */}
+        <div className="flex items-center gap-2 shrink-0">
+          <Link href="/login" className="hidden lg:block">
             <Button size="sm" className="gap-2 rounded-xl">
-              <Login size={16} />
+              <LoginCurve size={16} />
               Masuk Portal
             </Button>
           </Link>
+          {/* HAMBURGER — shown below lg */}
           <button
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground hover:bg-black/5 lg:hidden"
             onClick={() => setOpen(!open)}
-            aria-label={open ? "Tutup menu" : "Buka menu"}
+            aria-label={open ? "Tutup menu" : "Buka menu navigasi"}
+            className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-colors lg:hidden ${
+              open
+                ? "border-primary/40 bg-primary/10 text-primary"
+                : "border-[#ded8ca] bg-white/70 text-muted-foreground hover:bg-white hover:text-foreground"
+            }`}
           >
-            {open ? <CloseCircle size={22} /> : <HambergerMenu size={22} />}
+            {open ? <CloseCircle size={20} variant="Bulk" /> : <HambergerMenu size={20} />}
           </button>
         </div>
       </div>
 
+      {/* MEDIUM NAV BAR — shown at md–lg */}
+      <div className="hidden border-t border-[#ded8ca] bg-[#f4f1ea]/80 md:block lg:hidden">
+        <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-4 py-2 scrollbar-none">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap ${
+                location === link.href
+                  ? "bg-primary text-white"
+                  : "text-muted-foreground hover:bg-black/5 hover:text-foreground"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link href="/login" className="ml-auto shrink-0">
+            <Button size="sm" className="gap-1.5 rounded-lg text-xs h-7 px-3">
+              <LoginCurve size={13} />
+              Masuk
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* MOBILE DROPDOWN — shown below md */}
       {open && (
-        <div className="border-t border-[#ded8ca] bg-[#f4f1ea] px-4 pb-4 lg:hidden">
+        <div className="border-t border-[#ded8ca] bg-[#f4f1ea] px-4 pb-5 md:hidden">
           <nav className="flex flex-col gap-1 pt-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${location === link.href ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-black/5"}`}
+                className={`flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${
+                  location === link.href
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-black/5 hover:text-foreground"
+                }`}
               >
                 {link.label}
+                <ArrowRight2 size={14} className="text-muted-foreground/40" />
               </Link>
             ))}
-            <Link href="/login" className="mt-2">
-              <Button size="sm" className="w-full gap-2 rounded-xl">
-                <Login size={16} />
-                Masuk Portal Akademik
-              </Button>
-            </Link>
+            <div className="pt-2">
+              <Link href="/login">
+                <Button className="w-full gap-2 rounded-xl" size="sm">
+                  <LoginCurve size={16} />
+                  Masuk Portal Akademik
+                </Button>
+              </Link>
+            </div>
           </nav>
         </div>
       )}
@@ -95,7 +141,7 @@ function PublicFooter() {
   return (
     <footer className="border-t border-[#ded8ca] bg-[#2f4f46] px-4 pt-12 pb-6 text-white">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 md:grid-cols-4 pb-10 border-b border-white/15">
+        <div className="grid gap-10 pb-10 border-b border-white/15 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
               <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-12 w-12 object-contain" />
