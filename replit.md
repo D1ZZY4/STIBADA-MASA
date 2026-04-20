@@ -43,6 +43,24 @@ lib/
 | Admin | Email: admin@kampus.ac.id | admin123 |
 | Rektor | Email: rektor@kampus.ac.id | rektor123 |
 
+## Public Pages (8 Routes)
+
+| Route | File | Description |
+|-------|------|-------------|
+| `/` | `pages/public/home.tsx` | Beranda — overview/ringkasan semua halaman |
+| `/pendaftaran` | `pages/public/pendaftaran.tsx` | PMB form, alur 4 langkah, jalur, persyaratan |
+| `/program-studi` | `pages/public/program-studi.tsx` | Daftar prodi, kurikulum, dosen, prospek karir |
+| `/beasiswa` | `pages/public/beasiswa.tsx` | Jenis beasiswa, kriteria, timeline, manfaat |
+| `/galeri` | `pages/public/galeri.tsx` | Grid foto kegiatan kampus + filter kategori |
+| `/pengumuman` | `pages/public/pengumuman.tsx` | Berita & pengumuman umum + pencarian |
+| `/informasi-pmb` | `pages/public/informasi-pmb.tsx` | Biaya, jadwal gelombang, FAQ, kontak PMB |
+| `/login` | `pages/login.tsx` | Form autentikasi semua peran |
+
+## Shared Components
+
+- `components/layout/public-layout.tsx` — Navbar sticky + footer untuk semua halaman publik
+- `components/layout/dashboard-layout.tsx` — Sidebar dashboard untuk peran terautentikasi
+
 ## Features (4 Dashboards)
 
 ### Mahasiswa

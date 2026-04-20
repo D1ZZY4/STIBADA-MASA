@@ -1,0 +1,149 @@
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import { Login, HambergerMenu, CloseCircle, Book2, Call, Location, Sms } from "iconsax-react";
+import { Button } from "@/components/ui/button";
+
+const navLinks = [
+  { href: "/", label: "Beranda" },
+  { href: "/pendaftaran", label: "Pendaftaran" },
+  { href: "/program-studi", label: "Program Studi" },
+  { href: "/beasiswa", label: "Beasiswa" },
+  { href: "/galeri", label: "Galeri" },
+  { href: "/pengumuman", label: "Pengumuman" },
+  { href: "/informasi-pmb", label: "Info PMB" },
+];
+
+function PublicNavbar() {
+  const [location] = useLocation();
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  useEffect(() => setOpen(false), [location]);
+
+  return (
+    <header className={`sticky top-0 z-40 border-b transition-all duration-200 ${scrolled ? "border-[#ded8ca] bg-[#f4f1ea]/95 backdrop-blur-xl shadow-sm" : "border-transparent bg-[#f4f1ea]/80 backdrop-blur-md"}`}>
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+        <Link href="/" className="flex items-center gap-3" aria-label="STIBADA MASA Beranda">
+          <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-10 w-10 object-contain" />
+          <div className="hidden sm:block">
+            <p className="text-base font-bold leading-tight tracking-tight">STIBADA MASA</p>
+            <p className="text-[11px] text-muted-foreground leading-none">Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah</p>
+          </div>
+        </Link>
+
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi publik">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`rounded-xl px-3 py-1.5 text-sm font-medium transition-colors ${location === link.href ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-black/5 hover:text-foreground"}`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <Link href="/login" className="hidden sm:block">
+            <Button size="sm" className="gap-2 rounded-xl">
+              <Login size={16} />
+              Masuk Portal
+            </Button>
+          </Link>
+          <button
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground hover:bg-black/5 lg:hidden"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Tutup menu" : "Buka menu"}
+          >
+            {open ? <CloseCircle size={22} /> : <HambergerMenu size={22} />}
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div className="border-t border-[#ded8ca] bg-[#f4f1ea] px-4 pb-4 lg:hidden">
+          <nav className="flex flex-col gap-1 pt-3">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${location === link.href ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-black/5"}`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link href="/login" className="mt-2">
+              <Button size="sm" className="w-full gap-2 rounded-xl">
+                <Login size={16} />
+                Masuk Portal Akademik
+              </Button>
+            </Link>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}
+
+function PublicFooter() {
+  return (
+    <footer className="border-t border-[#ded8ca] bg-[#2f4f46] px-4 pt-12 pb-6 text-white">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 md:grid-cols-4 pb-10 border-b border-white/15">
+          <div className="md:col-span-2 space-y-4">
+            <div className="flex items-center gap-3">
+              <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-12 w-12 object-contain" />
+              <div>
+                <p className="text-lg font-bold leading-tight">STIBADA MASA</p>
+                <p className="text-xs text-white/60 leading-snug">Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah<br />Masjid Agung Sunan Ampel</p>
+              </div>
+            </div>
+            <p className="text-sm leading-6 text-white/65 max-w-sm">Platform akademik modern untuk layanan belajar-mengajar, administrasi, komunikasi, dan penerimaan mahasiswa baru STIBADA MASA Surabaya.</p>
+          </div>
+
+          <div className="space-y-4">
+            <p className="font-semibold text-white/90">Kontak & Informasi</p>
+            <ul className="space-y-2.5 text-sm">
+              <li className="flex items-start gap-2 text-white/65"><Sms size={15} className="mt-0.5 shrink-0" />pmb@stibadamasa.ac.id</li>
+              <li className="flex items-start gap-2 text-white/65"><Call size={15} className="mt-0.5 shrink-0" />Senin–Jumat, 08.00–16.00 WIB</li>
+              <li className="flex items-start gap-2 text-white/65"><Location size={15} className="mt-0.5 shrink-0" />Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya</li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <p className="font-semibold text-white/90">Tautan Cepat</p>
+            <ul className="space-y-2 text-sm">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/65 hover:text-white transition-colors">{link.label}</Link>
+                </li>
+              ))}
+              <li><Link href="/login" className="text-white/65 hover:text-white transition-colors">Login Portal Akademik</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-white/40">
+          <p>© {new Date().getFullYear()} STIBADA MASA. Hak Cipta Dilindungi.</p>
+          <p>Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah — Masjid Agung Sunan Ampel, Surabaya</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export function PublicLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen bg-[#f4f1ea] text-foreground">
+      <PublicNavbar />
+      <main>{children}</main>
+      <PublicFooter />
+    </div>
+  );
+}

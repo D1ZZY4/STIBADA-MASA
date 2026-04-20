@@ -8,7 +8,13 @@ import NotFound from "@/pages/not-found";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 
 import Login from "@/pages/login";
-import Home from "@/pages/public/home";
+import Beranda from "@/pages/public/home";
+import Pendaftaran from "@/pages/public/pendaftaran";
+import ProgramStudi from "@/pages/public/program-studi";
+import Beasiswa from "@/pages/public/beasiswa";
+import Galeri from "@/pages/public/galeri";
+import Pengumuman from "@/pages/public/pengumuman";
+import InformasiPMB from "@/pages/public/informasi-pmb";
 
 import MahasiswaDashboard from "@/pages/dashboard/mahasiswa/index";
 import MahasiswaJadwal from "@/pages/dashboard/mahasiswa/jadwal";
@@ -40,7 +46,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1,
-      staleTime: 30_000,
+      staleTime: 60_000,
     },
   },
 });
@@ -55,9 +61,17 @@ const InDevelopment = () => (
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      {/* PUBLIC PAGES */}
+      <Route path="/" component={Beranda} />
+      <Route path="/pendaftaran" component={Pendaftaran} />
+      <Route path="/program-studi" component={ProgramStudi} />
+      <Route path="/beasiswa" component={Beasiswa} />
+      <Route path="/galeri" component={Galeri} />
+      <Route path="/pengumuman" component={Pengumuman} />
+      <Route path="/informasi-pmb" component={InformasiPMB} />
       <Route path="/login" component={Login} />
 
+      {/* MAHASISWA */}
       <Route path="/dashboard/mahasiswa*">
         <DashboardLayout>
           <Switch>
@@ -72,6 +86,7 @@ function Router() {
         </DashboardLayout>
       </Route>
 
+      {/* DOSEN */}
       <Route path="/dashboard/dosen*">
         <DashboardLayout>
           <Switch>
@@ -86,6 +101,7 @@ function Router() {
         </DashboardLayout>
       </Route>
 
+      {/* ADMIN */}
       <Route path="/dashboard/admin*">
         <DashboardLayout>
           <Switch>
@@ -102,6 +118,7 @@ function Router() {
         </DashboardLayout>
       </Route>
 
+      {/* REKTOR */}
       <Route path="/dashboard/rektor*">
         <DashboardLayout>
           <Switch>
