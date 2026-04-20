@@ -11,6 +11,8 @@ import absensiRouter from "./absensi";
 import diskusiRouter from "./diskusi";
 import statsRouter from "./stats";
 import publicRouter from "./public";
+import uploadRouter from "./upload";
+import galleryRouter from "./gallery";
 
 const router: IRouter = Router();
 
@@ -25,6 +27,8 @@ router.use(nilaiRouter);
 router.use(absensiRouter);
 router.use(diskusiRouter);
 router.use(statsRouter);
+router.use(uploadRouter);
+router.use(galleryRouter);
 router.use(publicRouter);
 
 export default router;

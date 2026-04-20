@@ -2,12 +2,30 @@ import { getDB, ObjectId } from "./mongodb";
 import { logger } from "./logger";
 import { hashPassword } from "./auth";
 
+const galleryImages: Record<string, string> = {
+  "Wisuda Sarjana": "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=800&q=80",
+  "Seminar Literasi Digital": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
+  "Liga Futsal Mahasiswa": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
+  "Ekstrakurikuler Seni Hadrah": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+};
+
+async function migrateGallery() {
+  const db = getDB();
+  const items = await db.collection("gallery").find({ $or: [{ image: { $exists: false } }, { image: "" }] }).toArray();
+  for (const item of items) {
+    const img = galleryImages[item["title"] as string] || "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=800&q=80";
+    await db.collection("gallery").updateOne({ _id: item._id }, { $set: { image: img, updatedAt: new Date().toISOString() } });
+  }
+  if (items.length > 0) logger.info({ count: items.length }, "Migrated gallery images");
+}
+
 export async function seedIfEmpty(): Promise<void> {
   const db = getDB();
 
   const mahasiswaCount = await db.collection("mahasiswa").countDocuments();
   if (mahasiswaCount > 0) {
     logger.info("Database already seeded, skipping.");
+    await migrateGallery();
     return;
   }
 
@@ -122,10 +140,12 @@ export async function seedIfEmpty(): Promise<void> {
     { nama: "Beasiswa Keluarga Berdaya", kriteria: "Membutuhkan dukungan pembiayaan", panduan: "Lampirkan dokumen ekonomi keluarga dan esai motivasi." },
   ]);
   await db.collection("gallery").insertMany([
-    { title: "Wisuda Sarjana", category: "wisuda", description: "Momen pelepasan lulusan STIBADA MASA.", createdAt: new Date().toISOString() },
-    { title: "Seminar Literasi Digital", category: "seminar", description: "Kuliah umum transformasi pembelajaran digital.", createdAt: new Date().toISOString() },
-    { title: "Liga Futsal Mahasiswa", category: "olahraga", description: "Kegiatan olahraga antar prodi.", createdAt: new Date().toISOString() },
-    { title: "Ekstrakurikuler Seni Hadrah", category: "ekskul", description: "Pembinaan minat bakat mahasiswa.", createdAt: new Date().toISOString() },
+    { title: "Wisuda Sarjana 2025", category: "wisuda", description: "Momen pelepasan lulusan STIBADA MASA angkatan 2025.", image: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=800&q=80", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { title: "Seminar Literasi Digital", category: "seminar", description: "Kuliah umum transformasi pembelajaran digital bersama pakar nasional.", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { title: "Liga Futsal Mahasiswa", category: "olahraga", description: "Turnamen futsal antar prodi STIBADA MASA.", image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { title: "Ekstrakurikuler Seni Hadrah", category: "ekskul", description: "Pembinaan minat bakat seni islami mahasiswa.", image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { title: "Pengabdian Masyarakat", category: "pengmas", description: "Program pengabdian dosen dan mahasiswa di masyarakat.", image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=800&q=80", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { title: "Orientasi Mahasiswa Baru", category: "akademik", description: "Pengenalan kampus dan kegiatan akademik mahasiswa baru.", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
   ]);
   await db.collection("announcements").insertMany([
     { title: "Pendaftaran Mahasiswa Baru Dibuka", content: "PMB STIBADA MASA tahun akademik 2026/2027 telah dibuka.", audience: "publik", createdAt: new Date().toISOString() },

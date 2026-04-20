@@ -58,13 +58,13 @@ export default function ProgramStudi() {
           ) : (
             <div className="grid gap-8">
               {filtered.map((program, index) => (
-                <div key={program.id} className="overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-sm">
+                <div key={program.id} className="overflow-hidden rounded-[2rem] border bg-card shadow-sm">
                   <div className="grid lg:grid-cols-[380px_1fr]">
                     <div className="relative">
                       <img src={(program as Program & { image?: string }).image || contentImage(content, `program-studi.card.${index + 1}`, images[index % images.length] || fallbackImages.programs[index % fallbackImages.programs.length])} alt={program.nama} className="h-56 w-full object-cover lg:h-full" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                       <div className="absolute bottom-4 left-4">
-                        <Badge className="rounded-full bg-white/90 text-foreground font-bold">{program.kode}</Badge>
+                        <Badge className="rounded-full bg-card text-foreground font-bold">{program.kode}</Badge>
                       </div>
                     </div>
                     <div className="p-7 space-y-5">
@@ -115,7 +115,7 @@ export default function ProgramStudi() {
           <h2 className="text-2xl font-bold">Siap Bergabung?</h2>
           <p className="text-white/75 max-w-lg mx-auto">Daftarkan diri sekarang dan mulai perjalanan akademikmu di STIBADA MASA Surabaya.</p>
           <Link href="/pendaftaran">
-            <Button size="lg" className="rounded-2xl bg-white text-[#2f4f46] hover:bg-white/90 mt-2">Mulai Pendaftaran</Button>
+            <Button size="lg" className="rounded-2xl bg-background text-foreground hover:bg-muted mt-2">Mulai Pendaftaran</Button>
           </Link>
         </div>
       </section>

@@ -49,7 +49,7 @@ export default function Beasiswa() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(47,79,70,.12),transparent_40%),radial-gradient(circle_at_90%_80%,rgba(153,125,89,.10),transparent_40%)]" />
         <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
           <div className="space-y-4">
-            <Badge variant="outline" className="rounded-full bg-white/70">Program Beasiswa</Badge>
+            <Badge variant="outline" className="rounded-full bg-card/80">Program Beasiswa</Badge>
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "beasiswa.hero", "Raih Masa Depan dengan Beasiswa STIBADA MASA")}</h1>
             <p className="max-w-xl text-lg leading-7 text-muted-foreground">{contentBody(content, "beasiswa.hero", "Tersedia berbagai jalur beasiswa untuk mendukung mahasiswa berprestasi dan yang membutuhkan bantuan pembiayaan.")}</p>
             <Link href="/pendaftaran">
@@ -58,7 +58,7 @@ export default function Beasiswa() {
           </div>
           <div className="hidden lg:flex flex-col gap-3 min-w-[220px]">
             {benefits.slice(0, 3).map((b) => (
-              <div key={b} className="flex items-center gap-3 rounded-2xl border border-[#ded8ca] bg-white/80 px-4 py-3 shadow-sm">
+              <div key={b} className="flex items-center gap-3 rounded-2xl border bg-card px-4 py-3 shadow-sm">
                 <CheckCircle size={18} weight="duotone" className="text-primary shrink-0" />
                 <p className="text-sm font-medium">{b}</p>
               </div>
@@ -67,12 +67,12 @@ export default function Beasiswa() {
         </div>
       </section>
 
-      <section className="bg-[#e8e2d4] px-4 py-14">
+      <section className="bg-muted/40 px-4 py-14">
         <div className="mx-auto max-w-7xl space-y-8">
-          <div><Badge variant="outline" className="rounded-full bg-white/70">Jenis Beasiswa</Badge><h2 className="mt-3 text-2xl font-bold">Program Beasiswa Tersedia</h2></div>
+          <div><Badge variant="outline" className="rounded-full bg-card/80">Jenis Beasiswa</Badge><h2 className="mt-3 text-2xl font-bold">Program Beasiswa Tersedia</h2></div>
           <div className="grid gap-6 md:grid-cols-3">
             {scholarships.map((item, index) => (
-              <Card key={item.id} className="overflow-hidden rounded-3xl border-[#d8cfbd] bg-white/86 shadow-sm">
+              <Card key={item.id} className="overflow-hidden rounded-3xl border bg-card shadow-sm">
                 <div className="relative">
                   <img src={item.image || images[index % images.length] || fallbackImages.scholarships[index % fallbackImages.scholarships.length]} alt={item.nama} className="h-44 w-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -94,10 +94,10 @@ export default function Beasiswa() {
       <section className="px-4 py-14">
         <div className="mx-auto max-w-7xl grid gap-10 lg:grid-cols-2">
           <div className="space-y-5">
-            <div><Badge variant="outline" className="rounded-full bg-white/70">Timeline</Badge><h2 className="mt-3 text-2xl font-bold">Jadwal Seleksi Beasiswa 2026</h2></div>
+            <div><Badge variant="outline" className="rounded-full bg-card/80">Timeline</Badge><h2 className="mt-3 text-2xl font-bold">Jadwal Seleksi Beasiswa 2026</h2></div>
             <div className="space-y-3">
               {timeline.map((t, i) => (
-                <div key={t.tahap} className="flex items-center gap-4 rounded-2xl border border-[#ded8ca] bg-white/80 p-4 shadow-sm">
+                <div key={t.tahap} className="flex items-center gap-4 rounded-2xl border bg-card p-4 shadow-sm">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-white text-sm font-bold">{i + 1}</div>
                   <div className="flex-1">
                     <p className="font-semibold text-sm">{t.tahap}</p>
@@ -109,16 +109,16 @@ export default function Beasiswa() {
           </div>
 
           <div className="space-y-5">
-            <div><Badge variant="outline" className="rounded-full bg-white/70">Manfaat</Badge><h2 className="mt-3 text-2xl font-bold">Apa yang Kamu Dapatkan?</h2></div>
+            <div><Badge variant="outline" className="rounded-full bg-card/80">Manfaat</Badge><h2 className="mt-3 text-2xl font-bold">Apa yang Kamu Dapatkan?</h2></div>
             <div className="grid gap-3">
               {benefits.map((b) => (
-                <div key={b} className="flex items-center gap-3 rounded-2xl border border-[#ded8ca] bg-white/80 px-4 py-3 shadow-sm">
+                <div key={b} className="flex items-center gap-3 rounded-2xl border bg-card px-4 py-3 shadow-sm">
                   <CheckCircle size={20} weight="duotone" className="text-primary shrink-0" />
                   <p className="text-sm font-medium">{b}</p>
                 </div>
               ))}
             </div>
-            <div className="rounded-2xl bg-primary/8 border border-primary/15 p-5">
+            <div className="rounded-2xl bg-primary/10 border border-primary/15 p-5">
               <div className="flex items-start gap-3">
                 <Info size={20} weight="duotone" className="text-primary shrink-0 mt-0.5" />
                 <p className="text-sm leading-6 text-muted-foreground">Beasiswa dapat dicabut jika IPK turun di bawah syarat minimum atau terbukti melanggar peraturan akademik kampus.</p>

@@ -44,3 +44,8 @@ externalPort = 3001
 [[ports]]
 localPort = 23487
 externalPort = 4200
+
+[userenv]
+
+[userenv.shared]
+MONGODB_URI = "mongodb+srv://gdgaming532_db_user:BnD9jjDEMkjN48x8@clusterweb.fhaygtz.mongodb.net/?appName=ClusterWeb"

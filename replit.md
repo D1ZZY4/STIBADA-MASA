@@ -123,11 +123,44 @@ pnpm --filter @workspace/api-server run dev   # Backend
 pnpm --filter @workspace/api-spec run codegen # Regenerate API client
 ```
 
+## Database (MongoDB Atlas)
+
+- Production: MongoDB Atlas via `MONGODB_URI` env (SRV format, shared environment).
+- Development fallback: mongodb-memory-server jika `MONGODB_URI` tidak diset.
+- Cluster: `clusterweb.fhaygtz.mongodb.net`, dbName: `kampus`.
+- Seeder cek koleksi `mahasiswa`, skip jika sudah ada; jalankan `migrateGallery()` untuk update data lama.
+
+## Image Upload System
+
+- **Endpoint upload:** `POST /api/upload/image` (multipart/form-data, field: `image`).
+- **Serve gambar:** `GET /api/images/:id` (Cache-Control: immutable, 1 tahun).
+- **Daftar gambar:** `GET /api/upload/images` (admin/rektor only).
+- **Hapus gambar:** `DELETE /api/upload/images/:id` (admin only).
+- Gambar disimpan sebagai base64 di koleksi `images` di MongoDB.
+- Batas: maks **5 MB** per file, hanya `image/*`.
+- Frontend: komponen `ImageUploader` di `src/components/ui/image-uploader.tsx` — support URL tab dan Upload tab dengan drag & drop.
+
+### Panduan Ukuran Gambar
+
+| Penggunaan | Ukuran Ideal | Rasio | Format | Maks |
+|---|---|---|---|---|
+| Hero / Banner besar | 1400 × 600 px | 7:3 | JPEG, WebP | 2 MB |
+| Card / Profil | 800 × 500 px | 16:10 | JPEG, PNG, WebP | 1 MB |
+| Galeri kampus | 800 × 600 px | 4:3 | JPEG, PNG, WebP | 2 MB |
+| Upload umum | bebas | bebas | JPEG, PNG, WebP, GIF | 5 MB |
+
+## Gallery Management
+
+- Koleksi `gallery` di MongoDB (CRUD penuh via admin).
+- API: `GET/POST /api/gallery`, `PUT/DELETE /api/gallery/:id`.
+- Frontend: halaman admin content tab "Galeri Kampus" dengan ImageUploader.
+
 ## Runtime Notes
 
 - Development workflow runs the API server on port 8080 and the STIBADA MASA frontend on port 23485 with `BASE_PATH=/`.
 - Vite proxies `/api` requests to the API server during development.
 - Dashboard routes are defined explicitly in `artifacts/kampus/src/App.tsx` to avoid wildcard/nested router 404s.
+- `express.json` limit dinaikkan ke **10 MB** untuk mendukung base64 payload.
 
 ---
 

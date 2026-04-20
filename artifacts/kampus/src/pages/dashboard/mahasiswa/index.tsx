@@ -1,143 +1,165 @@
 import { useAuth } from "@/lib/auth";
-import { useGetStatsMahasiswa, useGetStatsAkademik, useGetStatsAbsensiSummary, useGetStatsJadwalToday } from "@workspace/api-client-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { GraduationCap, BookOpen, Clock, CalendarCheck } from "lucide-react";
+import { useGetStatsAbsensiSummary, useGetStatsJadwalToday, useGetStatsAkademik } from "@workspace/api-client-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  GraduationCap, CalendarBlank, ClipboardText, BookOpen,
+  TrendUp, Clock, CheckCircle, Warning,
+} from "@phosphor-icons/react";
+
+function StatCard({ title, value, sub, icon: Icon, accent = false, loading = false }: {
+  title: string; value: string | number; sub?: string;
+  icon: React.ElementType; accent?: boolean; loading?: boolean;
+}) {
+  return (
+    <Card className={accent ? "bg-primary text-primary-foreground border-transparent" : ""}>
+      <CardHeader className="flex flex-row items-center justify-between pb-2 pt-4 px-5">
+        <CardTitle className={`text-sm font-medium ${accent ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{title}</CardTitle>
+        <div className={`rounded-lg p-1.5 ${accent ? "bg-primary-foreground/15" : "bg-muted"}`}>
+          <Icon size={15} weight="duotone" className={accent ? "text-primary-foreground" : "text-muted-foreground"} />
+        </div>
+      </CardHeader>
+      <CardContent className="px-5 pb-4">
+        {loading ? <Skeleton className={`h-8 w-16 ${accent ? "bg-primary-foreground/20" : ""}`} /> : (
+          <div className={`text-3xl font-bold tracking-tight ${accent ? "text-primary-foreground" : ""}`}>{value}</div>
+        )}
+        {sub && <p className={`mt-1 text-xs ${accent ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{sub}</p>}
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function MahasiswaDashboard() {
   const { user } = useAuth();
-  
-  const { data: absensi, isLoading: isAbsensiLoading } = useGetStatsAbsensiSummary();
-  const { data: jadwalToday, isLoading: isJadwalLoading } = useGetStatsJadwalToday();
-  const { data: akademik, isLoading: isAkademikLoading } = useGetStatsAkademik();
+  const { data: absensi, isLoading: loadAbsensi } = useGetStatsAbsensiSummary();
+  const { data: jadwalToday, isLoading: loadJadwal } = useGetStatsJadwalToday();
+  const { data: akademik, isLoading: loadAkademik } = useGetStatsAkademik();
+
+  const kehadiran = absensi?.persentaseKehadiran ?? 95;
+  const hadirCount = absensi?.totalHadir ?? 0;
+  const totalCount = absensi?.totalPertemuan ?? 0;
+  const today = new Date().toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long" });
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight">Halo, {user?.nama}</h2>
-        <p className="text-muted-foreground">
-          Semester Genap 2024/2025 • {user?.prodi}
-        </p>
+      {/* Header */}
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Halo, {user?.nama?.split(" ")[0]} 👋</h1>
+          <p className="text-sm text-muted-foreground">{today} · {user?.prodi}</p>
+        </div>
+        <Badge variant="outline" className="w-fit rounded-full text-xs gap-1.5 px-3 py-1">
+          <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+          Aktif — Semester Genap 2024/2025
+        </Badge>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="bg-primary text-primary-foreground border-transparent shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">IPK Kumulatif</CardTitle>
-            <GraduationCap className="h-4 w-4 text-primary-foreground/80" />
-          </CardHeader>
-          <CardContent>
-            {isAkademikLoading ? (
-              <Skeleton className="h-8 w-16 bg-primary-foreground/20" />
-            ) : (
-              <div className="text-3xl font-bold">3.84</div>
-            )}
-            <p className="text-xs text-primary-foreground/80 mt-1">
-              +0.12 dari semester lalu
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total SKS</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">112</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Dari 144 SKS wajib
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Kehadiran</CardTitle>
-            <CalendarCheck className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            {isAbsensiLoading ? (
-              <Skeleton className="h-8 w-16" />
-            ) : (
-              <>
-                <div className="text-3xl font-bold">{absensi?.persentaseKehadiran ?? 95}%</div>
-                <Progress value={absensi?.persentaseKehadiran ?? 95} className="h-2 mt-2" />
-              </>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Jadwal Hari Ini</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            {isJadwalLoading ? (
-              <Skeleton className="h-8 w-16" />
-            ) : (
-              <>
-                <div className="text-3xl font-bold">{jadwalToday?.totalJadwal ?? 2}</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Kelas akan berlangsung
-                </p>
-              </>
-            )}
-          </CardContent>
-        </Card>
+      {/* Stat cards */}
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+        <StatCard title="IPK Kumulatif" value={akademik?.ipk ?? "3.84"} sub="+0.12 dari semester lalu" icon={GraduationCap} accent loading={loadAkademik} />
+        <StatCard title="Total SKS" value={akademik?.totalSks ?? 112} sub="Dari 144 SKS wajib" icon={BookOpen} loading={loadAkademik} />
+        <StatCard title="Kehadiran" value={`${kehadiran}%`} sub={`${hadirCount}/${totalCount || "–"} pertemuan`} icon={ClipboardText} loading={loadAbsensi} />
+        <StatCard title="Kelas Hari Ini" value={jadwalToday?.totalJadwal ?? 0} sub="Jadwal aktif hari ini" icon={CalendarBlank} loading={loadJadwal} />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+      {/* Kehadiran progress */}
+      <Card>
+        <CardContent className="pt-4 pb-4 px-5">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <TrendUp size={16} weight="duotone" className="text-primary" />
+              Persentase Kehadiran
+            </div>
+            <span className={`text-sm font-bold ${kehadiran >= 75 ? "text-green-600" : "text-red-500"}`}>{kehadiran}%</span>
+          </div>
+          <Progress value={kehadiran} className="h-2.5 rounded-full" />
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-xs text-muted-foreground">Min. kehadiran: 75%</p>
+            {kehadiran < 75 && (
+              <div className="flex items-center gap-1 text-xs text-red-500">
+                <Warning size={12} weight="duotone" />
+                Kehadiran di bawah batas!
+              </div>
+            )}
+            {kehadiran >= 75 && (
+              <div className="flex items-center gap-1 text-xs text-green-600">
+                <CheckCircle size={12} weight="duotone" />
+                Memenuhi syarat
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        {/* Jadwal hari ini */}
         <Card className="lg:col-span-4">
-          <CardHeader>
-            <CardTitle>Jadwal Kelas Hari Ini</CardTitle>
-            <CardDescription>
-              {jadwalToday?.totalJadwal ? `Anda memiliki ${jadwalToday.totalJadwal} kelas hari ini.` : "Tidak ada jadwal kelas hari ini."}
-            </CardDescription>
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-base">Jadwal Hari Ini</CardTitle>
+              <Badge variant="secondary" className="rounded-full text-xs">{jadwalToday?.totalJadwal ?? 0} kelas</Badge>
+            </div>
           </CardHeader>
-          <CardContent>
-            {isJadwalLoading ? (
-              <div className="space-y-4">
-                <Skeleton className="h-16 w-full" />
-                <Skeleton className="h-16 w-full" />
-              </div>
+          <CardContent className="space-y-2.5">
+            {loadJadwal ? (
+              <div className="space-y-3"><Skeleton className="h-16 w-full rounded-xl" /><Skeleton className="h-16 w-full rounded-xl" /></div>
+            ) : jadwalToday?.jadwal?.length ? (
+              jadwalToday.jadwal.map((j) => (
+                <div key={j.id} className="flex items-center gap-4 rounded-xl border bg-muted/30 px-4 py-3 hover:bg-muted/60 transition-colors">
+                  <div className="text-center shrink-0 w-14">
+                    <div className="text-sm font-bold text-primary">{j.jamMulai}</div>
+                    <div className="text-xs text-muted-foreground">{j.jamSelesai}</div>
+                  </div>
+                  <div className="w-px h-10 bg-border shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold truncate">{j.mataKuliahNama}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Ruang {j.ruangan} · {j.dosenNama}</p>
+                  </div>
+                  <Badge variant="outline" className="hidden sm:flex shrink-0 text-xs rounded-full">{j.mataKuliahKode}</Badge>
+                </div>
+              ))
             ) : (
-              <div className="space-y-4">
-                {jadwalToday?.jadwal?.map((j) => (
-                  <div key={j.id} className="flex items-center gap-4 rounded-xl border p-4 hover:bg-muted/50 transition-colors">
-                    <div className="w-16 text-center">
-                      <div className="text-sm font-bold text-primary">{j.jamMulai}</div>
-                      <div className="text-xs text-muted-foreground">{j.jamSelesai}</div>
-                    </div>
-                    <div className="w-px h-10 bg-border"></div>
-                    <div className="flex-1">
-                      <h4 className="text-sm font-semibold">{j.mataKuliahNama}</h4>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Ruang {j.ruangan} • {j.dosenNama}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-                {!jadwalToday?.jadwal?.length && (
-                  <div className="text-center p-8 text-muted-foreground border rounded-xl border-dashed">
-                    Tidak ada jadwal untuk ditampilkan
-                  </div>
-                )}
+              <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed p-10 text-center">
+                <CalendarBlank size={32} weight="duotone" className="text-muted-foreground/40" />
+                <p className="text-sm text-muted-foreground">Tidak ada jadwal kuliah hari ini</p>
               </div>
             )}
           </CardContent>
         </Card>
-        
+
+        {/* Quick info */}
         <Card className="lg:col-span-3">
-          <CardHeader>
-            <CardTitle>Tugas Mendatang</CardTitle>
-            <CardDescription>Tugas yang harus dikumpulkan minggu ini</CardDescription>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Info Akademik</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-center p-8 text-muted-foreground border rounded-xl border-dashed">
-              Semua tugas telah diselesaikan!
+          <CardContent className="space-y-3">
+            <div className="rounded-xl border bg-muted/30 p-4 space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">NIM</span>
+                <span className="font-mono font-semibold">{user?.nim ?? "–"}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Program Studi</span>
+                <span className="font-semibold text-right max-w-32 truncate">{user?.prodi ?? "–"}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Angkatan</span>
+                <span className="font-semibold">{user?.angkatan ?? "–"}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Semester</span>
+                <span className="font-semibold">{user?.semester ?? "–"}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Status</span>
+                <Badge className="rounded-full text-xs bg-green-500/10 text-green-600 border-0">Aktif</Badge>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl bg-primary/5 p-3 text-sm">
+              <Clock size={14} weight="duotone" className="text-primary shrink-0" />
+              <span className="text-muted-foreground">Batas pengisian KRS: <strong className="text-foreground">Jumat, 23:59 WIB</strong></span>
             </div>
           </CardContent>
         </Card>

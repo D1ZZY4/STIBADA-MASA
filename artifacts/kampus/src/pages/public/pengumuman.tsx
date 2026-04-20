@@ -84,13 +84,13 @@ export default function Pengumuman() {
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_36%),radial-gradient(circle_at_68%_18%,rgba(216,192,138,0.16),transparent_28%)]" />
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_420px] lg:items-end">
           <div className="text-white">
-            <Badge className="mb-4 rounded-full border border-white/15 bg-white/12 px-3 py-1 text-white hover:bg-white/12">
+            <Badge className="mb-4 rounded-full border border-white/20 bg-white/12 px-3 py-1 text-white hover:bg-white/20">
               Informasi Resmi Kampus
             </Badge>
             <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
               {contentTitle(content, "pengumuman.hero", "Pengumuman yang rapi, mudah dicari, dan selalu terbaru.")}
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-white/72 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-white/75 sm:text-lg">
               {contentBody(content, "pengumuman.hero", "Temukan berita akademik, PMB, beasiswa, dan agenda penting STIBADA MASA dalam satu halaman yang terstruktur.")}
             </p>
             <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
@@ -101,35 +101,35 @@ export default function Pengumuman() {
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.label} className="rounded-3xl border border-white/12 bg-white/10 p-4 backdrop-blur-md">
-                    <Icon size={22} weight="duotone" className="mb-3 text-[#d8c08a]" />
+                  <div key={item.label} className="rounded-3xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">
+                    <Icon size={22} weight="duotone" className="mb-3 text-yellow-300/80" />
                     <p className="text-lg font-bold">{item.value}</p>
-                    <p className="text-xs text-white/58">{item.label}</p>
+                    <p className="text-xs text-white/60">{item.label}</p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/14 bg-[#f4f1ea]/96 p-4 shadow-2xl shadow-black/20">
+          <div className="rounded-[2rem] border border-white/15 bg-card/95 backdrop-blur-sm p-4 shadow-2xl shadow-black/20">
             <div className="relative mb-4 overflow-hidden rounded-[1.5rem]">
               <img
                 src={contentImage(content, "pengumuman.hero", announcementImage)}
                 alt="Mahasiswa membaca pengumuman kampus"
                 className="h-44 w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#203d37]/72 via-transparent to-transparent" />
-              <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-white/88 px-3 py-1.5 text-xs font-semibold text-[#203d37] backdrop-blur">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-card/90 backdrop-blur px-3 py-1.5 text-xs font-semibold text-foreground">
                 <ImageSquare size={15} weight="duotone" />
                 Visual pengumuman kampus
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-3xl bg-white p-3 shadow-sm">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#2a6b5a]/10 text-[#2a6b5a]">
+            <div className="flex items-center gap-3 rounded-3xl border bg-card p-3 shadow-sm">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                 <MagnifyingGlass size={20} weight="duotone" />
               </div>
               <div className="min-w-0 flex-1">
-                <label htmlFor="announcement-search" className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a7854]">
+                <label htmlFor="announcement-search" className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                   Cari pengumuman
                 </label>
                 <input
@@ -137,7 +137,7 @@ export default function Pengumuman() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Ketik judul atau isi..."
-                  className="mt-1 w-full bg-transparent text-sm font-medium text-[#243b35] outline-none placeholder:text-[#243b35]/35"
+                  className="mt-1 w-full bg-transparent text-sm font-medium text-foreground outline-none placeholder:text-muted-foreground/50"
                 />
               </div>
             </div>
@@ -148,8 +148,8 @@ export default function Pengumuman() {
                   onClick={() => setActiveCategory(category)}
                   className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
                     activeCategory === category
-                      ? "border-[#2a6b5a] bg-[#2a6b5a] text-white"
-                      : "border-[#ded8ca] bg-white/70 text-[#52645f] hover:border-[#b8a16d] hover:text-[#203d37]"
+                      ? "border-primary bg-primary text-white"
+                      : "border bg-muted/40 text-muted-foreground hover:border-primary/40 hover:text-foreground"
                   }`}
                 >
                   {category}
@@ -163,8 +163,8 @@ export default function Pengumuman() {
       <section className="px-4 py-12 sm:py-16">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_320px]">
           {filtered.length === 0 ? (
-            <div className="rounded-[2rem] border border-[#ded8ca] bg-white/82 px-6 py-20 text-center text-muted-foreground shadow-sm lg:col-span-2">
-              <Newspaper size={44} weight="duotone" className="mx-auto mb-4 text-[#b8a16d]" />
+            <div className="rounded-[2rem] border bg-card px-6 py-20 text-center text-muted-foreground shadow-sm lg:col-span-2">
+              <Newspaper size={44} weight="duotone" className="mx-auto mb-4 text-primary/40" />
               <p className="font-semibold text-foreground">Tidak ada pengumuman yang ditemukan.</p>
               <p className="mt-1 text-sm">Coba gunakan kata kunci lain atau pilih kategori Semua.</p>
             </div>
@@ -172,39 +172,39 @@ export default function Pengumuman() {
             <>
               <div className="space-y-5">
                 {featured && (
-                  <Card className="overflow-hidden rounded-[2rem] border-[#ded8ca] bg-white shadow-sm">
+                  <Card className="overflow-hidden rounded-[2rem] border bg-card shadow-sm">
                     <div className="relative h-56 overflow-hidden">
                       <img
                         src={featured.image || contentImage(content, "pengumuman.hero", fallbackImages.announcement)}
                         alt="Suasana kegiatan dan informasi kampus"
                         className="h-full w-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#203d37]/78 via-[#203d37]/10 to-transparent" />
-                      <div className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-[#203d37] backdrop-blur">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                      <div className="absolute bottom-4 left-4 rounded-full bg-card/90 backdrop-blur px-3 py-1.5 text-xs font-semibold text-foreground">
                         Pengumuman terbaru
                       </div>
                     </div>
-                    <CardHeader className="border-b border-[#eee7d7] bg-[#fbfaf6] p-5 sm:p-6">
+                    <CardHeader className="border-b border p-5 sm:p-6">
                       <div className="flex flex-wrap items-center gap-2">
-                        <Badge className="rounded-full bg-[#8a7854] text-white hover:bg-[#8a7854]">Sorotan</Badge>
-                        <Badge variant="outline" className="rounded-full border-[#ded8ca] bg-white text-xs">
+                        <Badge className="rounded-full bg-primary text-white hover:bg-primary/90">Sorotan</Badge>
+                        <Badge variant="outline" className="rounded-full text-xs">
                           {getCategory(featured)}
                         </Badge>
                       </div>
-                      <CardTitle className="mt-3 text-2xl leading-tight text-[#203d37] sm:text-3xl">{featured.title}</CardTitle>
+                      <CardTitle className="mt-3 text-2xl leading-tight sm:text-3xl">{featured.title}</CardTitle>
                       <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-                        <CalendarBlank size={16} weight="duotone" className="text-[#2a6b5a]" />
+                        <CalendarBlank size={16} weight="duotone" className="text-primary" />
                         {formatDate(featured.createdAt)}
                       </div>
                     </CardHeader>
                     <CardContent className="p-5 sm:p-6">
-                      <p className="text-sm leading-7 text-[#52645f] sm:text-base">{featured.content}</p>
-                      <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold text-[#2a6b5a]">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a6b5a]/8 px-3 py-1.5">
+                      <p className="text-sm leading-7 text-muted-foreground sm:text-base">{featured.content}</p>
+                      <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold text-primary">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5">
                           <CheckCircle size={15} weight="duotone" />
                           Terverifikasi publik
                         </span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#b8a16d]/14 px-3 py-1.5 text-[#8a7854]">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1.5 text-amber-600 dark:text-amber-400">
                           <TrendUp size={15} weight="duotone" />
                           Prioritas informasi
                         </span>
@@ -215,11 +215,11 @@ export default function Pengumuman() {
 
                 <div className="grid gap-4">
                   {rest.map((item) => (
-                    <Card key={item.id} className="group rounded-[1.75rem] border-[#ded8ca] bg-white/86 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                    <Card key={item.id} className="group rounded-[1.75rem] border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                       <CardContent className="grid gap-4 p-5 sm:grid-cols-[1fr_auto] sm:items-start">
                         <div>
                           <div className="mb-3 flex flex-wrap items-center gap-2">
-                            <Badge variant="outline" className="rounded-full border-[#ded8ca] bg-[#f8f5ec] text-xs text-[#8a7854]">
+                            <Badge variant="outline" className="rounded-full text-xs text-muted-foreground">
                               {getCategory(item)}
                             </Badge>
                             <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -227,10 +227,10 @@ export default function Pengumuman() {
                               {formatDate(item.createdAt)}
                             </span>
                           </div>
-                          <h2 className="text-lg font-bold leading-snug text-[#203d37]">{item.title}</h2>
-                          <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#52645f]">{item.content}</p>
+                          <h2 className="text-lg font-bold leading-snug text-foreground">{item.title}</h2>
+                          <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">{item.content}</p>
                         </div>
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#2a6b5a]/8 text-[#2a6b5a] transition-colors group-hover:bg-[#2a6b5a] group-hover:text-white">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                           <ArrowRight size={18} weight="bold" />
                         </div>
                       </CardContent>
@@ -240,32 +240,32 @@ export default function Pengumuman() {
               </div>
 
               <aside className="space-y-4">
-                <Card className="rounded-[2rem] border-[#ded8ca] bg-[#203d37] text-white shadow-sm">
+                <Card className="rounded-[2rem] border bg-[#203d37] text-white shadow-sm">
                   <CardHeader>
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
-                      <BellRinging size={24} weight="duotone" className="text-[#d8c08a]" />
+                      <BellRinging size={24} weight="duotone" className="text-yellow-300/80" />
                     </div>
                     <CardTitle className="text-xl">Pusat Informasi</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4 text-sm text-white/68">
+                  <CardContent className="space-y-4 text-sm text-white/70">
                     <p>Pengumuman dipublikasikan untuk calon mahasiswa, mahasiswa aktif, dosen, dan masyarakat umum.</p>
-                    <div className="rounded-2xl bg-white/8 p-4">
+                    <div className="rounded-2xl bg-white/10 p-4">
                       <p className="text-2xl font-extrabold text-white">{filtered.length}</p>
-                      <p className="text-xs uppercase tracking-[0.18em] text-white/42">hasil aktif</p>
+                      <p className="text-xs uppercase tracking-widest text-white/50">hasil aktif</p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="rounded-[2rem] border-[#ded8ca] bg-white/82 shadow-sm">
+                <Card className="rounded-[2rem] border bg-card shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-base text-[#203d37]">Kategori tersedia</CardTitle>
+                    <CardTitle className="text-base text-foreground">Kategori tersedia</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     {categories.slice(1).map((category) => (
                       <button
                         key={category}
                         onClick={() => setActiveCategory(category)}
-                        className="flex w-full items-center justify-between rounded-2xl border border-[#eee7d7] bg-white px-4 py-3 text-left text-sm font-semibold text-[#52645f] transition-colors hover:border-[#b8a16d] hover:text-[#203d37]"
+                        className="flex w-full items-center justify-between rounded-2xl border bg-muted/30 px-4 py-3 text-left text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
                       >
                         {category}
                         <ArrowRight size={15} weight="bold" />

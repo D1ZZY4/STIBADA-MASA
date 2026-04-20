@@ -12,9 +12,9 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
 const jadwal = [
-  { gelombang: "Gelombang 1", buka: "1 Jan 2026", tutup: "31 Mar 2026", pengumuman: "10 Apr 2026", warna: "bg-emerald-50 border-emerald-200" },
-  { gelombang: "Gelombang 2", buka: "1 Apr 2026", tutup: "30 Jun 2026", pengumuman: "10 Jul 2026", warna: "bg-sky-50 border-sky-200" },
-  { gelombang: "Gelombang 3", buka: "1 Jul 2026", tutup: "31 Ags 2026", pengumuman: "5 Sep 2026", warna: "bg-amber-50 border-amber-200" },
+  { gelombang: "Gelombang 1", buka: "1 Jan 2026", tutup: "31 Mar 2026", pengumuman: "10 Apr 2026", warna: "bg-emerald-500/10 border-emerald-500/25" },
+  { gelombang: "Gelombang 2", buka: "1 Apr 2026", tutup: "30 Jun 2026", pengumuman: "10 Jul 2026", warna: "bg-sky-500/10 border-sky-500/25" },
+  { gelombang: "Gelombang 3", buka: "1 Jul 2026", tutup: "31 Ags 2026", pengumuman: "5 Sep 2026", warna: "bg-amber-500/10 border-amber-500/25" },
 ];
 
 const biaya = [
@@ -44,14 +44,14 @@ const kontak = [
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`overflow-hidden rounded-2xl border transition-colors ${open ? "border-primary/30 bg-primary/5" : "border-[#ded8ca] bg-white/80"}`}>
+    <div className={`overflow-hidden rounded-2xl border transition-colors ${open ? "border-primary/30 bg-primary/5" : "border bg-card"}`}>
       <button onClick={() => setOpen(!open)} className="flex w-full items-start justify-between gap-4 px-5 py-4 text-left" aria-expanded={open}>
         <span className="font-medium text-sm leading-snug">{q}</span>
         <span className={`mt-0.5 shrink-0 transition-transform ${open ? "text-primary" : "text-muted-foreground"}`}>
           {open ? <XCircle size={18} weight="duotone" /> : <ArrowRight size={18} weight="bold" />}
         </span>
       </button>
-      {open && <div className="border-t border-[#ded8ca] px-5 py-4 text-sm leading-6 text-muted-foreground">{a}</div>}
+      {open && <div className="border-t border px-5 py-4 text-sm leading-6 text-muted-foreground">{a}</div>}
     </div>
   );
 }
@@ -100,7 +100,7 @@ export default function InformasiPMB() {
       <section className="px-4 py-14">
         <div className="mx-auto max-w-7xl space-y-6">
           <div>
-            <Badge variant="outline" className="rounded-full bg-white/70">Jadwal Penerimaan</Badge>
+            <Badge variant="outline" className="rounded-full bg-card/80">Jadwal Penerimaan</Badge>
             <h2 className="mt-3 text-2xl font-bold">Gelombang Pendaftaran 2026</h2>
             <p className="mt-1 text-sm text-muted-foreground">Pilih gelombang yang sesuai rencana studi Anda. Semua gelombang berakhir di tahun akademik yang sama.</p>
           </div>
@@ -108,7 +108,7 @@ export default function InformasiPMB() {
             {jadwal.map((j, i) => (
               <div key={j.gelombang} className={`rounded-3xl border-2 p-6 space-y-4 ${j.warna}`}>
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-wide">{j.gelombang}</span>
+                  <span className="rounded-full bg-card/80 px-3 py-1 text-xs font-bold uppercase tracking-wide">{j.gelombang}</span>
                   <span className="text-2xl font-extrabold text-foreground/20">{String(i + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="space-y-2">
@@ -117,7 +117,7 @@ export default function InformasiPMB() {
                   <div><p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Mulai Kuliah</p><p className="text-sm font-semibold mt-0.5">Agustus/September 2026</p></div>
                 </div>
                 <Link href="/pendaftaran">
-                  <Button size="sm" variant="outline" className="w-full rounded-xl bg-white/60 text-xs mt-1">Daftar {j.gelombang}</Button>
+                  <Button size="sm" variant="outline" className="w-full rounded-xl bg-background/60 text-xs mt-1">Daftar {j.gelombang}</Button>
                 </Link>
               </div>
             ))}
@@ -126,17 +126,17 @@ export default function InformasiPMB() {
       </section>
 
       {/* BIAYA */}
-      <section className="bg-[#e8e2d4] px-4 py-14">
+      <section className="bg-muted/40 px-4 py-14">
         <div className="mx-auto max-w-7xl space-y-6">
           <div>
-            <Badge variant="outline" className="rounded-full bg-white/70">Biaya Pendidikan</Badge>
+            <Badge variant="outline" className="rounded-full bg-card/80">Biaya Pendidikan</Badge>
             <h2 className="mt-3 text-2xl font-bold">Rincian Biaya Kuliah</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {biaya.map((b) => {
               const Icon = b.icon;
               return (
-                <div key={b.label} className="flex gap-4 rounded-2xl border border-[#d8cfbd] bg-white p-5 shadow-sm">
+                <div key={b.label} className="flex gap-4 rounded-2xl border bg-card p-5 shadow-sm">
                   <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                     <Icon size={18} weight="duotone" className="text-primary" />
                   </div>
@@ -149,7 +149,7 @@ export default function InformasiPMB() {
               );
             })}
           </div>
-          <div className="flex items-start gap-3 rounded-2xl bg-white/60 border border-[#d8cfbd] p-4">
+          <div className="flex items-start gap-3 rounded-2xl bg-card/60 border p-4">
             <Info size={18} weight="duotone" className="text-primary shrink-0 mt-0.5" />
             <p className="text-sm leading-6 text-muted-foreground">Pembayaran via transfer bank atau tunai di loket keuangan kampus. SPP dapat dicicil maks. 3× per semester dengan persetujuan BAK.</p>
           </div>
@@ -161,7 +161,7 @@ export default function InformasiPMB() {
         <div className="mx-auto max-w-7xl grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="space-y-5">
             <div>
-              <Badge variant="outline" className="rounded-full bg-white/70">FAQ</Badge>
+              <Badge variant="outline" className="rounded-full bg-card/80">FAQ</Badge>
               <h2 className="mt-3 text-2xl font-bold">Pertanyaan yang Sering Diajukan</h2>
             </div>
             <div className="space-y-2">{faqs.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}</div>
@@ -169,12 +169,12 @@ export default function InformasiPMB() {
 
           <div className="space-y-5 lg:sticky lg:top-24">
             <div>
-              <Badge variant="outline" className="rounded-full bg-white/70">Kontak PMB</Badge>
+              <Badge variant="outline" className="rounded-full bg-card/80">Kontak PMB</Badge>
               <h2 className="mt-3 text-2xl font-bold">Hubungi Tim PMB</h2>
             </div>
             <div className="space-y-3">
               {kontakData.map(({ icon: Icon, label, nilai }) => (
-                <div key={label} className="flex items-start gap-4 rounded-2xl border border-[#ded8ca] bg-white/80 p-4 shadow-sm">
+                <div key={label} className="flex items-start gap-4 rounded-2xl border bg-card p-4 shadow-sm">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                     <Icon size={18} weight="duotone" className="text-primary" />
                   </div>
@@ -189,10 +189,10 @@ export default function InformasiPMB() {
               </div>
               <p className="text-sm text-white/75 leading-5">Tim PMB siap membantu Anda setiap hari kerja.</p>
               <Link href="/pendaftaran">
-                <Button className="w-full rounded-xl bg-white text-[#2f4f46] hover:bg-white/90 mt-1">Daftar Sekarang</Button>
+                <Button className="w-full rounded-xl bg-background text-foreground hover:bg-muted mt-1">Daftar Sekarang</Button>
               </Link>
             </div>
-            <div className="rounded-2xl border border-[#ded8ca] bg-white/80 p-4">
+            <div className="rounded-2xl border bg-card p-4">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle size={16} weight="duotone" className="text-primary" />
                 <p className="text-sm font-semibold">Persyaratan Dokumen</p>

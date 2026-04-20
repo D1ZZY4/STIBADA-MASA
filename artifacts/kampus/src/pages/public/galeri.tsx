@@ -64,13 +64,13 @@ export default function Galeri() {
       <section className="px-4 py-10">
         <div className="mx-auto max-w-7xl space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2 rounded-2xl border border-[#ded8ca] bg-white/80 px-4 py-2 w-full sm:max-w-xs">
+            <div className="flex items-center gap-2 rounded-2xl border bg-card px-4 py-2 w-full sm:max-w-xs">
               <MagnifyingGlass size={16} className="text-muted-foreground shrink-0" />
               <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari kegiatan..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
             </div>
             <div className="flex flex-wrap gap-2">
               {allCategories.map((c) => (
-                <button key={c} onClick={() => setCategory(c)} className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${category === c ? "bg-primary text-white" : "bg-white/80 border border-[#ded8ca] text-muted-foreground hover:bg-white"}`}>{c}</button>
+                <button key={c} onClick={() => setCategory(c)} className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${category === c ? "bg-primary text-white" : "bg-card border text-muted-foreground hover:bg-muted"}`}>{c}</button>
               ))}
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function Galeri() {
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {filtered.map((item, index) => (
-                <div key={item.id} className="group overflow-hidden rounded-3xl border border-[#ded8ca] bg-white shadow-sm">
+                <div key={item.id} className="group overflow-hidden rounded-3xl border bg-card shadow-sm">
                   <div className="overflow-hidden">
                     <img src={item.image || photos[index % photos.length] || fallbackImages.gallery[index % fallbackImages.gallery.length]} alt={item.title} className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                   </div>

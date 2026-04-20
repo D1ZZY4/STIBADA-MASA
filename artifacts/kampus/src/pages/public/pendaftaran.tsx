@@ -89,11 +89,11 @@ export default function Pendaftaran() {
       {/* 4 LANGKAH */}
       <section className="px-4 py-14">
         <div className="mx-auto max-w-7xl space-y-3">
-          <Badge variant="outline" className="rounded-full bg-white/70">Alur Pendaftaran</Badge>
+          <Badge variant="outline" className="rounded-full bg-card/80">Alur Pendaftaran</Badge>
           <h2 className="text-2xl font-bold">4 Langkah Mudah Mendaftar</h2>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s) => (
-              <div key={s.no} className="rounded-3xl border border-[#ded8ca] bg-white/80 p-6 shadow-sm">
+              <div key={s.no} className="rounded-3xl border bg-card p-6 shadow-sm">
                 <span className="text-3xl font-extrabold text-primary/25">{s.no}</span>
                 <p className="mt-3 font-semibold">{s.title}</p>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{s.desc}</p>
@@ -104,24 +104,24 @@ export default function Pendaftaran() {
       </section>
 
       {/* JALUR + FORM */}
-      <section className="bg-[#e8e2d4] px-4 py-14">
+      <section className="bg-muted/40 px-4 py-14">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
             <div className="space-y-6">
               <div>
-                <Badge variant="outline" className="rounded-full bg-white/70">Jalur Penerimaan</Badge>
+                <Badge variant="outline" className="rounded-full bg-card/80">Jalur Penerimaan</Badge>
                 <h2 className="mt-3 text-2xl font-bold">Pilih Jalur yang Sesuai</h2>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 {jalurOptions.map((j) => (
-                  <div key={j.label} className="rounded-2xl border border-[#d8cfbd] bg-white/80 p-5 shadow-sm">
+                  <div key={j.label} className="rounded-2xl border bg-card p-5 shadow-sm">
                     <div className="flex items-center gap-2"><CheckCircle size={18} weight="duotone" className="text-primary" /><p className="font-semibold">{j.label}</p></div>
                     <p className="mt-2 text-sm leading-5 text-muted-foreground">{j.desc}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="rounded-3xl border border-[#d8cfbd] bg-white/80 p-6 shadow-sm">
+              <div className="rounded-3xl border bg-card p-6 shadow-sm">
                 <div className="flex items-center gap-2 mb-4"><FileText size={20} weight="duotone" className="text-primary" /><p className="font-semibold">Persyaratan Dokumen</p></div>
                 <ul className="space-y-2">
                   {requirements.map((r) => (
@@ -132,13 +132,13 @@ export default function Pendaftaran() {
                 </ul>
               </div>
 
-              <div className="rounded-2xl bg-primary/8 border border-primary/15 p-5">
+              <div className="rounded-2xl bg-primary/10 border border-primary/15 p-5">
                 <div className="flex items-center gap-2 mb-2"><Phone size={18} weight="duotone" className="text-primary" /><p className="font-semibold text-sm">Butuh Bantuan?</p></div>
                 <p className="text-sm text-muted-foreground">{contentBody(content, "pendaftaran.help", `Hubungi tim PMB melalui ${settings.contactEmail || "pmb@stibadamasa.ac.id"} atau datang ke kantor PMB Senin–Jumat 08.00–16.00 WIB.`)}</p>
               </div>
             </div>
 
-            <Card id="formulir" className="rounded-[2rem] border-[#d8cfbd] bg-white/90 shadow-xl overflow-hidden">
+            <Card id="formulir" className="rounded-[2rem] border bg-card shadow-xl overflow-hidden">
               <div className="relative">
                 <img src={contentImage(content, "pendaftaran.form", fallbackImages.registrationForm)} alt="Formulir" className="h-40 w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
