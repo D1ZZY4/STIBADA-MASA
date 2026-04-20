@@ -58,6 +58,8 @@ lib/
 - Jadwal mengajar
 - Input & kelola nilai mahasiswa
 - Kelola absensi mahasiswa
+- Absensi dosen
+- Forum diskusi dosen
 
 ### Admin
 - Overview dashboard
@@ -66,6 +68,8 @@ lib/
 - Manajemen mata kuliah (CRUD)
 - Manajemen jadwal (CRUD)
 - Persetujuan KRS
+- Kelola konten publik
+- Pengaturan sistem dan kesiapan integrasi
 
 ### Rektor
 - Executive dashboard (stats overview)
@@ -79,8 +83,9 @@ Set `MONGODB_URI` env var to use a real MongoDB instance.
 ## Public Website & Security
 
 - `/` is the public STIBADA MASA landing page with admissions, programs, scholarships, gallery, announcements, and online PMB form.
-- `/login` is the protected role-based portal login.
-- Admin can manage public content at `/dashboard/admin/content` and system/integration readiness at `/dashboard/admin/sistem`.
+- Landing page uses campus/activity imagery throughout public sections and avoids exposing technical API/WebSocket copy to public users.
+- `/login` is the role-based portal login with a dedicated visual panel and role selector.
+- Admin can manage public content at `/dashboard/admin/content`, KRS at `/dashboard/admin/krs`, and system/integration readiness at `/dashboard/admin/sistem`.
 - API adds CSP/security headers, rate limiting, password hashing via Node crypto scrypt, signed auth tokens, audit trail entries, analytics events, OpenAPI exposure at `/api/docs`, and WebSocket notifications at `/api/ws`.
 
 ## Key Commands

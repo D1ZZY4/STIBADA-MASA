@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useAuth } from "@/lib/auth";
 import { useLogin } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { School, GraduationCap, Users, BookOpen, User } from "lucide-react";
+import { Book, Buildings2, Profile2User, Teacher, UserOctagon } from "iconsax-react";
 import { toast } from "sonner";
 import { LoginBodyRole } from "@workspace/api-client-react";
 
@@ -20,10 +20,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const roles = [
-    { id: "mahasiswa", label: "Mahasiswa", icon: GraduationCap },
-    { id: "dosen", label: "Dosen", icon: BookOpen },
-    { id: "admin", label: "Admin", icon: Users },
-    { id: "rektor", label: "Rektor", icon: User },
+    { id: "mahasiswa", label: "Mahasiswa", icon: Teacher },
+    { id: "dosen", label: "Dosen", icon: Book },
+    { id: "admin", label: "Admin", icon: Profile2User },
+    { id: "rektor", label: "Rektor", icon: UserOctagon },
   ] as const;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,29 +47,40 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4 relative overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f4f1ea] p-4">
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_20%_15%,rgba(42,107,90,.16),transparent_30%),radial-gradient(circle_at_90%_10%,rgba(151,124,87,.20),transparent_28%)]" />
       
-      <div className="w-full max-w-5xl grid lg:grid-cols-2 gap-8 lg:gap-16 relative z-10">
-        <div className="flex flex-col justify-center space-y-6 max-w-md mx-auto lg:max-w-none text-center lg:text-left">
-          <div className="inline-flex items-center justify-center lg:justify-start gap-3">
-            <div className="p-3 bg-primary rounded-xl text-primary-foreground shadow-lg">
-              <School className="w-8 h-8" />
+      <div className="relative z-10 grid w-full max-w-6xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        <div className="overflow-hidden rounded-[2.2rem] border border-[#ded8ca] bg-white/74 shadow-xl">
+          <div className="relative h-[520px]">
+            <img
+              src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1100&q=85"
+              alt="Mahasiswa STIBADA MASA di lingkungan kampus"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1e3933]/88 via-[#1e3933]/18 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 space-y-5 p-8 text-white">
+              <div className="inline-flex items-center gap-3">
+                <div className="rounded-2xl bg-white/16 p-3 backdrop-blur">
+                  <Buildings2 variant="Bulk" className="h-8 w-8" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold tracking-tight">STIBADA MASA</p>
+                  <p className="text-sm text-white/74">Sistem Informasi Akademik Terpadu</p>
+                </div>
+              </div>
+              <div>
+                <h1 className="max-w-lg text-4xl font-bold leading-tight tracking-tight">Portal aman untuk civitas akademika.</h1>
+                <p className="mt-3 max-w-xl text-white/76">Masuk sebagai mahasiswa, dosen, admin, atau rektor untuk mengakses dashboard sesuai hak akses.</p>
+              </div>
+              <Link href="/">
+                <Button variant="secondary" className="rounded-2xl bg-white text-[#1f3f37] hover:bg-white/90">Kembali ke Beranda</Button>
+              </Link>
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">STIBADA MASA</h1>
-          </div>
-          <div className="space-y-4">
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-              Sistem Informasi <br/>
-              <span className="text-primary">Akademik Terpadu</span>
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Portal akademik terpadu untuk mahasiswa, dosen, rektor, dan admin STIBADA MASA.
-            </p>
           </div>
         </div>
 
-        <Card className="w-full max-w-md mx-auto shadow-xl border-0 bg-background/80 backdrop-blur-xl">
+        <Card className="mx-auto w-full max-w-md self-center rounded-[2rem] border-[#ded8ca] bg-white/86 shadow-xl backdrop-blur-xl">
           <CardHeader className="space-y-1 pb-6">
             <CardTitle className="text-2xl font-bold">Masuk ke Portal</CardTitle>
             <CardDescription>
@@ -94,7 +105,7 @@ export default function Login() {
                             : "bg-card hover:bg-muted text-muted-foreground hover:text-foreground"
                         }`}
                       >
-                        <Icon className="w-5 h-5" />
+                        <Icon variant={role === r.id ? "Bold" : "Linear"} className="h-5 w-5" />
                         {r.label}
                       </button>
                     );
@@ -134,7 +145,7 @@ export default function Login() {
 
               <Button 
                 type="submit" 
-                className="w-full h-12 text-base font-semibold"
+                className="h-12 w-full rounded-2xl text-base font-semibold"
                 disabled={loginMutation.isPending}
               >
                 {loginMutation.isPending ? "Memproses..." : "Masuk"}

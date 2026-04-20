@@ -21,6 +21,8 @@ import DosenDashboard from "@/pages/dashboard/dosen/index";
 import DosenJadwal from "@/pages/dashboard/dosen/jadwal";
 import DosenNilai from "@/pages/dashboard/dosen/nilai";
 import DosenAbsensi from "@/pages/dashboard/dosen/absensi";
+import DosenDiskusi from "@/pages/dashboard/dosen/diskusi";
+import DosenAbsensiDosen from "@/pages/dashboard/dosen/absensi-dosen";
 
 import AdminDashboard from "@/pages/dashboard/admin/index";
 import AdminMahasiswa from "@/pages/dashboard/admin/mahasiswa";
@@ -29,6 +31,7 @@ import AdminMataKuliah from "@/pages/dashboard/admin/mata-kuliah";
 import AdminJadwal from "@/pages/dashboard/admin/jadwal";
 import AdminContent from "@/pages/dashboard/admin/content";
 import AdminSystem from "@/pages/dashboard/admin/system";
+import AdminKrs from "@/pages/dashboard/admin/krs";
 
 import RektorDashboard from "@/pages/dashboard/rektor/index";
 import RektorAkademik from "@/pages/dashboard/rektor/akademik";
@@ -76,6 +79,8 @@ function Router() {
             <Route path="/dashboard/dosen/jadwal" component={DosenJadwal} />
             <Route path="/dashboard/dosen/nilai" component={DosenNilai} />
             <Route path="/dashboard/dosen/absensi" component={DosenAbsensi} />
+            <Route path="/dashboard/dosen/absensi-dosen" component={DosenAbsensiDosen} />
+            <Route path="/dashboard/dosen/diskusi" component={DosenDiskusi} />
             <Route component={InDevelopment} />
           </Switch>
         </DashboardLayout>
@@ -89,6 +94,7 @@ function Router() {
             <Route path="/dashboard/admin/dosen" component={AdminDosen} />
             <Route path="/dashboard/admin/mata-kuliah" component={AdminMataKuliah} />
             <Route path="/dashboard/admin/jadwal" component={AdminJadwal} />
+            <Route path="/dashboard/admin/krs" component={AdminKrs} />
             <Route path="/dashboard/admin/content" component={AdminContent} />
             <Route path="/dashboard/admin/sistem" component={AdminSystem} />
             <Route component={InDevelopment} />
