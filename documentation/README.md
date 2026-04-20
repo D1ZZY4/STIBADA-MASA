@@ -1,6 +1,6 @@
-# Dokumentasi Kampus Modern
+# Dokumentasi STIBADA MASA
 
-Folder ini menjadi pusat dokumentasi proyek STIBADA MASA / Kampus Modern. Semua catatan teknis, panduan pengembangan, dan contoh implementasi ditempatkan di sini agar mudah ditemukan dan dipelihara.
+Folder ini menjadi pusat dokumentasi proyek STIBADA MASA. Semua catatan teknis, panduan pengembangan, dan contoh implementasi ditempatkan di sini agar mudah ditemukan dan dipelihara.
 
 ## Isi dokumentasi
 
@@ -11,7 +11,7 @@ Folder ini menjadi pusat dokumentasi proyek STIBADA MASA / Kampus Modern. Semua 
 
 ## Ringkasan produk
 
-Kampus Modern adalah sistem informasi kampus untuk STIBADA MASA yang mencakup:
+STIBADA MASA adalah sistem informasi kampus yang mencakup:
 
 - Website publik: beranda, pendaftaran, program studi, beasiswa, galeri, pengumuman, dan informasi PMB.
 - Portal role-based: mahasiswa, dosen, admin, dan rektor.

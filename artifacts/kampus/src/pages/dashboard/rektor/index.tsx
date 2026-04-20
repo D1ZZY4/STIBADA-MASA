@@ -15,7 +15,7 @@ export default function RektorDashboard() {
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Executive Dashboard</h2>
         <p className="text-muted-foreground">
-          Ringkasan eksekutif KAMPUS MODERN.
+          Ringkasan eksekutif STIBADA MASA.
         </p>
       </div>
 

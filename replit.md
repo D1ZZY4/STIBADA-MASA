@@ -1,8 +1,9 @@
-# Kampus Modern - Workspace
+# STIBADA MASA - Workspace
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Full-stack Indonesian university (kampus) information system.
+pnpm workspace monorepo menggunakan TypeScript. Sistem informasi kampus full-stack untuk STIBADA MASA.
+Domain produksi target: **stibada-masa.id**
 
 ## Stack
 
@@ -19,7 +20,7 @@ pnpm workspace monorepo using TypeScript. Full-stack Indonesian university (kamp
 
 ## Artifacts
 
-- **Kampus Modern** (web): React frontend at port 23485, path `/`
+- **STIBADA MASA** (web): React frontend at port 23485, path `/`
 - **API Server** (api): Express backend at port 8080
 
 ## Architecture
@@ -124,6 +125,56 @@ pnpm --filter @workspace/api-spec run codegen # Regenerate API client
 
 ## Runtime Notes
 
-- Development workflow runs the API server on port 8080 and the Kampus frontend on port 23485 with `BASE_PATH=/`.
+- Development workflow runs the API server on port 8080 and the STIBADA MASA frontend on port 23485 with `BASE_PATH=/`.
 - Vite proxies `/api` requests to the API server during development.
 - Dashboard routes are defined explicitly in `artifacts/kampus/src/App.tsx` to avoid wildcard/nested router 404s.
+
+---
+
+## Konvensi Batas Baris Kode per Kategori File
+
+### 1. Frontend (UI & UX)
+
+| Kategori File | Fungsi | Maksimal (Baris) |
+|---|---|---|
+| **Atomic/Base UI** | Komponen terkecil (Button, Input, Badge). | 40 |
+| **Complex Components** | Komponen gabungan (Navbar, Sidebar, Card). | 120 |
+| **Layouts** | Struktur dasar halaman (AdminLayout, AuthLayout). | 100 |
+| **Pages/Views** | File utama per halaman (Dashboard.tsx, Login.tsx). | 250 |
+| **Forms/Validation** | Khusus logika validasi form (Zod/Yup schemas). | 150 |
+| **Custom Hooks** | Logika state yang dipisah dari UI. | 150 |
+| **State Store** | Manajemen state global (Zustand, Redux). | 200 |
+| **Services/API Calls** | Integrasi Axios/Fetch untuk satu modul. | 150 |
+| **Assets/Styles** | File CSS, SCSS, atau Tailwind Config. | 300 |
+
+### 2. Backend (Server-Side)
+
+| Kategori File | Fungsi | Maksimal (Baris) |
+|---|---|---|
+| **Routes/Router** | Definisi jalur URL dan mapping ke Controller. | 100 |
+| **Controllers** | Mengatur request masuk dan response keluar. | 150 |
+| **Services** | Inti logika bisnis (perhitungan, aturan sistem). | 350 |
+| **Repositories** | Khusus untuk query database (SQL/NoSQL). | 250 |
+| **Models/Entities** | Definisi struktur tabel dan relasi. | 150 |
+| **Middlewares** | Filter keamanan, auth, dan logging. | 80 |
+| **DTO (Data Transfer Object)** | Definisi tipe data yang dikirim antar layer. | 100 |
+| **Seeders/Migrations** | Setup data awal dan struktur DB. | 300 |
+| **Mailers/Templates** | Logika pengiriman email atau notifikasi. | 150 |
+
+### 3. Infrastructure & DevOps
+
+| Kategori File | Fungsi | Maksimal (Baris) |
+|---|---|---|
+| **Config/Init** | Inisialisasi database, Redis, atau Cloud storage. | 100 |
+| **Dockerfiles/YAML** | Konfigurasi kontainer dan CI/CD. | 150 |
+| **Environment** | File .env.example atau setup env loader. | 100 |
+| **Scripts** | Script otomasi (Bash, Python, atau JS script). | 200 |
+
+### 4. Global & Utilities
+
+| Kategori File | Fungsi | Maksimal (Baris) |
+|---|---|---|
+| **Constants/Enums** | List kode error, status, atau role user. | 200 |
+| **Helpers/Utils** | Fungsi umum (format mata uang, manipulasi string). | 150 |
+| **Types/Interfaces** | Definisi tipe data global (untuk TypeScript). | 250 |
+| **Internationalization** | File JSON/JS untuk multi-bahasa (i18n). | 500+ |
