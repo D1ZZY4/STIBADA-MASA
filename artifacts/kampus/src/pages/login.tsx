@@ -38,7 +38,7 @@ export default function Login() {
         data: { nim, password, role }
       });
       
-      setAuthUser(response.user);
+      setAuthUser(response.user, response.token);
       toast.success("Login berhasil");
       setLocation(`/dashboard/${role}`);
     } catch (error) {
@@ -56,7 +56,7 @@ export default function Login() {
             <div className="p-3 bg-primary rounded-xl text-primary-foreground shadow-lg">
               <School className="w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">KAMPUS MODERN</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">STIBADA MASA</h1>
           </div>
           <div className="space-y-4">
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
@@ -64,7 +64,7 @@ export default function Login() {
               <span className="text-primary">Akademik Terpadu</span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              A modern Indonesian campus information system — where academic life becomes clear, organized, and elevated.
+              Portal akademik terpadu untuk mahasiswa, dosen, rektor, dan admin STIBADA MASA.
             </p>
           </div>
         </div>
@@ -109,6 +109,8 @@ export default function Login() {
                   </Label>
                   <Input
                     id="nim"
+                    name="username"
+                    autoComplete="username"
                     placeholder={`Masukkan ${role === "mahasiswa" ? "NIM" : "ID"} Anda`}
                     value={nim}
                     onChange={(e) => setNim(e.target.value)}
@@ -119,7 +121,9 @@ export default function Login() {
                   <Label htmlFor="password">Password</Label>
                   <Input
                     id="password"
+                    name="password"
                     type="password"
+                    autoComplete="current-password"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

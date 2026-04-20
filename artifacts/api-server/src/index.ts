@@ -1,5 +1,7 @@
 import app from "./app";
 import { logger } from "./lib/logger";
+import { createServer } from "node:http";
+import { handleUpgrade } from "./lib/realtime";
 
 const rawPort = process.env["PORT"];
 
@@ -15,7 +17,11 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-app.listen(port, (err) => {
+const server = createServer(app);
+
+server.on("upgrade", handleUpgrade);
+
+server.listen(port, (err?: Error) => {
   if (err) {
     logger.error({ err }, "Error listening on port");
     process.exit(1);

@@ -1,5 +1,6 @@
 import { Router, type IRouter } from "express";
 import { getDB } from "../lib/mongodb";
+import { hashPassword, signToken, verifyPassword } from "../lib/auth";
 
 const router: IRouter = Router();
 
@@ -25,9 +26,13 @@ router.post("/auth/login", async (req, res): Promise<void> => {
 
   user = await db.collection(collectionName).findOne({ $or: [{ nim }, { email: nim }, { nidn: nim }] });
 
-  if (!user || user.password !== password) {
+  if (!user || !verifyPassword(password, user.password)) {
     res.status(401).json({ error: "Invalid credentials" });
     return;
+  }
+
+  if (typeof user.password === "string" && !user.password.startsWith("scrypt:")) {
+    await db.collection(collectionName).updateOne({ _id: user._id }, { $set: { password: hashPassword(password), lastPasswordUpgradeAt: new Date().toISOString() } });
   }
 
   const { password: _pw, ...userData } = user;
@@ -42,11 +47,13 @@ router.post("/auth/login", async (req, res): Promise<void> => {
     prodi: user.prodi || null,
   };
 
-  res.json({ token: `mock-token-${user._id.toHexString()}`, user: responseUser });
+  const token = signToken({ id: user._id.toHexString(), role, nama: user.nama, email: user.email });
+  await db.collection("auditLogs").insertOne({ actorId: user._id.toHexString(), actorRole: role, action: "auth.login", target: collectionName, createdAt: new Date().toISOString() });
+  res.json({ token, user: responseUser });
 });
 
 router.get("/auth/me", async (req, res): Promise<void> => {
-  res.json({ id: "mock", nama: "Mock User", role: "mahasiswa", email: "mock@kampus.ac.id" });
+  res.status(401).json({ error: "Gunakan token login untuk mengakses profil" });
 });
 
 export default router;

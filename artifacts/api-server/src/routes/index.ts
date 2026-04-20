@@ -10,6 +10,7 @@ import nilaiRouter from "./nilai";
 import absensiRouter from "./absensi";
 import diskusiRouter from "./diskusi";
 import statsRouter from "./stats";
+import publicRouter from "./public";
 
 const router: IRouter = Router();
 
@@ -24,5 +25,6 @@ router.use(nilaiRouter);
 router.use(absensiRouter);
 router.use(diskusiRouter);
 router.use(statsRouter);
+router.use(publicRouter);
 
 export default router;

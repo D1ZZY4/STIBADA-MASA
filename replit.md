@@ -76,6 +76,13 @@ lib/
 Uses MongoDB in-memory (mongodb-memory-server) by default.
 Set `MONGODB_URI` env var to use a real MongoDB instance.
 
+## Public Website & Security
+
+- `/` is the public STIBADA MASA landing page with admissions, programs, scholarships, gallery, announcements, and online PMB form.
+- `/login` is the protected role-based portal login.
+- Admin can manage public content at `/dashboard/admin/content` and system/integration readiness at `/dashboard/admin/sistem`.
+- API adds CSP/security headers, rate limiting, password hashing via Node crypto scrypt, signed auth tokens, audit trail entries, analytics events, OpenAPI exposure at `/api/docs`, and WebSocket notifications at `/api/ws`.
+
 ## Key Commands
 
 ```

@@ -3,7 +3,7 @@ import { User, UserRole } from "@workspace/api-client-react";
 
 type AuthContextType = {
   user: User | null;
-  login: (user: User) => void;
+  login: (user: User, token?: string) => void;
   logout: () => void;
   isLoading: boolean;
 };
@@ -26,14 +26,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const login = (userData: User) => {
+  const login = (userData: User, token?: string) => {
     setUser(userData);
     localStorage.setItem("kampus_user", JSON.stringify(userData));
+    if (token) localStorage.setItem("kampus_token", token);
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("kampus_user");
+    localStorage.removeItem("kampus_token");
   };
 
   return (

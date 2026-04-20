@@ -1,5 +1,6 @@
 import { Router, type IRouter } from "express";
 import { getDB, ObjectId } from "../lib/mongodb";
+import { broadcastRealtime } from "../lib/realtime";
 
 const router: IRouter = Router();
 
@@ -72,6 +73,7 @@ router.post("/diskusi", async (req, res): Promise<void> => {
   const doc = { roomId, senderId, senderNama, senderRole, senderAvatar, pesan, createdAt: now };
   const result = await db.collection("diskusi").insertOne(doc);
   await db.collection("diskusiRooms").updateOne({ _id: new ObjectId(roomId) }, { $set: { lastMessage: pesan, lastMessageAt: now } });
+  broadcastRealtime("diskusi.message", { roomId, pesan, senderNama, senderRole });
   res.status(201).json({ id: result.insertedId.toHexString(), ...doc });
 });
 

@@ -49,6 +49,7 @@ export function Sidebar() {
       { name: "Dosen", href: "/dashboard/admin/dosen", icon: Users },
       { name: "Mata Kuliah", href: "/dashboard/admin/mata-kuliah", icon: BookOpen },
       { name: "Jadwal", href: "/dashboard/admin/jadwal", icon: Calendar },
+      { name: "Konten Publik", href: "/dashboard/admin/content", icon: School },
       { name: "Persetujuan KRS", href: "/dashboard/admin/krs", icon: ClipboardList },
       { name: "Sistem", href: "/dashboard/admin/sistem", icon: Settings },
     ];

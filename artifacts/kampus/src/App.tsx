@@ -8,6 +8,7 @@ import NotFound from "@/pages/not-found";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 
 import Login from "@/pages/login";
+import Home from "@/pages/public/home";
 
 import MahasiswaDashboard from "@/pages/dashboard/mahasiswa/index";
 import MahasiswaJadwal from "@/pages/dashboard/mahasiswa/jadwal";
@@ -26,6 +27,8 @@ import AdminMahasiswa from "@/pages/dashboard/admin/mahasiswa";
 import AdminDosen from "@/pages/dashboard/admin/dosen";
 import AdminMataKuliah from "@/pages/dashboard/admin/mata-kuliah";
 import AdminJadwal from "@/pages/dashboard/admin/jadwal";
+import AdminContent from "@/pages/dashboard/admin/content";
+import AdminSystem from "@/pages/dashboard/admin/system";
 
 import RektorDashboard from "@/pages/dashboard/rektor/index";
 import RektorAkademik from "@/pages/dashboard/rektor/akademik";
@@ -49,7 +52,8 @@ const InDevelopment = () => (
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Login} />
+      <Route path="/" component={Home} />
+      <Route path="/login" component={Login} />
 
       <Route path="/dashboard/mahasiswa*">
         <DashboardLayout>
@@ -85,6 +89,8 @@ function Router() {
             <Route path="/dashboard/admin/dosen" component={AdminDosen} />
             <Route path="/dashboard/admin/mata-kuliah" component={AdminMataKuliah} />
             <Route path="/dashboard/admin/jadwal" component={AdminJadwal} />
+            <Route path="/dashboard/admin/content" component={AdminContent} />
+            <Route path="/dashboard/admin/sistem" component={AdminSystem} />
             <Route component={InDevelopment} />
           </Switch>
         </DashboardLayout>
