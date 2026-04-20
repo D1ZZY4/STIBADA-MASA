@@ -145,7 +145,7 @@ export default function Home() {
               <Badge className="rounded-full px-4 py-2">PMB 2026/2027 sedang dibuka</Badge>
               <div className="space-y-5">
                 <h1 className="max-w-4xl text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-                  Platform kampus modern untuk STIBADA MASA.
+                  Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel (STIBADA MASA) Surabaya
                 </h1>
                 <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
                   Portal akademik terpadu untuk informasi publik, pendaftaran daring, jadwal kuliah, KRS, nilai, absensi, diskusi, dan panel statistik pimpinan.
