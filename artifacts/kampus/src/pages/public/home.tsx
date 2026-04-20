@@ -24,11 +24,27 @@ const fallback: LandingData = {
     { id: "visi", key: "visi", type: "profile", title: "Visi STIBADA MASA", content: "Menjadi perguruan tinggi yang membentuk insan akademik beradab, adaptif, dan berdampak bagi masyarakat." },
     { id: "misi", key: "misi", type: "profile", title: "Misi STIBADA MASA", content: "Menguatkan pembelajaran, penelitian, pengabdian, tata kelola, dan jejaring digital yang relevan dengan kebutuhan zaman." },
   ],
-  announcements: [],
-  programs: [],
-  scholarships: [],
-  gallery: [],
-  admission: { biaya: "Mulai Rp 3.500.000 per semester", kontak: "pmb@stibadamasa.ac.id", jadwal: "Januari-Agustus 2026" },
+  announcements: [
+    { id: "ann1", title: "Pendaftaran Mahasiswa Baru Dibuka", content: "PMB STIBADA MASA tahun akademik 2026/2027 telah dibuka. Daftarkan diri Anda sekarang melalui formulir daring.", createdAt: new Date().toISOString() },
+    { id: "ann2", title: "Pengingat Batas KRS", content: "Pengisian Kartu Rencana Studi (KRS) ditutup Jumat pukul 23.59 WIB. Segera hubungi dosen wali jika ada kendala.", createdAt: new Date(Date.now() - 86400000).toISOString() },
+  ],
+  programs: [
+    { id: "prg1", kode: "PAI", nama: "Pendidikan Agama Islam", kurikulum: ["Studi Al-Qur'an", "Metodologi Pembelajaran", "Teknologi Pendidikan"], dosen: "Dr. Arif Setiawan, M.T.", prospek: ["Guru", "Konsultan Pendidikan", "Pengembang Kurikulum"] },
+    { id: "prg2", kode: "ES", nama: "Ekonomi Syariah", kurikulum: ["Fiqh Muamalah", "Keuangan Digital", "Kewirausahaan"], dosen: "Prof. Siti Rahayu, Ph.D.", prospek: ["Analis Keuangan Syariah", "Wirausaha", "Konsultan UMKM"] },
+    { id: "prg3", kode: "KPI", nama: "Komunikasi dan Penyiaran Islam", kurikulum: ["Produksi Media", "Public Speaking", "Jurnalisme Digital"], dosen: "Dr. Budi Santoso, M.M.", prospek: ["Jurnalis", "Content Strategist", "Humas"] },
+  ],
+  scholarships: [
+    { id: "sch1", nama: "Beasiswa Prestasi MASA", kriteria: "Rapor atau IPK unggul dan aktif organisasi", panduan: "Unggah portofolio, transkrip, dan surat rekomendasi." },
+    { id: "sch2", nama: "Beasiswa Tahfidz", kriteria: "Hafalan minimal 5 juz", panduan: "Ikuti verifikasi hafalan dan wawancara akademik." },
+    { id: "sch3", nama: "Beasiswa Keluarga Berdaya", kriteria: "Membutuhkan dukungan pembiayaan", panduan: "Lampirkan dokumen ekonomi keluarga dan esai motivasi." },
+  ],
+  gallery: [
+    { id: "gal1", title: "Wisuda Sarjana", category: "Wisuda", description: "Momen pelepasan lulusan STIBADA MASA." },
+    { id: "gal2", title: "Seminar Literasi Digital", category: "Seminar", description: "Kuliah umum transformasi pembelajaran digital." },
+    { id: "gal3", title: "Liga Futsal Mahasiswa", category: "Olahraga", description: "Kegiatan olahraga antar prodi." },
+    { id: "gal4", title: "Ekstrakurikuler Seni Hadrah", category: "Ekskul", description: "Pembinaan minat bakat mahasiswa." },
+  ],
+  admission: { biaya: "Mulai Rp 3.500.000 per semester", kontak: "pmb@stibadamasa.ac.id", jadwal: "Gelombang 1: Januari–Maret, Gelombang 2: April–Juni, Gelombang 3: Juli–Agustus" },
 };
 
 const images = {
