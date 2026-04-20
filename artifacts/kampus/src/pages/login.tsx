@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Book, Buildings2, Profile2User, Teacher, UserOctagon } from "iconsax-react";
+import { ChalkboardTeacher, BookOpen, UsersThree, UserCircle, Buildings } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { LoginBodyRole } from "@workspace/api-client-react";
 
@@ -20,10 +20,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const roles = [
-    { id: "mahasiswa", label: "Mahasiswa", icon: Teacher },
-    { id: "dosen", label: "Dosen", icon: Book },
-    { id: "admin", label: "Admin", icon: Profile2User },
-    { id: "rektor", label: "Rektor", icon: UserOctagon },
+    { id: "mahasiswa", label: "Mahasiswa", icon: ChalkboardTeacher },
+    { id: "dosen", label: "Dosen", icon: BookOpen },
+    { id: "admin", label: "Admin", icon: UsersThree },
+    { id: "rektor", label: "Rektor", icon: UserCircle },
   ] as const;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,7 +62,7 @@ export default function Login() {
             <div className="absolute bottom-0 left-0 right-0 space-y-5 p-8 text-white">
               <div className="inline-flex items-center gap-3">
                 <div className="rounded-2xl bg-white/16 p-3 backdrop-blur">
-                  <Buildings2 variant="Bulk" className="h-8 w-8" />
+                  <Buildings weight="duotone" className="h-8 w-8" />
                 </div>
                 <div>
                   <p className="text-2xl font-bold tracking-tight">STIBADA MASA</p>
@@ -105,7 +105,7 @@ export default function Login() {
                             : "bg-card hover:bg-muted text-muted-foreground hover:text-foreground"
                         }`}
                       >
-                        <Icon variant={role === r.id ? "Bold" : "Linear"} className="h-5 w-5" />
+                        <Icon weight={role === r.id ? "bold" : "regular"} className="h-5 w-5" />
                         {r.label}
                       </button>
                     );

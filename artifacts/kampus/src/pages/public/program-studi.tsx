@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { apiFetch, trackEvent } from "@/lib/api";
-import { Teacher, SearchNormal, Book1, Briefcase, Profile2User } from "iconsax-react";
+import { ChalkboardTeacher, MagnifyingGlass, BookOpen, Briefcase, UsersThree } from "@phosphor-icons/react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
@@ -39,9 +38,9 @@ export default function ProgramStudi() {
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full bg-white/20 text-white hover:bg-white/20">Akademik</Badge>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Program Studi</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">Pilih program studi yang sesuai dengan minat, bakat, dan tujuan karir Anda di STIBADA MASA.</p>
+          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">Pilih program studi yang sesuai dengan minat, bakat, dan tujuan karir Anda.</p>
           <div className="mt-6 flex max-w-md items-center gap-2 rounded-2xl bg-white/15 px-4 py-2 backdrop-blur-sm">
-            <SearchNormal size={18} className="text-white/60 shrink-0" />
+            <MagnifyingGlass size={18} className="text-white/60 shrink-0" />
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari program studi..." className="flex-1 bg-transparent text-sm text-white placeholder:text-white/50 outline-none" />
           </div>
         </div>
@@ -52,14 +51,14 @@ export default function ProgramStudi() {
           {filtered.length === 0 ? (
             <p className="text-center text-muted-foreground py-12">Program studi tidak ditemukan.</p>
           ) : (
-            <div className="grid gap-8 lg:grid-cols-1">
+            <div className="grid gap-8">
               {filtered.map((program, index) => (
                 <div key={program.id} className="overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-sm">
                   <div className="grid lg:grid-cols-[380px_1fr]">
                     <div className="relative">
                       <img src={images[index % images.length]} alt={program.nama} className="h-56 w-full object-cover lg:h-full" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent lg:bg-gradient-to-r lg:from-black/40 lg:to-transparent" />
-                      <div className="absolute bottom-4 left-4 lg:bottom-auto lg:top-4">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                      <div className="absolute bottom-4 left-4">
                         <Badge className="rounded-full bg-white/90 text-foreground font-bold">{program.kode}</Badge>
                       </div>
                     </div>
@@ -67,13 +66,13 @@ export default function ProgramStudi() {
                       <div>
                         <h2 className="text-2xl font-bold">{program.nama}</h2>
                         <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                          <Profile2User size={16} className="text-primary" />
+                          <UsersThree size={16} weight="duotone" className="text-primary" />
                           <span>Dosen Pengampu: <span className="font-medium text-foreground">{program.dosen}</span></span>
                         </div>
                       </div>
                       <div className="grid gap-5 sm:grid-cols-2">
                         <div>
-                          <div className="flex items-center gap-2 mb-3"><Book1 variant="Bulk" size={18} className="text-primary" /><p className="font-semibold text-sm">Kurikulum Inti</p></div>
+                          <div className="flex items-center gap-2 mb-3"><BookOpen size={18} weight="duotone" className="text-primary" /><p className="font-semibold text-sm">Kurikulum Inti</p></div>
                           <ul className="space-y-1.5">
                             {program.kurikulum.map((k) => (
                               <li key={k} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -83,7 +82,7 @@ export default function ProgramStudi() {
                           </ul>
                         </div>
                         <div>
-                          <div className="flex items-center gap-2 mb-3"><Briefcase variant="Bulk" size={18} className="text-primary" /><p className="font-semibold text-sm">Prospek Karir</p></div>
+                          <div className="flex items-center gap-2 mb-3"><Briefcase size={18} weight="duotone" className="text-primary" /><p className="font-semibold text-sm">Prospek Karir</p></div>
                           <div className="flex flex-wrap gap-2">
                             {program.prospek.map((p) => (
                               <Badge key={p} variant="secondary" className="rounded-full text-xs">{p}</Badge>
@@ -92,7 +91,10 @@ export default function ProgramStudi() {
                         </div>
                       </div>
                       <Link href="/pendaftaran">
-                        <Button className="rounded-2xl gap-2" size="sm"><Teacher size={16} />Daftar ke Prodi Ini</Button>
+                        <Button className="rounded-2xl gap-2" size="sm">
+                          <ChalkboardTeacher size={16} weight="duotone" />
+                          Daftar ke Prodi Ini
+                        </Button>
                       </Link>
                     </div>
                   </div>

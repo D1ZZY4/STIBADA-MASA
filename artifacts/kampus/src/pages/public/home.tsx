@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
-import { Book2, Teacher, MedalStar, Gallery, DirectboxNotif, UserOctagon, ArrowRight, Login, Eye, Routing, SecuritySafe, TickCircle } from "iconsax-react";
+import {
+  SignIn, Eye, TreeStructure, ShieldCheck, BellRinging,
+  ArrowRight, UserCircle, Medal, Images, MagnifyingGlass,
+} from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -57,7 +60,6 @@ const images = {
     "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85",
     "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85",
   ],
-  scholarship: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=85",
   gallery: [
     "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85",
     "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85",
@@ -75,7 +77,7 @@ function SectionHeader({ badge, title, href, hrefLabel = "Lihat Selengkapnya" }:
       </div>
       <Link href={href}>
         <Button variant="ghost" size="sm" className="gap-1.5 rounded-xl text-primary shrink-0">
-          {hrefLabel} <ArrowRight size={14} />
+          {hrefLabel} <ArrowRight size={14} weight="bold" />
         </Button>
       </Link>
     </div>
@@ -108,14 +110,15 @@ export default function Beranda() {
           <div className="space-y-7">
             <Badge className="rounded-full px-4 py-2">PMB 2026/2027 sedang dibuka</Badge>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel <span className="text-primary">(STIBADA MASA)</span> Surabaya
+              Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel{" "}
+              <span className="text-primary">(STIBADA MASA)</span> Surabaya
             </h1>
             <p className="max-w-xl text-lg leading-7 text-muted-foreground">
               Platform akademik terpadu untuk pendaftaran, jadwal kuliah, KRS, nilai, absensi, diskusi, dan statistik pimpinan.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/pendaftaran"><Button size="lg" className="rounded-2xl gap-2">Daftar Sekarang</Button></Link>
-              <Link href="/login"><Button size="lg" variant="outline" className="rounded-2xl border-primary/30 bg-white/70 gap-2"><Login size={18} />Masuk Portal</Button></Link>
+              <Link href="/login"><Button size="lg" variant="outline" className="rounded-2xl border-primary/30 bg-white/70 gap-2"><SignIn size={18} weight="bold" />Masuk Portal</Button></Link>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
               {[["KRS Interaktif", "Mahasiswa"], ["Diskusi Real-time", "Civitas"], ["Statistik Eksekutif", "Rektor"]].map(([title, label]) => (
@@ -145,7 +148,7 @@ export default function Beranda() {
               <Badge variant="outline" className="rounded-full bg-white/70">Profil Kampus</Badge>
               <h2 className="mt-3 text-2xl font-bold sm:text-3xl">Visi, misi, dan keunggulan STIBADA MASA.</h2>
             </div>
-            <p className="text-muted-foreground self-end">Kampus berbasis nilai Islam dengan pendekatan modern, menghasilkan lulusan beradab, adaptif, dan berdampak bagi masyarakat.</p>
+            <p className="text-muted-foreground self-end">Kampus berbasis nilai Islam dengan pendekatan modern, menghasilkan lulusan beradab, adaptif, dan berdampak.</p>
           </div>
           <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
             <div className="relative overflow-hidden rounded-[2rem] border border-[#ded8ca] bg-white shadow-lg">
@@ -161,7 +164,9 @@ export default function Beranda() {
                   <img src={images.profile[i % images.profile.length]} alt={item.title} className="h-32 w-full object-cover" loading="lazy" />
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2 text-sm">
-                      {item.key === "visi" ? <Eye variant="Bulk" size={16} className="text-primary shrink-0" /> : <Routing variant="Bulk" size={16} className="text-primary shrink-0" />}
+                      {item.key === "visi"
+                        ? <Eye size={16} weight="duotone" className="text-primary shrink-0" />
+                        : <TreeStructure size={16} weight="duotone" className="text-primary shrink-0" />}
                       {item.title}
                     </CardTitle>
                   </CardHeader>
@@ -170,12 +175,20 @@ export default function Beranda() {
               ))}
               <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
                 <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85" alt="Keamanan" className="h-32 w-full object-cover" loading="lazy" />
-                <CardHeader className="pb-2"><CardTitle className="flex items-center gap-2 text-sm"><SecuritySafe variant="Bulk" size={16} /> Keamanan Portal</CardTitle></CardHeader>
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center gap-2 text-sm">
+                    <ShieldCheck size={16} weight="duotone" className="text-primary shrink-0" /> Keamanan Portal
+                  </CardTitle>
+                </CardHeader>
                 <CardContent className="text-xs leading-5 text-muted-foreground">Auth berbasis peran, hash password, rate limiting, dan audit trail.</CardContent>
               </Card>
               <Card className="overflow-hidden rounded-3xl border-[#ded8ca] bg-white/86 shadow-sm">
                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85" alt="Notifikasi" className="h-32 w-full object-cover" loading="lazy" />
-                <CardHeader className="pb-2"><CardTitle className="flex items-center gap-2 text-sm"><DirectboxNotif variant="Bulk" size={16} /> Notifikasi Instan</CardTitle></CardHeader>
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center gap-2 text-sm">
+                    <BellRinging size={16} weight="duotone" className="text-primary shrink-0" /> Notifikasi Instan
+                  </CardTitle>
+                </CardHeader>
                 <CardContent className="text-xs leading-5 text-muted-foreground">Pengumuman dan diskusi real-time via WebSocket.</CardContent>
               </Card>
             </div>
@@ -225,7 +238,10 @@ export default function Beranda() {
           <div className="grid gap-5 md:grid-cols-3">
             {data.scholarships.slice(0, 3).map((s) => (
               <div key={s.id} className="rounded-2xl border border-[#d8cfbd] bg-white/80 p-5 shadow-sm">
-                <div className="flex items-center gap-2 mb-3"><MedalStar variant="Bulk" size={18} className="text-primary" /><p className="font-semibold text-sm">{s.nama}</p></div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Medal size={18} weight="duotone" className="text-primary" />
+                  <p className="font-semibold text-sm">{s.nama}</p>
+                </div>
                 <p className="text-sm text-muted-foreground">{s.kriteria}</p>
               </div>
             ))}
@@ -291,7 +307,9 @@ export default function Beranda() {
               ))}
             </div>
             <Link href="/login">
-              <Button size="lg" className="w-fit rounded-2xl gap-2"><UserOctagon size={20} />Buka Halaman Login</Button>
+              <Button size="lg" className="w-fit rounded-2xl gap-2">
+                <UserCircle size={20} weight="duotone" /> Buka Halaman Login
+              </Button>
             </Link>
           </div>
         </div>

@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { LoginCurve, HambergerMenu, CloseCircle, Sms, Call, Location, ArrowRight2 } from "iconsax-react";
+import {
+  SignIn, List, XCircle, Envelope,
+  Phone, MapPin, ArrowRight,
+} from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -28,9 +31,8 @@ function PublicNavbar() {
 
   return (
     <header className={`sticky top-0 z-40 border-b transition-all duration-200 ${scrolled ? "border-[#ded8ca] bg-[#f4f1ea]/96 backdrop-blur-xl shadow-sm" : "border-transparent bg-[#f4f1ea]/90 backdrop-blur-md"}`}>
-      {/* TOP BAR */}
+      {/* TOP ROW */}
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-        {/* LOGO */}
         <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="STIBADA MASA Beranda">
           <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-10 w-10 object-contain" />
           <div>
@@ -39,7 +41,7 @@ function PublicNavbar() {
           </div>
         </Link>
 
-        {/* DESKTOP NAV — shown at lg+ */}
+        {/* DESKTOP NAV — lg+ */}
         <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navigasi utama">
           {navLinks.map((link) => (
             <Link
@@ -56,30 +58,28 @@ function PublicNavbar() {
           ))}
         </nav>
 
-        {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-2 shrink-0">
           <Link href="/login" className="hidden lg:block">
             <Button size="sm" className="gap-2 rounded-xl">
-              <LoginCurve size={16} />
+              <SignIn size={16} weight="bold" />
               Masuk Portal
             </Button>
           </Link>
-          {/* HAMBURGER — shown below lg */}
           <button
             onClick={() => setOpen(!open)}
-            aria-label={open ? "Tutup menu" : "Buka menu navigasi"}
+            aria-label={open ? "Tutup menu" : "Buka menu"}
             className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-colors lg:hidden ${
               open
                 ? "border-primary/40 bg-primary/10 text-primary"
                 : "border-[#ded8ca] bg-white/70 text-muted-foreground hover:bg-white hover:text-foreground"
             }`}
           >
-            {open ? <CloseCircle size={20} variant="Bulk" /> : <HambergerMenu size={20} />}
+            {open ? <XCircle size={20} weight="duotone" /> : <List size={20} weight="bold" />}
           </button>
         </div>
       </div>
 
-      {/* MEDIUM NAV BAR — shown at md–lg */}
+      {/* TABLET NAV BAR — md to lg */}
       <div className="hidden border-t border-[#ded8ca] bg-[#f4f1ea]/80 md:block lg:hidden">
         <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-4 py-2 scrollbar-none">
           {navLinks.map((link) => (
@@ -97,14 +97,14 @@ function PublicNavbar() {
           ))}
           <Link href="/login" className="ml-auto shrink-0">
             <Button size="sm" className="gap-1.5 rounded-lg text-xs h-7 px-3">
-              <LoginCurve size={13} />
+              <SignIn size={13} weight="bold" />
               Masuk
             </Button>
           </Link>
         </div>
       </div>
 
-      {/* MOBILE DROPDOWN — shown below md */}
+      {/* MOBILE DROPDOWN — below md */}
       {open && (
         <div className="border-t border-[#ded8ca] bg-[#f4f1ea] px-4 pb-5 md:hidden">
           <nav className="flex flex-col gap-1 pt-3">
@@ -119,13 +119,13 @@ function PublicNavbar() {
                 }`}
               >
                 {link.label}
-                <ArrowRight2 size={14} className="text-muted-foreground/40" />
+                <ArrowRight size={14} className="text-muted-foreground/40" />
               </Link>
             ))}
             <div className="pt-2">
               <Link href="/login">
                 <Button className="w-full gap-2 rounded-xl" size="sm">
-                  <LoginCurve size={16} />
+                  <SignIn size={16} weight="bold" />
                   Masuk Portal Akademik
                 </Button>
               </Link>
@@ -156,9 +156,9 @@ function PublicFooter() {
           <div className="space-y-4">
             <p className="font-semibold text-white/90">Kontak & Informasi</p>
             <ul className="space-y-2.5 text-sm">
-              <li className="flex items-start gap-2 text-white/65"><Sms size={15} className="mt-0.5 shrink-0" />pmb@stibadamasa.ac.id</li>
-              <li className="flex items-start gap-2 text-white/65"><Call size={15} className="mt-0.5 shrink-0" />Senin–Jumat, 08.00–16.00 WIB</li>
-              <li className="flex items-start gap-2 text-white/65"><Location size={15} className="mt-0.5 shrink-0" />Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya</li>
+              <li className="flex items-start gap-2 text-white/65"><Envelope size={15} weight="duotone" className="mt-0.5 shrink-0" />pmb@stibadamasa.ac.id</li>
+              <li className="flex items-start gap-2 text-white/65"><Phone size={15} weight="duotone" className="mt-0.5 shrink-0" />Senin–Jumat, 08.00–16.00 WIB</li>
+              <li className="flex items-start gap-2 text-white/65"><MapPin size={15} weight="duotone" className="mt-0.5 shrink-0" />Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya</li>
             </ul>
           </div>
 
@@ -170,7 +170,7 @@ function PublicFooter() {
                   <Link href={link.href} className="text-white/65 hover:text-white transition-colors">{link.label}</Link>
                 </li>
               ))}
-              <li><Link href="/login" className="text-white/65 hover:text-white transition-colors">Login Portal Akademik</Link></li>
+              <li><Link href="/login" className="text-white/65 hover:text-white transition-colors">Login Portal</Link></li>
             </ul>
           </div>
         </div>

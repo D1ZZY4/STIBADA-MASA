@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch, trackEvent } from "@/lib/api";
-import { Gallery, SearchNormal } from "iconsax-react";
+import { Images, MagnifyingGlass } from "@phosphor-icons/react";
 
 type GalleryItem = { id: string; title: string; category: string; description: string };
 
@@ -17,7 +17,7 @@ const fallback: GalleryItem[] = [
   { id: "8", title: "Pengenalan Kampus Baru", category: "Akademik", description: "Orientasi mahasiswa baru tahun akademik 2025/2026." },
 ];
 
-const images = [
+const photos = [
   "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85",
   "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85",
   "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=85",
@@ -37,7 +37,9 @@ export default function Galeri() {
 
   useEffect(() => {
     trackEvent("public_galeri_view");
-    apiFetch<{ gallery: GalleryItem[] }>("/public/landing").then((d) => { if (d.gallery?.length) setItems([...d.gallery, ...fallback.slice(d.gallery.length)]); }).catch(() => undefined);
+    apiFetch<{ gallery: GalleryItem[] }>("/public/landing").then((d) => {
+      if (d.gallery?.length) setItems([...d.gallery, ...fallback.slice(d.gallery.length)]);
+    }).catch(() => undefined);
   }, []);
 
   const filtered = items.filter((item) => {
@@ -60,7 +62,7 @@ export default function Galeri() {
         <div className="mx-auto max-w-7xl space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2 rounded-2xl border border-[#ded8ca] bg-white/80 px-4 py-2 w-full sm:max-w-xs">
-              <SearchNormal size={16} className="text-muted-foreground shrink-0" />
+              <MagnifyingGlass size={16} className="text-muted-foreground shrink-0" />
               <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari kegiatan..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
             </div>
             <div className="flex flex-wrap gap-2">
@@ -72,7 +74,7 @@ export default function Galeri() {
 
           {filtered.length === 0 ? (
             <div className="py-20 text-center text-muted-foreground">
-              <Gallery size={40} className="mx-auto mb-3 opacity-30" />
+              <Images size={40} weight="duotone" className="mx-auto mb-3 opacity-30" />
               <p>Tidak ada item yang ditemukan.</p>
             </div>
           ) : (
@@ -80,7 +82,7 @@ export default function Galeri() {
               {filtered.map((item, index) => (
                 <div key={item.id} className="group overflow-hidden rounded-3xl border border-[#ded8ca] bg-white shadow-sm">
                   <div className="overflow-hidden">
-                    <img src={images[index % images.length]} alt={item.title} className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                    <img src={photos[index % photos.length]} alt={item.title} className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                   </div>
                   <div className="p-5">
                     <Badge variant="secondary" className="rounded-full text-xs">{item.category}</Badge>

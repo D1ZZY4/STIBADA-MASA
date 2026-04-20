@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { ClipboardTick, CloseCircle, TickCircle } from "iconsax-react";
+import { ClipboardText, XCircle, CheckCircle } from "@phosphor-icons/react";
 import { toast } from "sonner";
 
 const statusClass: Record<string, string> = {
@@ -47,21 +47,21 @@ export default function AdminKrs() {
         <Card className="rounded-3xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Pengajuan</CardTitle>
-            <ClipboardTick variant="Bulk" className="text-primary" />
+            <ClipboardText weight="duotone" className="text-primary" />
           </CardHeader>
           <CardContent><div className="text-3xl font-bold">{rows.length}</div></CardContent>
         </Card>
         <Card className="rounded-3xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Disetujui</CardTitle>
-            <TickCircle variant="Bulk" className="text-primary" />
+            <CheckCircle weight="duotone" className="text-primary" />
           </CardHeader>
           <CardContent><div className="text-3xl font-bold">{rows.filter((item) => item.status === "disetujui").length}</div></CardContent>
         </Card>
         <Card className="rounded-3xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Ditolak</CardTitle>
-            <CloseCircle variant="Bulk" className="text-primary" />
+            <XCircle weight="duotone" className="text-primary" />
           </CardHeader>
           <CardContent><div className="text-3xl font-bold">{rows.filter((item) => item.status === "ditolak").length}</div></CardContent>
         </Card>

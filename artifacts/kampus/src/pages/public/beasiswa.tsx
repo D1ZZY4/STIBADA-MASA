@@ -3,7 +3,7 @@ import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch, trackEvent } from "@/lib/api";
-import { MedalStar, TickCircle, DocumentText, InfoCircle } from "iconsax-react";
+import { Medal, CheckCircle, FileText, Info } from "@phosphor-icons/react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
@@ -48,13 +48,13 @@ export default function Beasiswa() {
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Raih Masa Depan dengan Beasiswa STIBADA MASA</h1>
             <p className="max-w-xl text-lg leading-7 text-muted-foreground">Tersedia berbagai jalur beasiswa untuk mendukung mahasiswa berprestasi dan yang membutuhkan bantuan pembiayaan.</p>
             <Link href="/pendaftaran">
-              <Button size="lg" className="rounded-2xl gap-2"><MedalStar size={18} />Daftar Beasiswa Sekarang</Button>
+              <Button size="lg" className="rounded-2xl gap-2"><Medal size={18} weight="duotone" />Daftar Beasiswa Sekarang</Button>
             </Link>
           </div>
           <div className="hidden lg:flex flex-col gap-3 min-w-[220px]">
             {benefits.slice(0, 3).map((b) => (
               <div key={b} className="flex items-center gap-3 rounded-2xl border border-[#ded8ca] bg-white/80 px-4 py-3 shadow-sm">
-                <TickCircle variant="Bulk" size={18} className="text-primary shrink-0" />
+                <CheckCircle size={18} weight="duotone" className="text-primary shrink-0" />
                 <p className="text-sm font-medium">{b}</p>
               </div>
             ))}
@@ -72,7 +72,7 @@ export default function Beasiswa() {
                   <img src={images[index % images.length]} alt={item.nama} className="h-44 w-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <div className="absolute bottom-3 left-4">
-                    <MedalStar variant="Bulk" size={22} className="text-yellow-300" />
+                    <Medal size={22} weight="duotone" className="text-yellow-300" />
                   </div>
                 </div>
                 <CardHeader className="pb-2"><CardTitle className="text-base">{item.nama}</CardTitle></CardHeader>
@@ -108,14 +108,14 @@ export default function Beasiswa() {
             <div className="grid gap-3">
               {benefits.map((b) => (
                 <div key={b} className="flex items-center gap-3 rounded-2xl border border-[#ded8ca] bg-white/80 px-4 py-3 shadow-sm">
-                  <TickCircle variant="Bulk" size={20} className="text-primary shrink-0" />
+                  <CheckCircle size={20} weight="duotone" className="text-primary shrink-0" />
                   <p className="text-sm font-medium">{b}</p>
                 </div>
               ))}
             </div>
             <div className="rounded-2xl bg-primary/8 border border-primary/15 p-5">
               <div className="flex items-start gap-3">
-                <InfoCircle variant="Bulk" size={20} className="text-primary shrink-0 mt-0.5" />
+                <Info size={20} weight="duotone" className="text-primary shrink-0 mt-0.5" />
                 <p className="text-sm leading-6 text-muted-foreground">Beasiswa dapat dicabut jika IPK turun di bawah syarat minimum atau terbukti melanggar peraturan akademik kampus.</p>
               </div>
             </div>

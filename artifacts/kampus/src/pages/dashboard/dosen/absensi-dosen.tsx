@@ -3,7 +3,7 @@ import { useListAbsensi } from "@workspace/api-client-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { CalendarTick, Clock, TickCircle } from "iconsax-react";
+import { CalendarCheck, Clock, CheckCircle } from "@phosphor-icons/react";
 
 export default function DosenAbsensiDosen() {
   const { user } = useAuth();
@@ -24,21 +24,21 @@ export default function DosenAbsensiDosen() {
         <Card className="rounded-3xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Sesi Tercatat</CardTitle>
-            <CalendarTick variant="Bulk" className="text-primary" />
+            <CalendarCheck weight="duotone" className="text-primary" />
           </CardHeader>
           <CardContent><div className="text-3xl font-bold">{total}</div></CardContent>
         </Card>
         <Card className="rounded-3xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Kehadiran</CardTitle>
-            <TickCircle variant="Bulk" className="text-primary" />
+            <CheckCircle weight="duotone" className="text-primary" />
           </CardHeader>
           <CardContent><div className="text-3xl font-bold">{persentase}%</div></CardContent>
         </Card>
         <Card className="rounded-3xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Status Hari Ini</CardTitle>
-            <Clock variant="Bulk" className="text-primary" />
+            <Clock weight="duotone" className="text-primary" />
           </CardHeader>
           <CardContent><Badge className="rounded-full">Aktif Mengajar</Badge></CardContent>
         </Card>

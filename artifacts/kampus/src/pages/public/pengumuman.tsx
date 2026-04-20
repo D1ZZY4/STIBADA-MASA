@@ -3,12 +3,12 @@ import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch, trackEvent } from "@/lib/api";
-import { Notification, SearchNormal, Calendar, DirectboxNotif } from "iconsax-react";
+import { Bell, MagnifyingGlass, CalendarBlank, BellSlash } from "@phosphor-icons/react";
 
 type Announcement = { id: string; title: string; content: string; createdAt: string };
 
 const fallback: Announcement[] = [
-  { id: "1", title: "Pendaftaran Mahasiswa Baru Dibuka", content: "PMB STIBADA MASA tahun akademik 2026/2027 resmi dibuka mulai 1 Januari 2026. Tersedia jalur reguler, prestasi, tahfidz, dan transfer. Daftarkan diri Anda sekarang melalui formulir pendaftaran daring di website resmi kampus.", createdAt: new Date().toISOString() },
+  { id: "1", title: "Pendaftaran Mahasiswa Baru Dibuka", content: "PMB STIBADA MASA tahun akademik 2026/2027 resmi dibuka mulai 1 Januari 2026. Tersedia jalur reguler, prestasi, tahfidz, dan transfer. Daftarkan diri Anda sekarang melalui formulir pendaftaran daring.", createdAt: new Date().toISOString() },
   { id: "2", title: "Pengingat Batas Waktu KRS", content: "Kepada seluruh mahasiswa aktif, pengisian Kartu Rencana Studi (KRS) semester Genap 2025/2026 akan ditutup pada Jumat, 17 Januari 2026 pukul 23.59 WIB. Segera hubungi dosen wali jika ada kendala.", createdAt: new Date(Date.now() - 86400000).toISOString() },
   { id: "3", title: "Seminar Nasional Pendidikan Islam", content: "STIBADA MASA menyelenggarakan Seminar Nasional bertema 'Transformasi Pendidikan Islam di Era Digital' pada 25 Januari 2026 di Aula Utama kampus. Terbuka untuk mahasiswa, dosen, dan umum. Pendaftaran gratis.", createdAt: new Date(Date.now() - 172800000).toISOString() },
   { id: "4", title: "Pengumuman Hasil Seleksi Beasiswa", content: "Pengumuman hasil seleksi Beasiswa Prestasi MASA dan Beasiswa Tahfidz semester Genap 2025/2026 dapat dilihat di papan pengumuman akademik dan portal mahasiswa mulai 10 Januari 2026.", createdAt: new Date(Date.now() - 259200000).toISOString() },
@@ -41,7 +41,7 @@ export default function Pengumuman() {
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Pengumuman Umum</h1>
           <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">Berita terbaru, agenda kampus, dan notifikasi penting untuk civitas dan calon mahasiswa STIBADA MASA.</p>
           <div className="mt-6 flex max-w-md items-center gap-2 rounded-2xl bg-white/15 px-4 py-2 backdrop-blur-sm">
-            <SearchNormal size={18} className="text-white/60 shrink-0" />
+            <MagnifyingGlass size={18} className="text-white/60 shrink-0" />
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari pengumuman..." className="flex-1 bg-transparent text-sm text-white placeholder:text-white/50 outline-none" />
           </div>
         </div>
@@ -51,7 +51,7 @@ export default function Pengumuman() {
         <div className="mx-auto max-w-7xl">
           {filtered.length === 0 ? (
             <div className="py-20 text-center text-muted-foreground">
-              <DirectboxNotif size={40} className="mx-auto mb-3 opacity-30" />
+              <BellSlash size={40} weight="duotone" className="mx-auto mb-3 opacity-30" />
               <p>Tidak ada pengumuman yang ditemukan.</p>
             </div>
           ) : (
@@ -61,7 +61,7 @@ export default function Pengumuman() {
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2 flex-wrap">
                       <Badge variant="outline" className="rounded-full bg-white/70 text-xs flex items-center gap-1">
-                        <Calendar size={11} />
+                        <CalendarBlank size={11} />
                         {new Date(item.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
                       </Badge>
                       <Badge variant="secondary" className="rounded-full text-xs">Publik</Badge>

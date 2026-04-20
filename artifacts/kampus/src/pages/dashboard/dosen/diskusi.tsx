@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MessageText, Send2 } from "iconsax-react";
+import { ChatCircleText, PaperPlaneRight } from "@phosphor-icons/react";
 import { toast } from "sonner";
 
 export default function DosenDiskusi() {
@@ -49,7 +49,7 @@ export default function DosenDiskusi() {
       <div className="rounded-3xl bg-gradient-to-r from-primary/12 to-amber-100/50 p-6">
         <div className="flex items-center gap-3">
           <div className="rounded-2xl bg-primary p-3 text-primary-foreground">
-            <MessageText variant="Bulk" size={28} />
+            <ChatCircleText weight="duotone" size={28} />
           </div>
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Diskusi Dosen</h2>
@@ -134,7 +134,7 @@ export default function DosenDiskusi() {
                     className="flex-1 rounded-xl"
                   />
                   <Button onClick={handleSend} disabled={isPending || !pesan.trim()} size="icon" className="rounded-xl">
-                    <Send2 variant="Bold" size={18} />
+                    <PaperPlaneRight weight="bold" size={18} />
                   </Button>
                 </div>
               </div>

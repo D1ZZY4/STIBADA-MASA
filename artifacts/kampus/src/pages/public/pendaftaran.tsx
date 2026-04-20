@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PublicLayout } from "@/components/layout/public-layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch, trackEvent } from "@/lib/api";
 import { toast } from "sonner";
-import { Calendar, WalletMoney, MessageQuestion, DocumentText, TickCircle, Clock, User, Call } from "iconsax-react";
-import { useEffect } from "react";
+import {
+  CalendarBlank, Wallet, ChatCircleDots, FileText,
+  CheckCircle, Phone,
+} from "@phosphor-icons/react";
 
 const steps = [
   { no: "01", title: "Isi Formulir Daring", desc: "Lengkapi data diri, pilih program studi, dan jalur pendaftaran yang diinginkan." },
@@ -46,7 +48,7 @@ export default function Pendaftaran() {
     setLoading(true);
     try {
       await apiFetch("/public/applications", { method: "POST", body: JSON.stringify(form) });
-      toast.success("Formulir pendaftaran berhasil dikirim. Tim PMB akan segera menghubungi Anda.");
+      toast.success("Formulir berhasil dikirim. Tim PMB akan segera menghubungi Anda.");
       setForm({ nama: "", email: "", telepon: "", program: form.program, jalur: form.jalur, pesan: "" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Gagal mengirim formulir");
@@ -57,26 +59,25 @@ export default function Pendaftaran() {
 
   return (
     <PublicLayout>
+      {/* HERO */}
       <section className="relative overflow-hidden bg-[#2f4f46] px-4 py-16 text-white">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full bg-white/20 text-white hover:bg-white/20">PMB 2026/2027</Badge>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Pendaftaran Mahasiswa Baru</h1>
           <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">Mulai perjalanan akademikmu di STIBADA MASA. Proses pendaftaran mudah, transparan, dan dapat dipantau secara daring.</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {[["Jadwal", "Jan–Agustus 2026", Calendar], ["Biaya", "Mulai Rp 3.500.000/sem", WalletMoney], ["Kontak", "pmb@stibadamasa.ac.id", MessageQuestion]].map(([label, val, Icon]) => {
-              const I = Icon as typeof Calendar;
-              return (
-                <div key={label as string} className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-sm">
-                  <I size={20} className="shrink-0 text-white/80" />
-                  <div><p className="text-xs text-white/60">{label as string}</p><p className="font-semibold text-sm">{val as string}</p></div>
-                </div>
-              );
-            })}
+            {([["Jadwal", "Jan–Agustus 2026", CalendarBlank], ["Biaya", "Mulai Rp 3.500.000/sem", Wallet], ["Kontak", "pmb@stibadamasa.ac.id", ChatCircleDots]] as const).map(([label, val, Icon]) => (
+              <div key={label} className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-sm">
+                <Icon size={20} weight="duotone" className="shrink-0 text-white/80" />
+                <div><p className="text-xs text-white/60">{label}</p><p className="font-semibold text-sm">{val}</p></div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* 4 LANGKAH */}
       <section className="px-4 py-14">
         <div className="mx-auto max-w-7xl space-y-3">
           <Badge variant="outline" className="rounded-full bg-white/70">Alur Pendaftaran</Badge>
@@ -93,6 +94,7 @@ export default function Pendaftaran() {
         </div>
       </section>
 
+      {/* JALUR + FORM */}
       <section className="bg-[#e8e2d4] px-4 py-14">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
@@ -104,27 +106,26 @@ export default function Pendaftaran() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {jalurOptions.map((j) => (
                   <div key={j.label} className="rounded-2xl border border-[#d8cfbd] bg-white/80 p-5 shadow-sm">
-                    <div className="flex items-center gap-2"><TickCircle variant="Bulk" size={18} className="text-primary" /><p className="font-semibold">{j.label}</p></div>
+                    <div className="flex items-center gap-2"><CheckCircle size={18} weight="duotone" className="text-primary" /><p className="font-semibold">{j.label}</p></div>
                     <p className="mt-2 text-sm leading-5 text-muted-foreground">{j.desc}</p>
                   </div>
                 ))}
               </div>
 
               <div className="rounded-3xl border border-[#d8cfbd] bg-white/80 p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4"><DocumentText variant="Bulk" size={20} className="text-primary" /><p className="font-semibold">Persyaratan Dokumen</p></div>
+                <div className="flex items-center gap-2 mb-4"><FileText size={20} weight="duotone" className="text-primary" /><p className="font-semibold">Persyaratan Dokumen</p></div>
                 <ul className="space-y-2">
                   {requirements.map((r) => (
                     <li key={r} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                      {r}
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />{r}
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div className="rounded-2xl bg-primary/8 border border-primary/15 p-5">
-                <div className="flex items-center gap-2 mb-2"><Call variant="Bulk" size={18} className="text-primary" /><p className="font-semibold text-sm">Butuh Bantuan?</p></div>
-                <p className="text-sm text-muted-foreground">Hubungi tim PMB kami melalui email <span className="font-medium text-primary">pmb@stibadamasa.ac.id</span> atau datang langsung ke kantor PMB STIBADA MASA, Senin–Jumat 08.00–16.00 WIB.</p>
+                <div className="flex items-center gap-2 mb-2"><Phone size={18} weight="duotone" className="text-primary" /><p className="font-semibold text-sm">Butuh Bantuan?</p></div>
+                <p className="text-sm text-muted-foreground">Hubungi tim PMB melalui <span className="font-medium text-primary">pmb@stibadamasa.ac.id</span> atau datang ke kantor PMB Senin–Jumat 08.00–16.00 WIB.</p>
               </div>
             </div>
 
@@ -156,10 +157,7 @@ export default function Pendaftaran() {
                     <div className="space-y-2">
                       <Label htmlFor="jalur">Jalur Pendaftaran</Label>
                       <select id="jalur" value={form.jalur} onChange={(e) => setForm({ ...form, jalur: e.target.value })} className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
-                        <option>Reguler</option>
-                        <option>Prestasi</option>
-                        <option>Tahfidz</option>
-                        <option>Transfer</option>
+                        <option>Reguler</option><option>Prestasi</option><option>Tahfidz</option><option>Transfer</option>
                       </select>
                     </div>
                   </div>
