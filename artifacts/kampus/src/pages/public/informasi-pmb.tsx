@@ -79,7 +79,7 @@ export default function InformasiPMB() {
   return (
     <PublicLayout>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-[#2f4f46] dark:bg-[#192e28] px-4 py-20 text-white">
+      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-20 text-white">
         <div className="pointer-events-none absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)", backgroundSize: "48px 48px" }} />
         <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -209,14 +209,14 @@ export default function InformasiPMB() {
                 </div>
               ))}
             </div>
-            <div className="rounded-2xl bg-[#2f4f46] dark:bg-[#192e28] p-5 text-white space-y-3">
+            <div className="rounded-2xl bg-primary dark:bg-[#192e28] p-5 text-white space-y-3">
               <div className="flex items-center gap-2">
                 <ChatCircleDots size={18} weight="duotone" className="shrink-0" />
                 <p className="font-semibold text-sm">Masih ada pertanyaan?</p>
               </div>
               <p className="text-xs text-white/70 leading-5">Tim PMB siap membantu Anda setiap hari kerja pukul 08.00–16.00 WIB.</p>
               <Link href="/pendaftaran">
-                <Button className="w-full rounded-xl bg-white text-[#1f3f37] hover:bg-white/90 mt-1" size="sm">
+                <Button className="w-full rounded-xl bg-white text-primary hover:bg-white/90 mt-1" size="sm">
                   Daftar Sekarang
                 </Button>
               </Link>

@@ -75,7 +75,7 @@ export default function Pendaftaran() {
   return (
     <PublicLayout>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-[#2f4f46] dark:bg-[#192e28] px-4 py-16 text-white">
+      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-16 text-white">
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="relative mx-auto max-w-7xl">

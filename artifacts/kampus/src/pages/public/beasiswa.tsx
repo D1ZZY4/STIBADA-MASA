@@ -45,7 +45,7 @@ export default function Beasiswa() {
 
   return (
     <PublicLayout>
-      <section className="relative overflow-hidden bg-[#2f4f46] dark:bg-[#192e28] px-4 py-20 text-white">
+      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-20 text-white">
         <div className="pointer-events-none absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)", backgroundSize: "48px 48px" }} />
         <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -54,7 +54,7 @@ export default function Beasiswa() {
             <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "beasiswa.hero", "Raih Masa Depan dengan Beasiswa STIBADA MASA")}</h1>
             <p className="max-w-xl text-base leading-7 text-white/70">{contentBody(content, "beasiswa.hero", "Tersedia berbagai jalur beasiswa untuk mendukung mahasiswa berprestasi dan yang membutuhkan bantuan pembiayaan.")}</p>
             <Link href="/pendaftaran">
-              <Button size="lg" className="rounded-2xl gap-2 bg-white text-[#1f3f37] hover:bg-white/90">
+              <Button size="lg" className="rounded-2xl gap-2 bg-white text-primary hover:bg-white/90">
                 <Medal size={18} weight="duotone" />Daftar Beasiswa Sekarang
               </Button>
             </Link>

@@ -61,7 +61,7 @@ export default function Login() {
               alt="Kampus STIBADA MASA"
               className="h-[580px] w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f10]/92 via-[#1a0f10]/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent" />
 
             {/* Bottom content */}
             <div className="absolute bottom-0 left-0 right-0 space-y-5 p-9 text-white">

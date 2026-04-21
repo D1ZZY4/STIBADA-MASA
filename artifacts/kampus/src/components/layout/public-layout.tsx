@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 import {
   SignIn, List, X, Envelope, Phone, MapPin, ArrowRight,
   SquaresFour, SignOut, InstagramLogo, YoutubeLogo, FacebookLogo, WhatsappLogo,
-  BookOpen, FileText, Books, Newspaper,
+  BookOpen, FileText, Books, Newspaper, CaretDown,
 } from "@phosphor-icons/react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -27,10 +27,17 @@ const navLinks = [
 ];
 
 const layananLinks = [
-  { label: "SIAKAD", href: "/login", icon: BookOpen },
-  { label: "Pendaftaran Online", href: "/pendaftaran", icon: FileText },
-  { label: "Perpustakaan Online", href: "#", icon: Books },
-  { label: "E-Journal", href: "#", icon: Newspaper },
+  { label: "SIAKAD", href: "/siakad", icon: BookOpen },
+  { label: "Pendaftaran Online", href: "/pendaftaran-online", icon: FileText },
+  { label: "Perpustakaan Online", href: "/perpustakaan", icon: Books },
+  { label: "E-Journal", href: "/e-journal", icon: Newspaper },
+];
+
+const contactEmails = [
+  { label: "Humas", value: "humas@stibada-masa.id" },
+  { label: "PMB", value: "pmb@stibada-masa.id" },
+  { label: "Humas (alt)", value: "humas@stibada.ac.id" },
+  { label: "PMB (alt)", value: "pmb@stibasa.ac.id" },
 ];
 
 const socialLinks = [
@@ -144,6 +151,33 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
               {link.label}
             </Link>
           ))}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={`flex items-center gap-1 rounded-xl px-3 py-1.5 text-sm font-medium transition-colors whitespace-nowrap ${
+                  layananLinks.some((l) => l.href === location)
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                Layanan
+                <CaretDown size={11} weight="bold" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-60 rounded-2xl">
+              <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground/70">Layanan Online</DropdownMenuLabel>
+              {layananLinks.map((l) => (
+                <DropdownMenuItem key={l.href} asChild>
+                  <Link href={l.href} className="flex items-center gap-3 cursor-pointer rounded-xl">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <l.icon size={16} weight="duotone" />
+                    </div>
+                    <span className="text-sm font-medium">{l.label}</span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
@@ -203,6 +237,21 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
                 <ArrowRight size={13} className="text-muted-foreground/40" />
               </Link>
             ))}
+            <p className="mt-3 px-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">Layanan Online</p>
+            {layananLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${
+                  location === l.href
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                <l.icon size={16} weight="duotone" className="text-primary" />
+                {l.label}
+              </Link>
+            ))}
           </nav>
           <div className="mt-3 flex gap-2">
             {user ? (
@@ -252,11 +301,20 @@ function PublicFooter({ settings, content }: { settings: SiteSettings; content: 
                 <Phone size={14} weight="duotone" className="shrink-0 text-primary" />
                 <span>081234502771</span>
               </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <Envelope size={14} weight="duotone" className="shrink-0 text-primary" />
-                <span>{settings.contactEmail || "pmb@stibada.ac.id"}</span>
-              </li>
             </ul>
+            <div className="space-y-2 pt-1">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70">Email Resmi</p>
+              <ul className="grid gap-1.5 text-sm sm:grid-cols-2">
+                {contactEmails.map((e) => (
+                  <li key={e.value} className="flex items-center gap-2 text-muted-foreground">
+                    <Envelope size={13} weight="duotone" className="shrink-0 text-primary" />
+                    <a href={`mailto:${e.value}`} className="truncate hover:text-primary transition-colors" title={`${e.label}: ${e.value}`}>
+                      {e.value}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="md:col-span-3 space-y-4">

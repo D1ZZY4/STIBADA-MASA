@@ -44,7 +44,7 @@ lib/
 | Admin | Email: admin@kampus.ac.id | admin123 |
 | Rektor | Email: rektor@kampus.ac.id | rektor123 |
 
-## Public Pages (8 Routes)
+## Public Pages (12 Routes)
 
 | Route | File | Description |
 |-------|------|-------------|
@@ -55,7 +55,21 @@ lib/
 | `/galeri` | `pages/public/galeri.tsx` | Grid foto kegiatan kampus + filter kategori |
 | `/pengumuman` | `pages/public/pengumuman.tsx` | Berita & pengumuman umum + pencarian |
 | `/informasi-pmb` | `pages/public/informasi-pmb.tsx` | Biaya, jadwal gelombang, FAQ, kontak PMB |
+| `/siakad` | `pages/public/siakad.tsx` | Landing SIAKAD — fitur, CTA login akademik |
+| `/pendaftaran-online` | `pages/public/pendaftaran-online.tsx` | Landing PMB online — alur 4 langkah, benefits |
+| `/perpustakaan` | `pages/public/perpustakaan.tsx` | Landing Perpustakaan Online — koleksi & fitur |
+| `/e-journal` | `pages/public/ejournal.tsx` | Landing E-Journal — daftar jurnal, OJS info |
 | `/login` | `pages/login.tsx` | Form autentikasi semua peran |
+
+## Design System
+
+- **Tokens:** maroon primary (`hsl(0 60% 28%)` = #8A1F22) + cream background (`#FAF6EC`).
+- **Semantic tokens** (Tailwind utilities) digunakan di seluruh halaman: `bg-primary`, `bg-background`, `bg-card`, `text-primary`, `text-muted-foreground`, `border-border`, dst.
+- **Aesthetic:** modern, minimalis, rounded modern (radius 0.75rem default + 2xl/3xl pada cards), glass modern (`bg-card/70 backdrop-blur-xl border border-border/60`).
+- **Icons:** `@phosphor-icons/react` dengan `weight="duotone"` (Bulk equivalent).
+- **Tipografi:** Inter (sans), Plus Jakarta Sans + Nunito (heading).
+- **Favicon:** `/logo-stibada.png` (PNG resmi STIBADA MASA).
+- **Kontak email** (footer): 4 alamat aktif — `humas@stibada-masa.id`, `pmb@stibada-masa.id`, `humas@stibada.ac.id`, `pmb@stibasa.ac.id`.
 
 ## Shared Components
 

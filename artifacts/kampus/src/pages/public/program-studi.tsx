@@ -40,7 +40,7 @@ export default function ProgramStudi() {
   return (
     <PublicLayout>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-[#2f4f46] dark:bg-[#192e28] px-4 py-20 text-white">
+      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-20 text-white">
         <div className="pointer-events-none absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[#1a3229]/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full border-white/20 bg-white/15 text-white hover:bg-white/15">Akademik</Badge>
@@ -134,7 +134,7 @@ export default function ProgramStudi() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-[#2f4f46] dark:bg-[#192e28] px-4 py-16 text-white">
+      <section className="bg-primary dark:bg-[#192e28] px-4 py-16 text-white">
         <div className="mx-auto max-w-7xl text-center space-y-5">
           <Badge className="rounded-full border-white/20 bg-white/15 text-white hover:bg-white/15">Bergabung Sekarang</Badge>
           <h2 className="text-2xl font-extrabold tracking-tight">Siap Memulai Perjalanan Akademikmu?</h2>
@@ -142,7 +142,7 @@ export default function ProgramStudi() {
             Daftarkan diri sekarang dan jadilah bagian dari civitas akademika STIBADA MASA Surabaya.
           </p>
           <Link href="/pendaftaran">
-            <Button size="lg" className="rounded-2xl bg-white text-[#1f3f37] hover:bg-white/90 gap-2 mt-1">
+            <Button size="lg" className="rounded-2xl bg-white text-primary hover:bg-white/90 gap-2 mt-1">
               <ChalkboardTeacher size={18} weight="duotone" />
               Mulai Pendaftaran
             </Button>

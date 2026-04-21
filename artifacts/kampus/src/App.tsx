@@ -15,6 +15,10 @@ import Beasiswa from "@/pages/public/beasiswa";
 import Galeri from "@/pages/public/galeri";
 import Pengumuman from "@/pages/public/pengumuman";
 import InformasiPMB from "@/pages/public/informasi-pmb";
+import Siakad from "@/pages/public/siakad";
+import PendaftaranOnline from "@/pages/public/pendaftaran-online";
+import Perpustakaan from "@/pages/public/perpustakaan";
+import EJournal from "@/pages/public/ejournal";
 
 import MahasiswaDashboard from "@/pages/dashboard/mahasiswa/index";
 import MahasiswaJadwal from "@/pages/dashboard/mahasiswa/jadwal";
@@ -73,6 +77,10 @@ function Router() {
       <Route path="/galeri" component={Galeri} />
       <Route path="/pengumuman" component={Pengumuman} />
       <Route path="/informasi-pmb" component={InformasiPMB} />
+      <Route path="/siakad" component={Siakad} />
+      <Route path="/pendaftaran-online" component={PendaftaranOnline} />
+      <Route path="/perpustakaan" component={Perpustakaan} />
+      <Route path="/e-journal" component={EJournal} />
       <Route path="/login" component={Login} />
 
       {/* MAHASISWA */}

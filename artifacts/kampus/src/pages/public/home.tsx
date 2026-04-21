@@ -174,14 +174,16 @@ export default function Beranda() {
               alt="Kampus STIBADA MASA"
               className="relative h-[440px] w-full rounded-[2rem] object-cover shadow-2xl"
             />
-            <div className="absolute bottom-4 left-4 right-4 grid grid-cols-4 gap-2 rounded-2xl border border-white/40 bg-white/70 p-3 shadow-xl backdrop-blur-md dark:border-white/10 dark:bg-black/55">
+            <div className="absolute -bottom-6 left-4 right-4 grid grid-cols-2 gap-2.5 rounded-3xl border border-white/50 bg-white/75 p-3 shadow-2xl backdrop-blur-2xl sm:-bottom-8 sm:grid-cols-4 sm:gap-3 sm:p-4 dark:border-white/10 dark:bg-black/55">
               {portalRoles.map(({ role, desc, icon: Icon }) => (
-                <div key={role} className="flex flex-col items-center gap-1 text-center">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <Icon size={14} weight="duotone" />
+                <div key={role} className="flex items-center gap-2.5 rounded-2xl border border-border/50 bg-background/60 p-2.5 backdrop-blur-sm sm:flex-col sm:items-start sm:gap-2 sm:p-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm sm:h-11 sm:w-11">
+                    <Icon size={20} weight="duotone" />
                   </div>
-                  <p className="font-bold text-[11px] leading-tight">{role}</p>
-                  <p className="text-[9px] text-muted-foreground leading-tight">{desc}</p>
+                  <div className="min-w-0">
+                    <p className="font-bold text-xs leading-tight sm:text-[13px]">{role}</p>
+                    <p className="text-[10px] text-muted-foreground leading-tight mt-0.5">{desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -189,54 +191,81 @@ export default function Beranda() {
         </div>
       </section>
 
-      {/* ── VISI · MISI · TUJUAN ──────────────────────────────── */}
-      <section className="px-4 py-16 bg-muted/40">
+      {/* ── VISI · MISI · TUJUAN — Glass Modern ──────────────── */}
+      <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:pt-28">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,hsl(var(--primary)/0.08),transparent_60%)]" />
         <div className="mx-auto max-w-7xl space-y-10">
           <div className="grid gap-4 lg:grid-cols-2 lg:items-end">
             <div>
-              <Badge variant="outline" className="rounded-full text-xs">Profil Kampus</Badge>
-              <h2 className="mt-2.5 text-2xl font-bold tracking-tight sm:text-3xl">{profileTitle}</h2>
+              <Badge variant="outline" className="rounded-full text-xs border-primary/30 bg-primary/5 text-primary">Profil Kampus</Badge>
+              <h2 className="mt-2.5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{profileTitle}</h2>
             </div>
-            <p className="text-muted-foreground text-sm leading-7 lg:text-right">{profileBody}</p>
+            <p className="text-muted-foreground text-sm leading-7 lg:text-right lg:text-base">{profileBody}</p>
           </div>
 
+          {/* Glass cards Visi/Misi/Tujuan */}
           <div className="grid gap-5 lg:grid-cols-3">
-            <ProfileTile icon={Eye} title={visi?.title || "Visi"} content={visi?.content || ""} />
-            <ProfileTile icon={TreeStructure} title={misi?.title || "Misi"} content={misi?.content || ""} />
-            <ProfileTile icon={Target} title={tujuan?.title || "Tujuan"} content={tujuan?.content || ""} />
+            {[
+              { icon: Eye, data: visi, fallbackTitle: "Visi" },
+              { icon: TreeStructure, data: misi, fallbackTitle: "Misi" },
+              { icon: Target, data: tujuan, fallbackTitle: "Tujuan" },
+            ].map(({ icon: Icon, data: item, fallbackTitle }) => {
+              const cleaned = (item?.content || "").replace(/\s*(\d\))\s*/g, "\n$1 ").trim();
+              const lines = cleaned.split("\n").filter(Boolean);
+              return (
+                <div
+                  key={fallbackTitle}
+                  className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-6 shadow-md backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
+                >
+                  <div className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/10 blur-2xl transition-opacity group-hover:bg-primary/20" />
+                  <div className="relative">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
+                        <Icon size={22} weight="duotone" />
+                      </div>
+                      <h3 className="text-lg font-bold tracking-tight">{item?.title || fallbackTitle}</h3>
+                    </div>
+                    <div className="mt-4 text-sm leading-6 text-muted-foreground">
+                      {lines.length > 1 ? (
+                        <ul className="space-y-2">
+                          {lines.map((l, i) => (
+                            <li key={i} className="flex gap-2.5">
+                              <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                                {(l.match(/^(\d)\)/)?.[1]) || (i + 1)}
+                              </span>
+                              <span>{l.replace(/^\d\)\s*/, "")}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>{cleaned || "—"}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
+          {/* Akreditasi & Integrasi — glass row */}
           <div className="grid gap-5 md:grid-cols-2">
-            <Card className="rounded-2xl border-border/60 shadow-sm">
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <Certificate size={18} weight="duotone" />
+            {[
+              { icon: Certificate, key: "home.akreditasi", title: "Terakreditasi BAN-PT", body: "Sertifikat Akreditasi BAN-PT berlaku 2022–2027. Penjaminan mutu pendidikan tinggi yang independen." },
+              { icon: PlugsConnected, key: "home.integrasi", title: "Integrasi PMB & SIAKAD", body: "Pendaftaran online, KRS, nilai, jadwal, dan administrasi terhubung dalam satu sistem akademik terpadu." },
+            ].map(({ icon: Icon, key, title, body }) => (
+              <div key={key} className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-6 shadow-md backdrop-blur-xl">
+                <div className="pointer-events-none absolute -bottom-8 -right-8 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
+                <div className="relative flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <Icon size={22} weight="duotone" />
                   </div>
-                  <CardTitle className="text-base font-bold">
-                    {contentTitle(data.content, "home.akreditasi", "Terakreditasi BAN-PT")}
-                  </CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="text-sm leading-6 text-muted-foreground">
-                {contentBody(data.content, "home.akreditasi", "Sertifikat Akreditasi BAN-PT berlaku 2022–2027. Penjaminan mutu pendidikan tinggi yang independen.")}
-              </CardContent>
-            </Card>
-            <Card className="rounded-2xl border-border/60 shadow-sm">
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <PlugsConnected size={18} weight="duotone" />
+                  <div>
+                    <p className="text-base font-bold leading-tight">{contentTitle(data.content, key, title)}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{contentBody(data.content, key, body)}</p>
                   </div>
-                  <CardTitle className="text-base font-bold">
-                    {contentTitle(data.content, "home.integrasi", "Integrasi PMB & SIAKAD")}
-                  </CardTitle>
                 </div>
-              </CardHeader>
-              <CardContent className="text-sm leading-6 text-muted-foreground">
-                {contentBody(data.content, "home.integrasi", "Pendaftaran online, KRS, nilai, jadwal, dan administrasi terhubung dalam satu sistem akademik terpadu.")}
-              </CardContent>
-            </Card>
+              </div>
+            ))}
           </div>
         </div>
       </section>
