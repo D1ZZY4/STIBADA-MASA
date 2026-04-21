@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Nunito:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Roboto:wght@400;500;700&family=Nunito:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -60,7 +60,7 @@
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
   --font-mono: var(--app-font-mono);
-  --font-heading: "SF Pro Rounded", "Nunito", system-ui, sans-serif;
+  --font-heading: "Plus Jakarta Sans", "Nunito", system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -128,9 +128,9 @@
   --chart-4: 210 40% 50%;
   --chart-5: 0 0% 50%;
 
-  --app-font-sans: "SF Pro Text", "Roboto", system-ui, -apple-system, sans-serif;
-  --app-font-serif: Georgia, serif;
-  --app-font-mono: Menlo, monospace;
+  --app-font-sans: "Inter", "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --app-font-serif: Georgia, "Times New Roman", serif;
+  --app-font-mono: "Roboto Mono", "Courier New", Menlo, Consolas, monospace;
   --radius: 0.75rem; /* 12px */
   
   --shadow-sm: 0px 2px 4px rgba(0,0,0,0.02), 0px 1px 2px -1px rgba(0,0,0,0.01);
