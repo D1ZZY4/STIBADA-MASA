@@ -8,7 +8,7 @@ import { ChalkboardTeacher, MagnifyingGlass, BookOpen, Briefcase, UsersThree } f
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
-type Program = { id: string; kode: string; nama: string; kurikulum: string[]; dosen: string; prospek: string[] };
+type Program = { id: string; kode: string; nama: string; kurikulum: string[]; dosen: string; prospek: string[]; image?: string };
 
 const fallbackPrograms: Program[] = [
   { id: "1", kode: "PAI", nama: "Pendidikan Agama Islam", kurikulum: ["Studi Al-Qur'an & Tafsir", "Hadits & Ilmu Hadits", "Fiqh & Ushul Fiqh", "Metodologi Pembelajaran PAI", "Teknologi Pendidikan"], dosen: "Dr. Arif Setiawan, M.T.", prospek: ["Guru PAI", "Konsultan Pendidikan", "Pengembang Kurikulum", "Peneliti Pendidikan Islam"] },
@@ -39,55 +39,78 @@ export default function ProgramStudi() {
 
   return (
     <PublicLayout>
-      <section className="relative overflow-hidden bg-[#2f4f46] px-4 py-16 text-white">
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden bg-[#2f4f46] dark:bg-[#192e28] px-4 py-20 text-white">
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[#1a3229]/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl">
-          <Badge className="mb-4 rounded-full bg-white/20 text-white hover:bg-white/20">Akademik</Badge>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "program-studi.hero", "Program Studi")}</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">{contentBody(content, "program-studi.hero", "Pilih program studi yang sesuai dengan minat, bakat, dan tujuan karir Anda.")}</p>
-          <div className="mt-6 flex max-w-md items-center gap-2 rounded-2xl bg-white/15 px-4 py-2 backdrop-blur-sm">
-            <MagnifyingGlass size={18} className="text-white/60 shrink-0" />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari program studi..." className="flex-1 bg-transparent text-sm text-white placeholder:text-white/50 outline-none" />
+          <Badge className="mb-4 rounded-full border-white/20 bg-white/15 text-white hover:bg-white/15">Akademik</Badge>
+          <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
+            {contentTitle(content, "program-studi.hero", "Program Studi")}
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-7 text-white/70">
+            {contentBody(content, "program-studi.hero", "Pilih program studi yang sesuai dengan minat, bakat, dan tujuan karir Anda.")}
+          </p>
+          {/* Search */}
+          <div className="mt-7 flex max-w-sm items-center gap-2.5 rounded-2xl border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-sm">
+            <MagnifyingGlass size={16} className="text-white/60 shrink-0" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Cari program studi..."
+              className="flex-1 bg-transparent text-sm text-white placeholder:text-white/40 outline-none"
+            />
           </div>
         </div>
       </section>
 
+      {/* ── PROGRAMS LIST ── */}
       <section className="px-4 py-14">
         <div className="mx-auto max-w-7xl space-y-8">
           {filtered.length === 0 ? (
-            <p className="text-center text-muted-foreground py-12">Program studi tidak ditemukan.</p>
+            <p className="py-16 text-center text-muted-foreground">Program studi tidak ditemukan.</p>
           ) : (
-            <div className="grid gap-8">
+            <div className="grid gap-7">
               {filtered.map((program, index) => (
-                <div key={program.id} className="overflow-hidden rounded-[2rem] border bg-card shadow-sm">
+                <div key={program.id} className="overflow-hidden rounded-[2rem] border border-border/60 bg-card shadow-sm hover:shadow-md transition-shadow duration-200">
                   <div className="grid lg:grid-cols-[380px_1fr]">
                     <div className="relative">
-                      <img src={(program as Program & { image?: string }).image || contentImage(content, `program-studi.card.${index + 1}`, images[index % images.length] || fallbackImages.programs[index % fallbackImages.programs.length])} alt={program.nama} className="h-56 w-full object-cover lg:h-full" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                      <img
+                        src={program.image || contentImage(content, `program-studi.card.${index + 1}`, images[index % images.length] || fallbackImages.programs[index % fallbackImages.programs.length])}
+                        alt={program.nama}
+                        className="h-60 w-full object-cover lg:h-full"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent lg:bg-gradient-to-r" />
                       <div className="absolute bottom-4 left-4">
-                        <Badge className="rounded-full bg-card text-foreground font-bold">{program.kode}</Badge>
+                        <span className="inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm border border-white/20">{program.kode}</span>
                       </div>
                     </div>
                     <div className="p-7 space-y-5">
                       <div>
-                        <h2 className="text-2xl font-bold">{program.nama}</h2>
-                        <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                          <UsersThree size={16} weight="duotone" className="text-primary" />
+                        <h2 className="text-xl font-bold leading-tight">{program.nama}</h2>
+                        <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+                          <UsersThree size={14} weight="duotone" className="text-primary shrink-0" />
                           <span>Dosen Pengampu: <span className="font-medium text-foreground">{program.dosen}</span></span>
                         </div>
                       </div>
                       <div className="grid gap-5 sm:grid-cols-2">
                         <div>
-                          <div className="flex items-center gap-2 mb-3"><BookOpen size={18} weight="duotone" className="text-primary" /><p className="font-semibold text-sm">Kurikulum Inti</p></div>
+                          <div className="flex items-center gap-2 mb-3">
+                            <BookOpen size={15} weight="duotone" className="text-primary" />
+                            <p className="font-semibold text-xs uppercase tracking-wide">Kurikulum Inti</p>
+                          </div>
                           <ul className="space-y-1.5">
                             {program.kurikulum.map((k) => (
-                              <li key={k} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/50 shrink-0" />{k}
+                              <li key={k} className="flex items-start gap-2 text-xs text-muted-foreground">
+                                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/40 shrink-0" />{k}
                               </li>
                             ))}
                           </ul>
                         </div>
                         <div>
-                          <div className="flex items-center gap-2 mb-3"><Briefcase size={18} weight="duotone" className="text-primary" /><p className="font-semibold text-sm">Prospek Karir</p></div>
+                          <div className="flex items-center gap-2 mb-3">
+                            <Briefcase size={15} weight="duotone" className="text-primary" />
+                            <p className="font-semibold text-xs uppercase tracking-wide">Prospek Karir</p>
+                          </div>
                           <div className="flex flex-wrap gap-2">
                             {program.prospek.map((p) => (
                               <Badge key={p} variant="secondary" className="rounded-full text-xs">{p}</Badge>
@@ -97,7 +120,7 @@ export default function ProgramStudi() {
                       </div>
                       <Link href="/pendaftaran">
                         <Button className="rounded-2xl gap-2" size="sm">
-                          <ChalkboardTeacher size={16} weight="duotone" />
+                          <ChalkboardTeacher size={15} weight="duotone" />
                           Daftar ke Prodi Ini
                         </Button>
                       </Link>
@@ -110,12 +133,19 @@ export default function ProgramStudi() {
         </div>
       </section>
 
-      <section className="bg-[#2f4f46] px-4 py-14 text-white">
-        <div className="mx-auto max-w-7xl text-center space-y-4">
-          <h2 className="text-2xl font-bold">Siap Bergabung?</h2>
-          <p className="text-white/75 max-w-lg mx-auto">Daftarkan diri sekarang dan mulai perjalanan akademikmu di STIBADA MASA Surabaya.</p>
+      {/* ── CTA ── */}
+      <section className="bg-[#2f4f46] dark:bg-[#192e28] px-4 py-16 text-white">
+        <div className="mx-auto max-w-7xl text-center space-y-5">
+          <Badge className="rounded-full border-white/20 bg-white/15 text-white hover:bg-white/15">Bergabung Sekarang</Badge>
+          <h2 className="text-2xl font-extrabold tracking-tight">Siap Memulai Perjalanan Akademikmu?</h2>
+          <p className="text-white/70 text-sm max-w-lg mx-auto leading-6">
+            Daftarkan diri sekarang dan jadilah bagian dari civitas akademika STIBADA MASA Surabaya.
+          </p>
           <Link href="/pendaftaran">
-            <Button size="lg" className="rounded-2xl bg-background text-foreground hover:bg-muted mt-2">Mulai Pendaftaran</Button>
+            <Button size="lg" className="rounded-2xl bg-white text-[#1f3f37] hover:bg-white/90 gap-2 mt-1">
+              <ChalkboardTeacher size={18} weight="duotone" />
+              Mulai Pendaftaran
+            </Button>
           </Link>
         </div>
       </section>

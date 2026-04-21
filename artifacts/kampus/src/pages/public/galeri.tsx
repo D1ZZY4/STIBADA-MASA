@@ -3,7 +3,7 @@ import { PublicLayout } from "@/components/layout/public-layout";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch, trackEvent } from "@/lib/api";
 import { contentBody, contentTitle, fallbackImages, type PublicContentItem } from "@/lib/site-content";
-import { Images, MagnifyingGlass } from "@phosphor-icons/react";
+import { Images, MagnifyingGlass, FunnelSimple } from "@phosphor-icons/react";
 
 type GalleryItem = { id: string; title: string; category: string; description: string; image?: string };
 
@@ -53,44 +53,90 @@ export default function Galeri() {
 
   return (
     <PublicLayout>
-      <section className="relative overflow-hidden bg-[#2f4f46] px-4 py-16 text-white">
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden bg-[#2f4f46] dark:bg-[#192e28] px-4 py-20 text-white">
+        <div className="pointer-events-none absolute inset-0 opacity-10"
+          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)", backgroundSize: "40px 40px" }} />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-[#203d37]/60 to-transparent" />
+
         <div className="relative mx-auto max-w-7xl">
-          <Badge className="mb-4 rounded-full bg-white/20 text-white hover:bg-white/20">Galeri</Badge>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{contentTitle(content, "galeri.hero", "Dokumentasi & Kegiatan Kampus")}</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-7 text-white/80">{contentBody(content, "galeri.hero", "Rekam jejak kegiatan akademik, non-akademik, dan momen berharga civitas STIBADA MASA.")}</p>
+          <Badge className="mb-4 rounded-full bg-white/15 text-white border-white/20 hover:bg-white/15">Galeri Kampus</Badge>
+          <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
+            {contentTitle(content, "galeri.hero", "Dokumentasi & Kegiatan Kampus")}
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-7 text-white/70">
+            {contentBody(content, "galeri.hero", "Rekam jejak kegiatan akademik, non-akademik, dan momen berharga civitas STIBADA MASA.")}
+          </p>
+
+          {/* Stats strip */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            {[["8+", "Kategori Kegiatan"], ["100+", "Foto Dokumentasi"], ["5+", "Tahun Rekam Jejak"]].map(([n, l]) => (
+              <div key={l} className="rounded-2xl border border-white/15 bg-white/10 px-5 py-3 backdrop-blur-sm">
+                <p className="text-lg font-extrabold">{n}</p>
+                <p className="text-xs text-white/60">{l}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="px-4 py-10">
+      {/* ── FILTER + GRID ── */}
+      <section className="px-4 py-12">
         <div className="mx-auto max-w-7xl space-y-6">
+          {/* Toolbar */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2 rounded-2xl border bg-card px-4 py-2 w-full sm:max-w-xs">
-              <MagnifyingGlass size={16} className="text-muted-foreground shrink-0" />
-              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari kegiatan..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+            <div className="flex items-center gap-2 rounded-2xl border border-border/60 bg-card px-4 py-2.5 w-full sm:max-w-xs shadow-sm">
+              <MagnifyingGlass size={15} className="text-muted-foreground shrink-0" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Cari kegiatan..."
+                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+              />
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <FunnelSimple size={15} className="text-muted-foreground shrink-0" />
               {allCategories.map((c) => (
-                <button key={c} onClick={() => setCategory(c)} className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${category === c ? "bg-primary text-white" : "bg-card border text-muted-foreground hover:bg-muted"}`}>{c}</button>
+                <button
+                  key={c}
+                  onClick={() => setCategory(c)}
+                  className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-150 ${
+                    category === c
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "border border-border/60 bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+                  }`}
+                >
+                  {c}
+                </button>
               ))}
             </div>
           </div>
 
+          {/* Count */}
+          <p className="text-xs text-muted-foreground">{filtered.length} item ditemukan</p>
+
           {filtered.length === 0 ? (
-            <div className="py-20 text-center text-muted-foreground">
-              <Images size={40} weight="duotone" className="mx-auto mb-3 opacity-30" />
-              <p>Tidak ada item yang ditemukan.</p>
+            <div className="py-24 text-center text-muted-foreground">
+              <Images size={44} weight="duotone" className="mx-auto mb-3 opacity-25" />
+              <p className="font-medium">Tidak ada item yang ditemukan.</p>
+              <p className="text-xs mt-1">Coba ubah kata kunci atau filter kategori.</p>
             </div>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {filtered.map((item, index) => (
-                <div key={item.id} className="group overflow-hidden rounded-3xl border bg-card shadow-sm">
+                <div key={item.id} className="group overflow-hidden rounded-3xl border border-border/60 bg-card shadow-sm hover:shadow-md hover:border-border transition-all duration-300">
                   <div className="overflow-hidden">
-                    <img src={item.image || photos[index % photos.length] || fallbackImages.gallery[index % fallbackImages.gallery.length]} alt={item.title} className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                    <img
+                      src={item.image || photos[index % photos.length] || fallbackImages.gallery[index % fallbackImages.gallery.length]}
+                      alt={item.title}
+                      className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
                   </div>
-                  <div className="p-5">
+                  <div className="p-4">
                     <Badge variant="secondary" className="rounded-full text-xs">{item.category}</Badge>
-                    <h3 className="mt-3 font-semibold leading-tight">{item.title}</h3>
-                    <p className="mt-1.5 text-sm text-muted-foreground leading-5">{item.description}</p>
+                    <h3 className="mt-2.5 font-semibold leading-tight text-sm">{item.title}</h3>
+                    <p className="mt-1.5 text-xs text-muted-foreground leading-5">{item.description}</p>
                   </div>
                 </div>
               ))}

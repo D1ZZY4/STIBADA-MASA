@@ -17,7 +17,7 @@ export default function DosenDashboard() {
       {/* Header */}
       <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Halo, {user?.nama?.split(" ")[0]} 👋</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Halo, {user?.nama?.split(" ")[0]}</h1>
           <p className="text-sm text-muted-foreground">{today} · {user?.jabatan ?? "Dosen"}</p>
         </div>
         <Badge variant="outline" className="w-fit rounded-full text-xs gap-1.5 px-3 py-1">

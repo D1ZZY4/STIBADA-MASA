@@ -41,8 +41,8 @@ export default function AdminDashboard() {
     { label: "Dosen", href: "/dashboard/admin/dosen", icon: ChalkboardTeacher, color: "text-emerald-600 dark:text-emerald-400 dark:text-emerald-400 bg-emerald-500/10" },
     { label: "KRS", href: "/dashboard/admin/krs", icon: ClipboardText, color: "text-orange-600 dark:text-orange-400 bg-orange-500/10" },
     { label: "Konten", href: "/dashboard/admin/content", icon: Globe, color: "text-purple-600 dark:text-purple-400 bg-purple-500/10" },
-    { label: "Nilai", href: "/dashboard/admin/mata-kuliah", icon: GraduationCap, color: "text-rose-600 bg-rose-50" },
-    { label: "Sistem", href: "/dashboard/admin/sistem", icon: Gear, color: "text-gray-600 bg-gray-100" },
+    { label: "Nilai", href: "/dashboard/admin/mata-kuliah", icon: GraduationCap, color: "text-rose-600 dark:text-rose-400 bg-rose-500/10" },
+    { label: "Sistem", href: "/dashboard/admin/sistem", icon: Gear, color: "text-slate-600 dark:text-slate-400 bg-slate-500/10" },
   ];
 
   return (
