@@ -221,7 +221,7 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
       </div>
 
       {open && (
-        <div className="border-t border-border/40 bg-background px-4 pb-5 md:hidden">
+        <div className="mx-3 mb-3 mt-1 rounded-3xl border border-border/60 bg-card/95 backdrop-blur-xl px-4 pb-5 pt-1 shadow-lg md:hidden">
           <nav className="flex flex-col gap-1 pt-3">
             {navLinks.map((link) => (
               <Link
@@ -278,7 +278,7 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
 
 function PublicFooter({ settings, content }: { settings: SiteSettings; content: PublicContentItem[] }) {
   return (
-    <footer className="border-t border-border/60 bg-card/50 px-4 pt-14 pb-6 text-foreground">
+    <footer className="border-t border-border/60 bg-secondary/60 px-4 pt-14 pb-6 text-foreground">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 pb-10 border-b border-border/60 md:grid-cols-12">
           <div className="md:col-span-5 space-y-4">

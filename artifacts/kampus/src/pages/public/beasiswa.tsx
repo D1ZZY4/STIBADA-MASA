@@ -45,7 +45,7 @@ export default function Beasiswa() {
 
   return (
     <PublicLayout>
-      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-20 text-white">
+      <section className="relative overflow-hidden bg-primary px-4 py-20 text-primary-foreground">
         <div className="pointer-events-none absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)", backgroundSize: "48px 48px" }} />
         <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -78,7 +78,7 @@ export default function Beasiswa() {
               <Card key={item.id} className="overflow-hidden rounded-3xl border bg-card shadow-sm">
                 <div className="relative">
                   <img src={item.image || images[index % images.length] || fallbackImages.scholarships[index % fallbackImages.scholarships.length]} alt={item.nama} className="h-44 w-full object-cover" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent" />
                   <div className="absolute bottom-3 left-4">
                     <Medal size={22} weight="duotone" className="text-primary-foreground" />
                   </div>

@@ -78,9 +78,9 @@ export default function Pengumuman() {
 
   return (
     <PublicLayout>
-      <section className="relative isolate overflow-hidden bg-[#203d37] dark:bg-[#142420] px-4 py-14 text-white sm:py-18">
-        <div className="absolute left-[-12%] top-[-18%] -z-10 h-72 w-72 rounded-full bg-[#b8a16d]/28 blur-3xl" />
-        <div className="absolute bottom-[-24%] right-[-10%] -z-10 h-96 w-96 rounded-full bg-[#6fa089]/24 blur-3xl" />
+      <section className="relative isolate overflow-hidden bg-primary px-4 py-14 text-primary-foreground sm:py-18">
+        <div className="absolute left-[-12%] top-[-18%] -z-10 h-72 w-72 rounded-full bg-accent/40 blur-3xl" />
+        <div className="absolute bottom-[-24%] right-[-10%] -z-10 h-96 w-96 rounded-full bg-accent/30 blur-3xl" />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_36%),radial-gradient(circle_at_68%_18%,rgba(216,192,138,0.16),transparent_28%)]" />
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_420px] lg:items-end">
           <div className="text-white">
@@ -240,7 +240,7 @@ export default function Pengumuman() {
               </div>
 
               <aside className="space-y-4">
-                <Card className="rounded-[2rem] border bg-[#203d37] dark:bg-[#142420] text-white shadow-sm">
+                <Card className="rounded-[2rem] border bg-primary text-primary-foreground shadow-sm">
                   <CardHeader>
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
                       <BellRinging size={24} weight="duotone" className="text-primary-foreground/80" />

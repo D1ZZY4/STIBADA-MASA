@@ -79,7 +79,7 @@ export default function InformasiPMB() {
   return (
     <PublicLayout>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-20 text-white">
+      <section className="relative overflow-hidden bg-primary px-4 py-20 text-primary-foreground">
         <div className="pointer-events-none absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)", backgroundSize: "48px 48px" }} />
         <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -209,7 +209,7 @@ export default function InformasiPMB() {
                 </div>
               ))}
             </div>
-            <div className="rounded-2xl bg-primary dark:bg-[#192e28] p-5 text-white space-y-3">
+            <div className="rounded-2xl bg-primary p-5 text-primary-foreground space-y-3">
               <div className="flex items-center gap-2">
                 <ChatCircleDots size={18} weight="duotone" className="shrink-0" />
                 <p className="font-semibold text-sm">Masih ada pertanyaan?</p>

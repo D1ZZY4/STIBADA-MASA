@@ -40,8 +40,8 @@ export default function ProgramStudi() {
   return (
     <PublicLayout>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-20 text-white">
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[#1a3229]/60 to-transparent" />
+      <section className="relative overflow-hidden bg-primary px-4 py-20 text-primary-foreground">
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent" />
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full border-white/20 bg-white/15 text-white hover:bg-white/15">Akademik</Badge>
           <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
@@ -79,7 +79,7 @@ export default function ProgramStudi() {
                         alt={program.nama}
                         className="h-60 w-full object-cover lg:h-full"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent lg:bg-gradient-to-r" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-transparent lg:bg-gradient-to-r lg:from-primary/85 lg:via-primary/30 lg:to-transparent" />
                       <div className="absolute bottom-4 left-4">
                         <span className="inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm border border-white/20">{program.kode}</span>
                       </div>
@@ -134,7 +134,7 @@ export default function ProgramStudi() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-primary dark:bg-[#192e28] px-4 py-16 text-white">
+      <section className="bg-primary px-4 py-16 text-primary-foreground">
         <div className="mx-auto max-w-7xl text-center space-y-5">
           <Badge className="rounded-full border-white/20 bg-white/15 text-white hover:bg-white/15">Bergabung Sekarang</Badge>
           <h2 className="text-2xl font-extrabold tracking-tight">Siap Memulai Perjalanan Akademikmu?</h2>

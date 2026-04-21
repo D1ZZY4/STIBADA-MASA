@@ -54,10 +54,10 @@ export default function Galeri() {
   return (
     <PublicLayout>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-primary dark:bg-[#192e28] px-4 py-20 text-white">
+      <section className="relative overflow-hidden bg-primary px-4 py-20 text-primary-foreground">
         <div className="pointer-events-none absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)", backgroundSize: "40px 40px" }} />
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-[#203d37]/60 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-black/15 to-transparent" />
 
         <div className="relative mx-auto max-w-7xl">
           <Badge className="mb-4 rounded-full bg-white/15 text-white border-white/20 hover:bg-white/15">Galeri Kampus</Badge>
