@@ -173,19 +173,19 @@
   --sidebar: 30 10% 13%;
   --sidebar-foreground: 45 25% 90%;
   --sidebar-border: 30 8% 20%;
-  --sidebar-primary: 0 55% 26%;
-  --sidebar-primary-foreground: 45 30% 95%;
+  --sidebar-primary: 0 35% 18%;
+  --sidebar-primary-foreground: 45 35% 92%;
   --sidebar-accent: 30 8% 18%;
   --sidebar-accent-foreground: 45 25% 90%;
-  --sidebar-ring: 0 55% 26%;
+  --sidebar-ring: 0 35% 22%;
 
   --popover: 30 10% 13%;
   --popover-foreground: 45 25% 90%;
   --popover-border: 30 8% 20%;
 
-  /* Deeper maroon primary for dark mode — less bright, easier on eyes */
-  --primary: 0 55% 26%;
-  --primary-foreground: 45 30% 95%;
+  /* Very deep, muted maroon for dark mode — warm but not bright */
+  --primary: 0 35% 18%;
+  --primary-foreground: 45 35% 92%;
 
   --secondary: 30 8% 18%;
   --secondary-foreground: 45 25% 90%;
@@ -200,9 +200,9 @@
   --destructive-foreground: 45 25% 90%;
 
   --input: 30 8% 20%;
-  --ring: 0 55% 26%;
+  --ring: 0 35% 22%;
 
-  --chart-1: 0 55% 32%;
+  --chart-1: 0 40% 30%;
   --chart-2: 25 35% 55%;
   --chart-3: 38 30% 65%;
   --chart-4: 0 30% 40%;
