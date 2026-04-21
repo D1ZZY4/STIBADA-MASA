@@ -157,92 +157,58 @@ export default function Beranda() {
           </div>
 
           <div className="grid gap-5 lg:grid-cols-2">
-            {/* ── Foto Kampus kiri ── */}
-            <div className="relative overflow-hidden rounded-3xl shadow-md">
+            <div className="relative overflow-hidden rounded-3xl border bg-card shadow-sm">
               <img
                 src={contentImage(data.content, "home.profile", fallbackImages.campus)}
-                alt="Kampus STIBADA MASA"
-                className="h-full min-h-[420px] w-full object-cover"
+                alt="Kampus"
+                className="h-full min-h-[380px] w-full object-cover"
                 loading="lazy"
               />
-              {/* overlay solid gelap, bukan glass */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1a3229]/95 via-[#1a3229]/70 to-transparent px-6 pb-7 pt-16">
-                <p className="text-base font-bold text-white">STIBADA MASA</p>
-                <p className="mt-1 text-xs text-white/70 leading-5">{profileBody}</p>
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-background/85 dark:bg-background/90 p-5 shadow-lg backdrop-blur border border-border/30">
+                <p className="text-base font-bold">STIBADA MASA</p>
+                <p className="mt-1 text-xs text-muted-foreground leading-5">{profileBody}</p>
               </div>
             </div>
-
-            {/* ── 4 kartu kanan ── */}
             <div className="grid grid-cols-2 gap-4">
-              {/* Visi — hijau gelap */}
-              <div className="flex flex-col rounded-3xl overflow-hidden shadow-sm"
-                style={{ background: "linear-gradient(145deg,#203d37,#2a6b5a)" }}>
-                <div className="h-28 overflow-hidden shrink-0">
+              {profile.slice(0, 2).map((item, i) => (
+                <Card key={item.id} className="overflow-hidden rounded-3xl shadow-sm">
                   <img
-                    src={profile[0]?.image || fallbackImages.gallery[0]}
-                    alt="Visi"
-                    className="h-full w-full object-cover opacity-60 mix-blend-luminosity"
+                    src={item.image || fallbackImages.gallery[i % fallbackImages.gallery.length]}
+                    alt={item.title}
+                    className="h-28 w-full object-cover"
                     loading="lazy"
                   />
-                </div>
-                <div className="flex flex-col gap-1.5 p-4">
-                  <div className="flex items-center gap-1.5">
-                    <Eye size={13} weight="duotone" className="text-white/70 shrink-0" />
-                    <p className="text-xs font-bold text-white">{profile[0]?.title ?? "Visi"}</p>
-                  </div>
-                  <p className="text-[11px] leading-5 text-white/70">{profile[0]?.content ?? "Menjadi perguruan tinggi yang membentuk insan akademik beradab, adaptif, dan berdampak bagi masyarakat."}</p>
-                </div>
-              </div>
-
-              {/* Misi — pasir emas */}
-              <div className="flex flex-col rounded-3xl overflow-hidden shadow-sm"
-                style={{ background: "linear-gradient(145deg,#7a6330,#b8a16d)" }}>
-                <div className="h-28 overflow-hidden shrink-0">
-                  <img
-                    src={profile[1]?.image || fallbackImages.gallery[4]}
-                    alt="Misi"
-                    className="h-full w-full object-cover opacity-55 mix-blend-luminosity"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5 p-4">
-                  <div className="flex items-center gap-1.5">
-                    <TreeStructure size={13} weight="duotone" className="text-white/80 shrink-0" />
-                    <p className="text-xs font-bold text-white">{profile[1]?.title ?? "Misi"}</p>
-                  </div>
-                  <p className="text-[11px] leading-5 text-white/75">{profile[1]?.content ?? "Menguatkan pembelajaran, penelitian, pengabdian, tata kelola, dan jejaring digital yang relevan dengan kebutuhan zaman."}</p>
-                </div>
-              </div>
-
-              {/* Keamanan — biru-slate gelap */}
-              <div className="flex flex-col rounded-3xl overflow-hidden shadow-sm"
-                style={{ background: "linear-gradient(145deg,#1e3050,#2e4a7a)" }}>
-                <div className="h-28 overflow-hidden shrink-0">
-                  <img src={contentImage(data.content, "home.security", fallbackImages.scholarships[2])} alt="Keamanan" className="h-full w-full object-cover opacity-50 mix-blend-luminosity" loading="lazy" />
-                </div>
-                <div className="flex flex-col gap-1.5 p-4">
-                  <div className="flex items-center gap-1.5">
-                    <ShieldCheck size={13} weight="duotone" className="text-white/80 shrink-0" />
-                    <p className="text-xs font-bold text-white">{contentTitle(data.content, "home.security", "Keamanan Portal")}</p>
-                  </div>
-                  <p className="text-[11px] leading-5 text-white/70">{contentBody(data.content, "home.security", "Auth berbasis peran, hash password, rate limiting, dan audit trail.")}</p>
-                </div>
-              </div>
-
-              {/* Notifikasi — merah-coklat hangat */}
-              <div className="flex flex-col rounded-3xl overflow-hidden shadow-sm"
-                style={{ background: "linear-gradient(145deg,#5a2020,#963333)" }}>
-                <div className="h-28 overflow-hidden shrink-0">
-                  <img src={contentImage(data.content, "home.notification", fallbackImages.gallery[5])} alt="Notifikasi" className="h-full w-full object-cover opacity-50 mix-blend-luminosity" loading="lazy" />
-                </div>
-                <div className="flex flex-col gap-1.5 p-4">
-                  <div className="flex items-center gap-1.5">
-                    <BellRinging size={13} weight="duotone" className="text-white/80 shrink-0" />
-                    <p className="text-xs font-bold text-white">{contentTitle(data.content, "home.notification", "Notifikasi Instan")}</p>
-                  </div>
-                  <p className="text-[11px] leading-5 text-white/70">{contentBody(data.content, "home.notification", "Pengumuman dan diskusi real-time via WebSocket.")}</p>
-                </div>
-              </div>
+                  <CardHeader className="pb-1.5 pt-3 px-4">
+                    <CardTitle className="flex items-center gap-1.5 text-xs font-semibold">
+                      {item.key === "visi"
+                        ? <Eye size={13} weight="duotone" className="text-primary shrink-0" />
+                        : <TreeStructure size={13} weight="duotone" className="text-primary shrink-0" />}
+                      {item.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="px-4 pb-4 text-xs leading-5 text-muted-foreground">{item.content}</CardContent>
+                </Card>
+              ))}
+              <Card className="overflow-hidden rounded-3xl shadow-sm">
+                <img src={contentImage(data.content, "home.security", fallbackImages.scholarships[2])} alt="Keamanan" className="h-28 w-full object-cover" loading="lazy" />
+                <CardHeader className="pb-1.5 pt-3 px-4">
+                  <CardTitle className="flex items-center gap-1.5 text-xs font-semibold">
+                    <ShieldCheck size={13} weight="duotone" className="text-primary shrink-0" />
+                    {contentTitle(data.content, "home.security", "Keamanan Portal")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-4 pb-4 text-xs leading-5 text-muted-foreground">{contentBody(data.content, "home.security", "Auth berbasis peran, hash password, rate limiting, dan audit trail.")}</CardContent>
+              </Card>
+              <Card className="overflow-hidden rounded-3xl shadow-sm">
+                <img src={contentImage(data.content, "home.notification", fallbackImages.gallery[5])} alt="Notifikasi" className="h-28 w-full object-cover" loading="lazy" />
+                <CardHeader className="pb-1.5 pt-3 px-4">
+                  <CardTitle className="flex items-center gap-1.5 text-xs font-semibold">
+                    <BellRinging size={13} weight="duotone" className="text-primary shrink-0" />
+                    {contentTitle(data.content, "home.notification", "Notifikasi Instan")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-4 pb-4 text-xs leading-5 text-muted-foreground">{contentBody(data.content, "home.notification", "Pengumuman dan diskusi real-time via WebSocket.")}</CardContent>
+              </Card>
             </div>
           </div>
         </div>
