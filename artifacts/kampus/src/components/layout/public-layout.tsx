@@ -278,37 +278,37 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
 
 function PublicFooter({ settings, content }: { settings: SiteSettings; content: PublicContentItem[] }) {
   return (
-    <footer className="border-t border-border/60 bg-secondary/60 px-4 pt-14 pb-6 text-foreground">
+    <footer className="bg-primary px-4 pt-14 pb-6 text-primary-foreground">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 pb-10 border-b border-border/60 md:grid-cols-12">
+        <div className="grid gap-10 pb-10 border-b border-primary-foreground/15 md:grid-cols-12">
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary-foreground/15 backdrop-blur-sm">
                 <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-8 w-8 object-contain" />
               </div>
               <div>
                 <p className="text-base font-bold leading-tight">{settings.brandName || "STIBADA MASA"}</p>
-                <p className="text-xs text-muted-foreground leading-snug mt-0.5">{settings.tagline || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah"}</p>
+                <p className="text-xs text-primary-foreground/70 leading-snug mt-0.5">{settings.tagline || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah"}</p>
               </div>
             </div>
-            <p className="text-sm leading-6 text-muted-foreground max-w-md">{contentBody(content, "layout.footer", "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel Surabaya — pusat studi Bahasa Arab berbasis nilai luhur Sunan Ampel.")}</p>
+            <p className="text-sm leading-6 text-primary-foreground/75 max-w-md">{contentBody(content, "layout.footer", "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel Surabaya — pusat studi Bahasa Arab berbasis nilai luhur Sunan Ampel.")}</p>
             <ul className="space-y-2 text-sm">
-              <li className="flex items-start gap-2 text-muted-foreground">
-                <MapPin size={14} weight="duotone" className="mt-0.5 shrink-0 text-primary" />
+              <li className="flex items-start gap-2 text-primary-foreground/80">
+                <MapPin size={14} weight="duotone" className="mt-0.5 shrink-0 text-primary-foreground" />
                 <span>{settings.address || "Jl. Ampel Masjid No.53, Ampel, Semampir, Surabaya"}</span>
               </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <Phone size={14} weight="duotone" className="shrink-0 text-primary" />
+              <li className="flex items-center gap-2 text-primary-foreground/80">
+                <Phone size={14} weight="duotone" className="shrink-0 text-primary-foreground" />
                 <span>081234502771</span>
               </li>
             </ul>
             <div className="space-y-2 pt-1">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70">Email Resmi</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-primary-foreground/60">Email Resmi</p>
               <ul className="grid gap-1.5 text-sm sm:grid-cols-2">
                 {contactEmails.map((e) => (
-                  <li key={e.value} className="flex items-center gap-2 text-muted-foreground">
-                    <Envelope size={13} weight="duotone" className="shrink-0 text-primary" />
-                    <a href={`mailto:${e.value}`} className="truncate hover:text-primary transition-colors" title={`${e.label}: ${e.value}`}>
+                  <li key={e.value} className="flex items-center gap-2 text-primary-foreground/80">
+                    <Envelope size={13} weight="duotone" className="shrink-0 text-primary-foreground" />
+                    <a href={`mailto:${e.value}`} className="truncate transition-colors hover:text-primary-foreground" title={`${e.label}: ${e.value}`}>
                       {e.value}
                     </a>
                   </li>
@@ -318,12 +318,12 @@ function PublicFooter({ settings, content }: { settings: SiteSettings; content: 
           </div>
 
           <div className="md:col-span-3 space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">Layanan</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary-foreground/60">Layanan</p>
             <ul className="space-y-2.5 text-sm">
               {layananLinks.map((l) => (
                 <li key={l.label}>
-                  <Link href={l.href} className="group flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
-                    <l.icon size={14} weight="duotone" className="text-primary/70 group-hover:text-primary" />
+                  <Link href={l.href} className="group flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-primary-foreground">
+                    <l.icon size={14} weight="duotone" className="text-primary-foreground/70 group-hover:text-primary-foreground" />
                     {l.label}
                   </Link>
                 </li>
@@ -332,18 +332,18 @@ function PublicFooter({ settings, content }: { settings: SiteSettings; content: 
           </div>
 
           <div className="md:col-span-2 space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">Navigasi</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary-foreground/60">Navigasi</p>
             <ul className="space-y-2 text-sm">
               {navLinks.slice(0, 5).map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-primary-foreground/80 transition-colors hover:text-primary-foreground">{link.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="md:col-span-2 space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">Sosial Media</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary-foreground/60">Sosial Media</p>
             <div className="grid grid-cols-4 gap-2 md:grid-cols-2">
               {socialLinks.map((s) => (
                 <a
@@ -352,17 +352,17 @@ function PublicFooter({ settings, content }: { settings: SiteSettings; content: 
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-background text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground hover:border-primary"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground transition-colors hover:bg-primary-foreground hover:text-primary"
                 >
                   <s.icon size={18} weight="duotone" />
                 </a>
               ))}
             </div>
-            <p className="text-[11px] text-muted-foreground/70 leading-relaxed">@stibada.masa</p>
+            <p className="text-[11px] text-primary-foreground/60 leading-relaxed">@stibada.masa</p>
           </div>
         </div>
 
-        <div className="pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground/70">
+        <div className="pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-primary-foreground/60">
           <p>© {new Date().getFullYear()} STIBADA MASA. Hak Cipta Dilindungi.</p>
           <p>{settings.footerNote || "Terakreditasi BAN-PT (2022–2027) · Terintegrasi PMB & SIAKAD"}</p>
         </div>
