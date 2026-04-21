@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/lib/auth";
 import { useLogin } from "@workspace/api-client-react";
@@ -14,8 +14,12 @@ import { LoginBodyRole } from "@workspace/api-client-react";
 
 export default function Login() {
   const [, setLocation] = useLocation();
-  const { login: setAuthUser } = useAuth();
+  const { login: setAuthUser, user } = useAuth();
   const loginMutation = useLogin();
+
+  useEffect(() => {
+    if (user) setLocation(`/dashboard/${user.role}`);
+  }, [user, setLocation]);
 
   const [role, setRole] = useState<LoginBodyRole>("mahasiswa");
   const [nim, setNim] = useState("");

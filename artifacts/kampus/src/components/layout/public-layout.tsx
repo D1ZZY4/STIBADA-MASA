@@ -2,13 +2,18 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import {
   SignIn, List, X, Envelope,
-  Phone, MapPin, ArrowRight,
+  Phone, MapPin, ArrowRight, SquaresFour, SignOut, User as UserIcon,
 } from "@phosphor-icons/react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { apiFetch } from "@/lib/api";
 import { contentBody, fallbackSiteSettings, type PublicContentItem, type SiteSettings } from "@/lib/site-content";
 import { useTheme } from "@/components/theme-provider";
+import { useAuth } from "@/lib/auth";
 
 const navLinks = [
   { href: "/", label: "Beranda" },
@@ -35,8 +40,51 @@ function ThemeToggle({ size = 18 }: { size?: number }) {
   );
 }
 
+function AuthAction({ compact = false }: { compact?: boolean }) {
+  const { user, logout } = useAuth();
+  const [, navigate] = useLocation();
+  if (!user) {
+    return (
+      <Link href="/login">
+        <Button size="sm" className={compact ? "gap-1.5 rounded-lg text-xs h-7 px-3" : "gap-2 rounded-xl"}>
+          <SignIn size={compact ? 12 : 15} weight="bold" />
+          {compact ? "Masuk" : "Masuk Portal"}
+        </Button>
+      </Link>
+    );
+  }
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button size="sm" className={compact ? "gap-1.5 rounded-lg text-xs h-7 px-3" : "gap-2 rounded-xl"}>
+          <SquaresFour size={compact ? 12 : 15} weight="bold" />
+          {compact ? "Dashboard" : `Halo, ${user.nama?.split(" ")[0] || "Civitas"}`}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuLabel>
+          <p className="text-sm font-semibold">{user.nama}</p>
+          <p className="text-xs text-muted-foreground">{user.email || user.nim}</p>
+          <span className="mt-1.5 inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary capitalize">{user.role}</span>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href={`/dashboard/${user.role}`} className="flex items-center gap-2 cursor-pointer">
+            <SquaresFour size={14} weight="duotone" /> Buka Dashboard
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => { logout(); navigate("/"); }} className="text-destructive focus:text-destructive gap-2">
+          <SignOut size={14} weight="duotone" /> Keluar
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 function PublicNavbar({ settings }: { settings: SiteSettings }) {
   const [location] = useLocation();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -91,12 +139,9 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
           {/* Theme toggle — desktop */}
           <ThemeToggle size={16} />
 
-          <Link href="/login" className="hidden lg:block">
-            <Button size="sm" className="gap-2 rounded-xl">
-              <SignIn size={15} weight="bold" />
-              Masuk Portal
-            </Button>
-          </Link>
+          <div className="hidden lg:block">
+            <AuthAction />
+          </div>
 
           {/* Hamburger — mobile/tablet */}
           <button
@@ -129,12 +174,9 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
               {link.label}
             </Link>
           ))}
-          <Link href="/login" className="ml-auto shrink-0">
-            <Button size="sm" className="gap-1.5 rounded-lg text-xs h-7 px-3">
-              <SignIn size={12} weight="bold" />
-              Masuk
-            </Button>
-          </Link>
+          <div className="ml-auto shrink-0">
+            <AuthAction compact />
+          </div>
         </div>
       </div>
 
@@ -158,12 +200,21 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
             ))}
           </nav>
           <div className="mt-3 flex gap-2">
-            <Link href="/login" className="flex-1">
-              <Button className="w-full gap-2 rounded-xl" size="sm">
-                <SignIn size={15} weight="bold" />
-                Masuk Portal Akademik
-              </Button>
-            </Link>
+            {user ? (
+              <Link href={`/dashboard/${user.role}`} className="flex-1">
+                <Button className="w-full gap-2 rounded-xl" size="sm">
+                  <SquaresFour size={15} weight="bold" />
+                  Buka Dashboard {user.role}
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/login" className="flex-1">
+                <Button className="w-full gap-2 rounded-xl" size="sm">
+                  <SignIn size={15} weight="bold" />
+                  Masuk Portal Akademik
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       )}

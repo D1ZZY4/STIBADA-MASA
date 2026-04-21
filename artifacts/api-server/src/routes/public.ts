@@ -8,13 +8,14 @@ import { broadcastRealtime } from "../lib/realtime";
 const router: IRouter = Router();
 
 const defaultContent = [
-  { key: "home.hero", page: "Beranda", section: "Hero", type: "page", title: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel (STIBADA MASA) Surabaya", content: "Platform akademik terpadu untuk pendaftaran, jadwal kuliah, KRS, nilai, absensi, diskusi, dan statistik pimpinan.", image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=85", status: "published", order: 1 },
-  { key: "home.profile", page: "Beranda", section: "Profil Kampus", type: "page", title: "Visi, misi, dan keunggulan STIBADA MASA.", content: "Kampus berbasis nilai Islam dengan pendekatan modern, menghasilkan lulusan beradab, adaptif, dan berdampak.", image: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1000&q=85", status: "published", order: 2 },
-  { key: "home.portal", page: "Beranda", section: "CTA Portal", type: "page", title: "Masuk sesuai peran Anda.", content: "Mahasiswa, dosen, admin, dan rektor menggunakan portal terpisah dengan akses khusus sesuai peran.", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=85", status: "published", order: 3 },
-  { key: "visi", page: "Beranda", section: "Profil Kampus", type: "profile", title: "Visi", content: "Menjadi perguruan tinggi yang membentuk insan akademik beradab, adaptif, dan berdampak bagi masyarakat.", image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=85", status: "published", order: 4 },
-  { key: "misi", page: "Beranda", section: "Profil Kampus", type: "profile", title: "Misi", content: "Menguatkan pembelajaran, penelitian, pengabdian, tata kelola, dan jejaring digital yang relevan dengan kebutuhan zaman.", image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=900&q=85", status: "published", order: 5 },
-  { key: "home.security", page: "Beranda", section: "Profil Kampus", type: "feature", title: "Keamanan Portal", content: "Auth berbasis peran, hash password, rate limiting, dan audit trail.", image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85", status: "published", order: 6 },
-  { key: "home.notification", page: "Beranda", section: "Profil Kampus", type: "feature", title: "Notifikasi Instan", content: "Pengumuman dan diskusi real-time via WebSocket.", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85", status: "published", order: 7 },
+  { key: "home.hero", page: "Beranda", section: "Hero", type: "page", title: "STIBADA MASA — Pusat Studi Bahasa Arab & Dakwah Sunan Ampel", content: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel Surabaya. Terakreditasi BAN-PT, terintegrasi sistem PMB & SIAKAD untuk layanan akademik yang transparan.", image: "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=1400&q=85", status: "published", order: 1 },
+  { key: "home.profile", page: "Beranda", section: "Profil Kampus", type: "page", title: "Visi & Misi STIBADA MASA", content: "Berakar pada nilai-nilai luhur Sunan Ampel, kami menyiapkan ahli Bahasa Arab yang berkarakter Islami, kompeten secara akademik, dan bermanfaat bagi masyarakat.", image: "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1000&q=85", status: "published", order: 2 },
+  { key: "home.portal", page: "Beranda", section: "CTA Portal", type: "page", title: "Portal Akademik Terintegrasi", content: "Satu pintu untuk Mahasiswa, Dosen, Admin, dan Rektor. Terhubung langsung dengan sistem PMB dan SIAKAD STIBADA MASA.", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=85", status: "published", order: 3 },
+  { key: "visi", page: "Beranda", section: "Profil Kampus", type: "profile", title: "Visi", content: "Menjadi program studi pendidikan Bahasa Arab yang Unggul, Berkarakter Islami berdasarkan nilai-nilai luhur Sunan Ampel.", image: "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=900&q=85", status: "published", order: 4 },
+  { key: "misi", page: "Beranda", section: "Profil Kampus", type: "profile", title: "Misi", content: "1) Menyelenggarakan pendidikan & pengajaran Bahasa Arab yang berkualitas dan berkarakter Islami berdasarkan nilai-nilai luhur Sunan Ampel. 2) Melaksanakan penelitian dalam bidang Pendidikan Bahasa Arab yang berkontribusi pada pengembangan ilmu. 3) Mengabdikan ilmu kepada masyarakat melalui dakwah dan pengabdian berbasis nilai-nilai luhur Sunan Ampel.", image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=900&q=85", status: "published", order: 5 },
+  { key: "tujuan", page: "Beranda", section: "Profil Kampus", type: "profile", title: "Tujuan", content: "1) Menghasilkan lulusan yang kompeten dan berakhlak mulia dalam bidang Pendidikan Bahasa Arab. 2) Menjadi rujukan penelitian Pendidikan Bahasa Arab. 3) Memberikan kontribusi nyata melalui dakwah dan pengabdian masyarakat.", image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=900&q=85", status: "published", order: 6 },
+  { key: "home.akreditasi", page: "Beranda", section: "Profil Kampus", type: "feature", title: "Terakreditasi BAN-PT", content: "Sertifikat Akreditasi BAN-PT berlaku 2022–2027. Penjaminan mutu pendidikan tinggi yang independen dan terpercaya.", image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=900&q=85", status: "published", order: 7 },
+  { key: "home.integrasi", page: "Beranda", section: "Profil Kampus", type: "feature", title: "Integrasi PMB & SIAKAD", content: "Pendaftaran online, KRS, nilai, jadwal, dan layanan administrasi terhubung dalam satu sistem akademik terpadu.", image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=85", status: "published", order: 8 },
   { key: "pendaftaran.hero", page: "Pendaftaran", section: "Hero", type: "page", title: "Pendaftaran Mahasiswa Baru", content: "Mulai perjalanan akademikmu di STIBADA MASA. Proses pendaftaran mudah, transparan, dan dapat dipantau secara daring.", image: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=85", status: "published", order: 8 },
   { key: "pendaftaran.form", page: "Pendaftaran", section: "Formulir", type: "image", title: "Formulir Pendaftaran Daring", content: "Isi dengan data yang benar dan lengkap", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=85", status: "published", order: 9 },
   { key: "pendaftaran.help", page: "Pendaftaran", section: "Bantuan", type: "layout", title: "Butuh Bantuan?", content: "Hubungi tim PMB melalui pmb@stibadamasa.ac.id atau datang ke kantor PMB Senin–Jumat 08.00–16.00 WIB.", image: "", status: "published", order: 10 },
@@ -28,13 +29,13 @@ const defaultContent = [
 
 const defaultSiteSettings = {
   brandName: "STIBADA MASA",
-  tagline: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah",
-  contactEmail: "pmb@stibadamasa.ac.id",
-  contactPhone: "Senin–Jumat, 08.00–16.00 WIB",
-  address: "Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya",
-  admissionFee: "Mulai Rp 3.500.000 per semester",
-  admissionSchedule: "Gelombang 1: Januari-Maret, Gelombang 2: April-Juni, Gelombang 3: Juli-Agustus",
-  footerNote: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah — Masjid Agung Sunan Ampel, Surabaya",
+  tagline: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel",
+  contactEmail: "humas@stibada.ac.id",
+  contactPhone: "081234502771 · Senin–Kamis 08.00–16.00",
+  address: "Jl. Ampel Masjid No.53, Ampel, Kec. Semampir, Kota Surabaya, Jawa Timur 60151",
+  admissionFee: "Terjangkau, terintegrasi sistem PMB online",
+  admissionSchedule: "Gelombang 1: Januari–Maret · Gelombang 2: April–Juni · Gelombang 3: Juli–Agustus",
+  footerNote: "Terakreditasi BAN-PT (Sertifikat 2022–2027) · Terintegrasi PMB & SIAKAD",
   layoutMode: "modern",
 };
 
@@ -48,12 +49,12 @@ async function ensurePublicContent() {
   const now = new Date().toISOString();
   await Promise.all(defaultContent.map((item) => db.collection("publicContent").updateOne(
     { key: item.key },
-    { $setOnInsert: { ...item, updatedAt: now } },
+    { $set: { ...item, updatedAt: now } },
     { upsert: true },
   )));
   await db.collection("systemSettings").updateOne(
     { key: "publicSite" },
-    { $setOnInsert: { key: "publicSite", ...defaultSiteSettings, updatedAt: now } },
+    { $set: { key: "publicSite", ...defaultSiteSettings, updatedAt: now } },
     { upsert: true },
   );
 }

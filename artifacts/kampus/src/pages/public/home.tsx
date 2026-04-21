@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import {
-  SignIn, Eye, TreeStructure, ShieldCheck, BellRinging,
+  SignIn, Eye, TreeStructure, Certificate, PlugsConnected,
   ArrowRight, UserCircle, Medal, GraduationCap, ChalkboardTeacher,
-  UserGear, Crown,
+  UserGear, Crown, Target, MapPin, Phone, Envelope,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,30 +15,29 @@ import { toast } from "sonner";
 
 const fallback: LandingData = {
   content: [
-    { id: "visi", key: "visi", type: "profile", title: "Visi", content: "Menjadi perguruan tinggi yang membentuk insan akademik beradab, adaptif, dan berdampak bagi masyarakat." },
-    { id: "misi", key: "misi", type: "profile", title: "Misi", content: "Menguatkan pembelajaran, penelitian, pengabdian, tata kelola, dan jejaring digital yang relevan dengan kebutuhan zaman." },
+    { id: "visi", key: "visi", type: "profile", title: "Visi", content: "Menjadi program studi pendidikan Bahasa Arab yang Unggul, Berkarakter Islami berdasarkan nilai-nilai luhur Sunan Ampel." },
+    { id: "misi", key: "misi", type: "profile", title: "Misi", content: "1) Menyelenggarakan pendidikan & pengajaran Bahasa Arab yang berkualitas dan berkarakter Islami berdasarkan nilai-nilai luhur Sunan Ampel. 2) Melaksanakan penelitian dalam bidang Pendidikan Bahasa Arab. 3) Mengabdikan ilmu kepada masyarakat melalui dakwah dan pengabdian." },
+    { id: "tujuan", key: "tujuan", type: "profile", title: "Tujuan", content: "1) Menghasilkan lulusan kompeten & berakhlak mulia dalam Pendidikan Bahasa Arab. 2) Menjadi rujukan penelitian Pendidikan Bahasa Arab. 3) Memberikan kontribusi nyata melalui dakwah dan pengabdian masyarakat." },
   ],
   announcements: [
-    { id: "ann1", title: "Pendaftaran Mahasiswa Baru Dibuka", content: "PMB STIBADA MASA tahun akademik 2026/2027 telah dibuka. Daftarkan diri Anda sekarang.", createdAt: new Date().toISOString() },
-    { id: "ann2", title: "Pengingat Batas KRS", content: "Pengisian KRS ditutup Jumat pukul 23.59 WIB. Segera hubungi dosen wali jika ada kendala.", createdAt: new Date(Date.now() - 86400000).toISOString() },
+    { id: "ann1", title: "Pendaftaran Mahasiswa Baru Dibuka", content: "PMB STIBADA MASA tahun akademik 2026/2027 telah dibuka melalui sistem pendaftaran online terintegrasi.", createdAt: new Date().toISOString() },
+    { id: "ann2", title: "Akreditasi BAN-PT 2022–2027", content: "STIBADA MASA telah memperoleh Sertifikat Akreditasi BAN-PT yang berlaku hingga tahun 2027.", createdAt: new Date(Date.now() - 86400000).toISOString() },
   ],
   programs: [
-    { id: "prg1", kode: "PAI", nama: "Pendidikan Agama Islam", kurikulum: ["Studi Al-Qur'an", "Metodologi Pembelajaran", "Teknologi Pendidikan"], dosen: "Dr. Arif Setiawan, M.T.", prospek: ["Guru", "Konsultan Pendidikan"] },
-    { id: "prg2", kode: "ES", nama: "Ekonomi Syariah", kurikulum: ["Fiqh Muamalah", "Keuangan Digital", "Kewirausahaan"], dosen: "Prof. Siti Rahayu, Ph.D.", prospek: ["Analis Keuangan Syariah", "Wirausaha"] },
-    { id: "prg3", kode: "KPI", nama: "Komunikasi dan Penyiaran Islam", kurikulum: ["Produksi Media", "Public Speaking", "Jurnalisme Digital"], dosen: "Dr. Budi Santoso, M.M.", prospek: ["Jurnalis", "Content Strategist"] },
+    { id: "prg1", kode: "PBA", nama: "Pendidikan Bahasa Arab", kurikulum: ["Nahwu & Sharaf", "Balaghah", "Metodologi Pembelajaran Bahasa Arab"], dosen: "Tim Dosen Linguistik Arab", prospek: ["Guru/Dosen Bahasa Arab", "Penerjemah", "Peneliti Linguistik"] },
   ],
   scholarships: [
-    { id: "sch1", nama: "Beasiswa Prestasi MASA", kriteria: "IPK unggul dan aktif organisasi", panduan: "Unggah portofolio dan surat rekomendasi." },
-    { id: "sch2", nama: "Beasiswa Tahfidz", kriteria: "Hafalan minimal 5 juz", panduan: "Ikuti verifikasi hafalan." },
-    { id: "sch3", nama: "Beasiswa Keluarga Berdaya", kriteria: "Membutuhkan dukungan pembiayaan", panduan: "Lampirkan dokumen ekonomi keluarga." },
+    { id: "sch1", nama: "Beasiswa Tahfidz Al-Qur'an", kriteria: "Hafalan minimal 5 juz dengan setoran terverifikasi", panduan: "Ikuti verifikasi hafalan oleh tim penguji." },
+    { id: "sch2", nama: "Beasiswa Prestasi Akademik", kriteria: "Nilai rapor unggul & aktif organisasi", panduan: "Unggah transkrip dan surat rekomendasi." },
+    { id: "sch3", nama: "Beasiswa Dhuafa Berkah", kriteria: "Mahasiswa yang membutuhkan dukungan pembiayaan", panduan: "Lampirkan dokumen ekonomi keluarga." },
   ],
   gallery: [
-    { id: "gal1", title: "Wisuda Sarjana", category: "Wisuda", description: "Momen pelepasan lulusan STIBADA MASA." },
-    { id: "gal2", title: "Seminar Literasi Digital", category: "Seminar", description: "Kuliah umum transformasi pembelajaran digital." },
-    { id: "gal3", title: "Liga Futsal Mahasiswa", category: "Olahraga", description: "Kegiatan olahraga antar prodi." },
-    { id: "gal4", title: "Ekstrakurikuler Seni Hadrah", category: "Ekskul", description: "Pembinaan minat bakat mahasiswa." },
+    { id: "gal1", title: "Wisuda Sarjana Pendidikan Bahasa Arab", category: "Wisuda", description: "Momen pelepasan lulusan STIBADA MASA." },
+    { id: "gal2", title: "Halaqah & Kajian Sunan Ampel", category: "Dakwah", description: "Kajian rutin di lingkungan Masjid Agung Sunan Ampel." },
+    { id: "gal3", title: "Lomba Pidato Bahasa Arab", category: "Akademik", description: "Khithobah berbahasa Arab antar mahasiswa." },
+    { id: "gal4", title: "Pengabdian Masyarakat", category: "Pengabdian", description: "Kegiatan pengabdian berbasis nilai luhur Sunan Ampel." },
   ],
-  admission: { biaya: "Mulai Rp 3.500.000 per semester", kontak: "pmb@stibadamasa.ac.id", jadwal: "Gelombang 1: Januari–Maret 2026" },
+  admission: { biaya: "Terjangkau, terintegrasi sistem PMB online", kontak: "humas@stibada.ac.id", jadwal: "Gelombang 1: Januari–Maret 2026" },
 };
 
 function SectionHeader({ badge, title, href, hrefLabel = "Lihat Selengkapnya" }: {
@@ -81,13 +80,20 @@ export default function Beranda() {
     return () => ws.close();
   }, []);
 
-  const profile = useMemo(() => data.content.filter((c) => c.type === "profile"), [data.content]);
-  const heroTitle = contentTitle(data.content, "home.hero", "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel (STIBADA MASA) Surabaya");
-  const heroBody = contentBody(data.content, "home.hero", "Platform akademik terpadu untuk pendaftaran, jadwal kuliah, KRS, nilai, absensi, diskusi, dan statistik pimpinan.");
-  const profileTitle = contentTitle(data.content, "home.profile", "Visi, misi, dan keunggulan STIBADA MASA.");
-  const profileBody = contentBody(data.content, "home.profile", "Kampus berbasis nilai Islam dengan pendekatan modern, menghasilkan lulusan beradab, adaptif, dan berdampak.");
-  const portalTitle = contentTitle(data.content, "home.portal", "Masuk sesuai peran Anda.");
-  const portalBody = contentBody(data.content, "home.portal", "Mahasiswa, dosen, admin, dan rektor menggunakan portal terpisah dengan akses khusus sesuai peran.");
+  const profileMap = useMemo(() => {
+    const map: Record<string, typeof data.content[number]> = {};
+    data.content.filter((c) => c.type === "profile").forEach((c) => { map[c.key] = c; });
+    return map;
+  }, [data.content]);
+  const visi = profileMap["visi"];
+  const misi = profileMap["misi"];
+  const tujuan = profileMap["tujuan"];
+  const heroTitle = contentTitle(data.content, "home.hero", "STIBADA MASA — Pusat Studi Bahasa Arab & Dakwah Sunan Ampel");
+  const heroBody = contentBody(data.content, "home.hero", "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel Surabaya. Terakreditasi BAN-PT, terintegrasi sistem PMB & SIAKAD.");
+  const profileTitle = contentTitle(data.content, "home.profile", "Visi & Misi STIBADA MASA");
+  const profileBody = contentBody(data.content, "home.profile", "Berakar pada nilai-nilai luhur Sunan Ampel, kami menyiapkan ahli Bahasa Arab yang berkarakter Islami, kompeten, dan bermanfaat bagi masyarakat.");
+  const portalTitle = contentTitle(data.content, "home.portal", "Portal Akademik Terintegrasi");
+  const portalBody = contentBody(data.content, "home.portal", "Satu pintu untuk Mahasiswa, Dosen, Admin, dan Rektor. Terhubung langsung dengan PMB dan SIAKAD STIBADA MASA.");
 
   return (
     <PublicLayout>
@@ -118,7 +124,11 @@ export default function Beranda() {
               </Link>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
-              {[["KRS Interaktif", "Mahasiswa"], ["Diskusi Real-time", "Civitas"], ["Statistik Eksekutif", "Rektor"]].map(([title, label]) => (
+              {[
+                ["BAN-PT 2022–2027", "Akreditasi Resmi"],
+                ["PMB Online", "Pendaftaran Daring"],
+                ["SIAKAD Terpadu", "Layanan Akademik"],
+              ].map(([title, label]) => (
                 <div key={title} className="rounded-2xl border bg-muted/40 px-4 py-3 text-sm backdrop-blur-sm">
                   <p className="font-semibold">{title}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
@@ -156,60 +166,72 @@ export default function Beranda() {
             <p className="text-muted-foreground self-end text-sm leading-7">{profileBody}</p>
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-2">
-            <div className="relative overflow-hidden rounded-3xl border bg-card shadow-sm">
+          {/* Visi card — large maroon */}
+          <div className="overflow-hidden rounded-3xl border bg-primary text-primary-foreground shadow-lg">
+            <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
               <img
-                src={contentImage(data.content, "home.profile", fallbackImages.campus)}
-                alt="Kampus"
-                className="h-full min-h-[380px] w-full object-cover"
+                src={visi?.image || contentImage(data.content, "home.profile", fallbackImages.campus)}
+                alt="Visi"
+                className="h-56 w-full object-cover lg:h-full"
                 loading="lazy"
               />
-              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white/55 dark:bg-black/50 p-5 shadow-lg backdrop-blur-md border border-white/40 dark:border-white/10">
-                <p className="text-base font-bold">STIBADA MASA</p>
-                <p className="mt-1 text-xs text-muted-foreground leading-5">{profileBody}</p>
+              <div className="space-y-3 p-7 lg:p-9">
+                <div className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest">
+                  <Eye size={12} weight="bold" /> Visi
+                </div>
+                <p className="text-lg font-semibold leading-7 lg:text-xl">
+                  {visi?.content || "Menjadi program studi pendidikan Bahasa Arab yang Unggul, Berkarakter Islami berdasarkan nilai-nilai luhur Sunan Ampel."}
+                </p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {profile.slice(0, 2).map((item, i) => (
-                <Card key={item.id} className="overflow-hidden rounded-3xl shadow-sm">
-                  <img
-                    src={item.image || fallbackImages.gallery[i % fallbackImages.gallery.length]}
-                    alt={item.title}
-                    className="h-28 w-full object-cover"
-                    loading="lazy"
-                  />
-                  <CardHeader className="pb-1.5 pt-3 px-4">
-                    <CardTitle className="flex items-center gap-1.5 text-xs font-semibold">
-                      {item.key === "visi"
-                        ? <Eye size={13} weight="duotone" className="text-primary shrink-0" />
-                        : <TreeStructure size={13} weight="duotone" className="text-primary shrink-0" />}
-                      {item.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="px-4 pb-4 text-xs leading-5 text-muted-foreground">{item.content}</CardContent>
-                </Card>
-              ))}
-              <Card className="overflow-hidden rounded-3xl shadow-sm">
-                <img src={contentImage(data.content, "home.security", fallbackImages.scholarships[2])} alt="Keamanan" className="h-28 w-full object-cover" loading="lazy" />
-                <CardHeader className="pb-1.5 pt-3 px-4">
-                  <CardTitle className="flex items-center gap-1.5 text-xs font-semibold">
-                    <ShieldCheck size={13} weight="duotone" className="text-primary shrink-0" />
-                    {contentTitle(data.content, "home.security", "Keamanan Portal")}
+          </div>
+
+          {/* Misi + Tujuan + Akreditasi + Integrasi */}
+          <div className="grid gap-5 lg:grid-cols-2">
+            {[
+              { item: misi, icon: TreeStructure, title: "Misi", fallback: "Pendidikan, penelitian, dan pengabdian Bahasa Arab berbasis nilai luhur Sunan Ampel." },
+              { item: tujuan, icon: Target, title: "Tujuan", fallback: "Menghasilkan lulusan kompeten dan menjadi rujukan penelitian Pendidikan Bahasa Arab." },
+            ].map(({ item, icon: Icon, title, fallback: fb }) => (
+              <Card key={title} className="rounded-3xl shadow-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <Icon size={16} weight="duotone" />
+                    </span>
+                    {item?.title || title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="px-4 pb-4 text-xs leading-5 text-muted-foreground">{contentBody(data.content, "home.security", "Auth berbasis peran, hash password, rate limiting, dan audit trail.")}</CardContent>
+                <CardContent className="text-sm leading-6 text-muted-foreground whitespace-pre-line">
+                  {(item?.content || fb).replace(/(\d\))/g, "\n$1").trim()}
+                </CardContent>
               </Card>
-              <Card className="overflow-hidden rounded-3xl shadow-sm">
-                <img src={contentImage(data.content, "home.notification", fallbackImages.gallery[5])} alt="Notifikasi" className="h-28 w-full object-cover" loading="lazy" />
-                <CardHeader className="pb-1.5 pt-3 px-4">
-                  <CardTitle className="flex items-center gap-1.5 text-xs font-semibold">
-                    <BellRinging size={13} weight="duotone" className="text-primary shrink-0" />
-                    {contentTitle(data.content, "home.notification", "Notifikasi Instan")}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="px-4 pb-4 text-xs leading-5 text-muted-foreground">{contentBody(data.content, "home.notification", "Pengumuman dan diskusi real-time via WebSocket.")}</CardContent>
-              </Card>
-            </div>
+            ))}
+            <Card className="rounded-3xl shadow-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Certificate size={16} weight="duotone" />
+                  </span>
+                  {contentTitle(data.content, "home.akreditasi", "Terakreditasi BAN-PT")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm leading-6 text-muted-foreground">
+                {contentBody(data.content, "home.akreditasi", "Sertifikat Akreditasi BAN-PT berlaku 2022–2027. Penjaminan mutu pendidikan tinggi yang independen.")}
+              </CardContent>
+            </Card>
+            <Card className="rounded-3xl shadow-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <PlugsConnected size={16} weight="duotone" />
+                  </span>
+                  {contentTitle(data.content, "home.integrasi", "Integrasi PMB & SIAKAD")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm leading-6 text-muted-foreground">
+                {contentBody(data.content, "home.integrasi", "Pendaftaran online, KRS, nilai, jadwal, dan administrasi terhubung dalam satu sistem akademik terpadu.")}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

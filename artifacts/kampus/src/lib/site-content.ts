@@ -36,13 +36,13 @@ export type LandingData = {
 
 export const fallbackSiteSettings: SiteSettings = {
   brandName: "STIBADA MASA",
-  tagline: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah",
-  contactEmail: "pmb@stibadamasa.ac.id",
-  contactPhone: "Senin–Jumat, 08.00–16.00 WIB",
-  address: "Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya",
-  admissionFee: "Mulai Rp 3.500.000 per semester",
-  admissionSchedule: "Gelombang 1: Januari-Maret, Gelombang 2: April-Juni, Gelombang 3: Juli-Agustus",
-  footerNote: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah — Masjid Agung Sunan Ampel, Surabaya",
+  tagline: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel",
+  contactEmail: "humas@stibada.ac.id",
+  contactPhone: "081234502771 · Senin–Kamis 08.00–16.00",
+  address: "Jl. Ampel Masjid No.53, Ampel, Kec. Semampir, Kota Surabaya, Jawa Timur 60151",
+  admissionFee: "Terjangkau, terintegrasi sistem PMB online",
+  admissionSchedule: "Gelombang 1: Januari–Maret · Gelombang 2: April–Juni · Gelombang 3: Juli–Agustus",
+  footerNote: "Terakreditasi BAN-PT (Sertifikat 2022–2027) · Terintegrasi PMB & SIAKAD",
   layoutMode: "modern",
 };
 

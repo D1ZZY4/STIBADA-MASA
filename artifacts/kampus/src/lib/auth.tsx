@@ -21,9 +21,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(JSON.parse(storedUser));
       } catch (e) {
         console.error("Failed to parse user from local storage");
+        localStorage.removeItem("kampus_user");
       }
     }
     setIsLoading(false);
+
+    const handler = (e: StorageEvent) => {
+      if (e.key === "kampus_user") {
+        if (e.newValue) {
+          try { setUser(JSON.parse(e.newValue)); } catch { setUser(null); }
+        } else {
+          setUser(null);
+        }
+      }
+    };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
   }, []);
 
   const login = (userData: User, token?: string) => {
