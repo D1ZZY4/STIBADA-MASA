@@ -46,7 +46,7 @@ export default function DosenDiskusi() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl bg-gradient-to-r from-primary/12 to-amber-100/50 p-6">
+      <div className="rounded-3xl bg-gradient-to-r from-primary/10 to-primary/5 p-6">
         <div className="flex items-center gap-3">
           <div className="rounded-2xl bg-primary p-3 text-primary-foreground">
             <ChatCircleText weight="duotone" size={28} />

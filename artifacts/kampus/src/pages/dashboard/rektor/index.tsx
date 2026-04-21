@@ -26,7 +26,7 @@ export default function RektorDashboard() {
           <p className="text-sm text-muted-foreground">{today}</p>
         </div>
         <Badge variant="outline" className="w-fit rounded-full text-xs gap-1.5 px-3 py-1">
-          <div className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+          <div className="h-1.5 w-1.5 rounded-full bg-primary" />
           Ringkasan Eksekutif · STIBADA MASA
         </Badge>
       </div>

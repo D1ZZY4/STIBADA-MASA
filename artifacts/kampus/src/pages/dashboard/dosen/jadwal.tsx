@@ -6,12 +6,12 @@ import { Clock, MapPin, Users } from "lucide-react";
 
 const HARI_ORDER = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 const HARI_COLORS: Record<string, string> = {
-  Senin: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
-  Selasa: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
-  Rabu: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
-  Kamis: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
-  Jumat: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
-  Sabtu: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+  Senin: "bg-muted text-muted-foreground",
+  Selasa: "bg-primary/10 text-primary",
+  Rabu: "bg-secondary text-secondary-foreground",
+  Kamis: "bg-accent text-accent-foreground",
+  Jumat: "bg-destructive/10 text-destructive",
+  Sabtu: "bg-muted text-muted-foreground",
 };
 
 export default function DosenJadwal() {

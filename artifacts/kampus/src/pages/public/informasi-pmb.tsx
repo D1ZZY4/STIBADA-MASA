@@ -12,9 +12,9 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
 const jadwal = [
-  { gelombang: "Gelombang 1", buka: "1 Jan 2026", tutup: "31 Mar 2026", pengumuman: "10 Apr 2026", accent: "from-emerald-500/15 to-emerald-500/5 border-emerald-500/25 dark:from-emerald-500/10 dark:to-transparent" },
-  { gelombang: "Gelombang 2", buka: "1 Apr 2026", tutup: "30 Jun 2026", pengumuman: "10 Jul 2026", accent: "from-sky-500/15 to-sky-500/5 border-sky-500/25 dark:from-sky-500/10 dark:to-transparent" },
-  { gelombang: "Gelombang 3", buka: "1 Jul 2026", tutup: "31 Ags 2026", pengumuman: "5 Sep 2026", accent: "from-amber-500/15 to-amber-500/5 border-amber-500/25 dark:from-amber-500/10 dark:to-transparent" },
+  { gelombang: "Gelombang 1", buka: "1 Jan 2026", tutup: "31 Mar 2026", pengumuman: "10 Apr 2026", accent: "from-primary/15 to-primary/5 border-primary/25 dark:from-primary/10 dark:to-transparent" },
+  { gelombang: "Gelombang 2", buka: "1 Apr 2026", tutup: "30 Jun 2026", pengumuman: "10 Jul 2026", accent: "from-muted to-muted/30 border-border" },
+  { gelombang: "Gelombang 3", buka: "1 Jul 2026", tutup: "31 Ags 2026", pengumuman: "5 Sep 2026", accent: "from-accent to-accent/30 border-border" },
 ];
 
 const biaya = [

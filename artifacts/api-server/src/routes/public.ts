@@ -30,7 +30,7 @@ const defaultContent = [
 const defaultSiteSettings = {
   brandName: "STIBADA MASA",
   tagline: "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel",
-  contactEmail: "humas@stibada.ac.id",
+  contactEmail: "pmb@stibada.ac.id",
   contactPhone: "081234502771 · Senin–Kamis 08.00–16.00",
   address: "Jl. Ampel Masjid No.53, Ampel, Kec. Semampir, Kota Surabaya, Jawa Timur 60151",
   admissionFee: "Terjangkau, terintegrasi sistem PMB online",

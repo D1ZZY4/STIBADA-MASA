@@ -27,10 +27,10 @@ export default function Login() {
   const [showPass, setShowPass] = useState(false);
 
   const roles = [
-    { id: "mahasiswa", label: "Mahasiswa", icon: GraduationCap, color: "text-blue-600 dark:text-blue-400" },
-    { id: "dosen",     label: "Dosen",     icon: BookOpen,       color: "text-emerald-600 dark:text-emerald-400" },
-    { id: "admin",     label: "Admin",     icon: UserGear,       color: "text-orange-600 dark:text-orange-400" },
-    { id: "rektor",    label: "Rektor",    icon: Crown,          color: "text-purple-600 dark:text-purple-400" },
+    { id: "mahasiswa", label: "Mahasiswa", icon: GraduationCap, color: "text-muted-foreground" },
+    { id: "dosen",     label: "Dosen",     icon: BookOpen,       color: "text-primary" },
+    { id: "admin",     label: "Admin",     icon: UserGear,       color: "text-muted-foreground" },
+    { id: "rektor",    label: "Rektor",    icon: Crown,          color: "text-muted-foreground" },
   ] as const;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,7 +61,7 @@ export default function Login() {
               alt="Kampus STIBADA MASA"
               className="h-[580px] w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#111f1c]/92 via-[#111f1c]/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f10]/92 via-[#1a0f10]/20 to-transparent" />
 
             {/* Bottom content */}
             <div className="absolute bottom-0 left-0 right-0 space-y-5 p-9 text-white">

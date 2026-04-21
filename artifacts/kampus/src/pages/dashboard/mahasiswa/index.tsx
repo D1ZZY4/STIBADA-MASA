@@ -51,7 +51,7 @@ export default function MahasiswaDashboard() {
           <p className="text-sm text-muted-foreground">{today} · {user?.prodi}</p>
         </div>
         <Badge variant="outline" className="w-fit rounded-full text-xs gap-1.5 px-3 py-1">
-          <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+          <div className="h-1.5 w-1.5 rounded-full bg-primary" />
           Aktif — Semester Genap 2024/2025
         </Badge>
       </div>
@@ -72,19 +72,19 @@ export default function MahasiswaDashboard() {
               <TrendUp size={16} weight="duotone" className="text-primary" />
               Persentase Kehadiran
             </div>
-            <span className={`text-sm font-bold ${kehadiran >= 75 ? "text-green-600" : "text-red-500"}`}>{kehadiran}%</span>
+            <span className={`text-sm font-bold ${kehadiran >= 75 ? "text-primary" : "text-destructive"}`}>{kehadiran}%</span>
           </div>
           <Progress value={kehadiran} className="h-2.5 rounded-full" />
           <div className="flex items-center justify-between mt-2">
             <p className="text-xs text-muted-foreground">Min. kehadiran: 75%</p>
             {kehadiran < 75 && (
-              <div className="flex items-center gap-1 text-xs text-red-500">
+              <div className="flex items-center gap-1 text-xs text-destructive">
                 <Warning size={12} weight="duotone" />
                 Kehadiran di bawah batas!
               </div>
             )}
             {kehadiran >= 75 && (
-              <div className="flex items-center gap-1 text-xs text-green-600">
+              <div className="flex items-center gap-1 text-xs text-primary">
                 <CheckCircle size={12} weight="duotone" />
                 Memenuhi syarat
               </div>
@@ -154,7 +154,7 @@ export default function MahasiswaDashboard() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Status</span>
-                <Badge className="rounded-full text-xs bg-green-500/10 text-green-600 border-0">Aktif</Badge>
+                <Badge className="rounded-full text-xs bg-primary/10 text-primary border-0">Aktif</Badge>
               </div>
             </div>
             <div className="flex items-center gap-2 rounded-xl bg-primary/5 p-3 text-sm">

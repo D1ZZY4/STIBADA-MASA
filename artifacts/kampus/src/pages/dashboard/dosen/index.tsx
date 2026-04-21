@@ -21,7 +21,7 @@ export default function DosenDashboard() {
           <p className="text-sm text-muted-foreground">{today} · {user?.jabatan ?? "Dosen"}</p>
         </div>
         <Badge variant="outline" className="w-fit rounded-full text-xs gap-1.5 px-3 py-1">
-          <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          <div className="h-1.5 w-1.5 rounded-full bg-primary" />
           Semester Genap 2024/2025
         </Badge>
       </div>
@@ -117,7 +117,7 @@ export default function DosenDashboard() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Status</span>
-                <Badge className="rounded-full text-xs bg-green-500/10 text-green-600 border-0">Aktif</Badge>
+                <Badge className="rounded-full text-xs bg-primary/10 text-primary border-0">Aktif</Badge>
               </div>
             </div>
             <div className="flex items-center gap-2 rounded-xl bg-primary/5 p-3 text-sm">

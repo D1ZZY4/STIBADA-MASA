@@ -14,10 +14,10 @@ import { Plus, Pencil } from "lucide-react";
 import { toast } from "sonner";
 
 function getGradeColor(grade: string = "") {
-  if (grade === "A" || grade === "A-") return "text-emerald-600 dark:text-emerald-400 font-semibold";
-  if (grade.startsWith("B")) return "text-blue-600 font-semibold";
-  if (grade.startsWith("C")) return "text-yellow-600 font-semibold";
-  return "text-red-600 font-semibold";
+  if (grade === "A" || grade === "A-") return "text-primary font-semibold";
+  if (grade.startsWith("B")) return "text-foreground font-semibold";
+  if (grade.startsWith("C")) return "text-muted-foreground font-semibold";
+  return "text-destructive font-semibold";
 }
 
 export default function DosenNilai() {

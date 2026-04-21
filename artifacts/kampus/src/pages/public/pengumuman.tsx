@@ -102,7 +102,7 @@ export default function Pengumuman() {
                 const Icon = item.icon;
                 return (
                   <div key={item.label} className="rounded-3xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">
-                    <Icon size={22} weight="duotone" className="mb-3 text-yellow-300/80" />
+                    <Icon size={22} weight="duotone" className="mb-3 text-primary-foreground/80" />
                     <p className="text-lg font-bold">{item.value}</p>
                     <p className="text-xs text-white/60">{item.label}</p>
                   </div>
@@ -204,7 +204,7 @@ export default function Pengumuman() {
                           <CheckCircle size={15} weight="duotone" />
                           Terverifikasi publik
                         </span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1.5 text-amber-600 dark:text-amber-400">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-muted-foreground">
                           <TrendUp size={15} weight="duotone" />
                           Prioritas informasi
                         </span>
@@ -243,7 +243,7 @@ export default function Pengumuman() {
                 <Card className="rounded-[2rem] border bg-[#203d37] dark:bg-[#142420] text-white shadow-sm">
                   <CardHeader>
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
-                      <BellRinging size={24} weight="duotone" className="text-yellow-300/80" />
+                      <BellRinging size={24} weight="duotone" className="text-primary-foreground/80" />
                     </div>
                     <CardTitle className="text-xl">Pusat Informasi</CardTitle>
                   </CardHeader>

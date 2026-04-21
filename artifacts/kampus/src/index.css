@@ -152,61 +152,61 @@
 }
 
 .dark {
-  --button-outline: rgba(255,255,255, .10);
+  --button-outline: rgba(255,255,255, .08);
   --badge-outline: rgba(255,255,255, .05);
 
   --opaque-button-border-intensity: 9;
 
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
+  --elevate-1: rgba(255,255,255, .03);
+  --elevate-2: rgba(255,255,255, .07);
 
-  /* Deep maroon-tinged charcoal */
-  --background: 0 18% 9%;
-  --foreground: 45 30% 92%;
+  /* Warm brown charcoal — same family as light cream, just dark */
+  --background: 30 10% 10%;
+  --foreground: 45 25% 90%;
 
-  --border: 0 15% 20%;
+  --border: 30 8% 20%;
 
-  --card: 0 20% 12%;
-  --card-foreground: 45 30% 92%;
-  --card-border: 0 15% 20%;
+  --card: 30 10% 13%;
+  --card-foreground: 45 25% 90%;
+  --card-border: 30 8% 20%;
 
-  --sidebar: 0 20% 12%;
-  --sidebar-foreground: 45 30% 92%;
-  --sidebar-border: 0 15% 20%;
-  --sidebar-primary: 0 65% 55%;
-  --sidebar-primary-foreground: 0 18% 9%;
-  --sidebar-accent: 0 15% 20%;
-  --sidebar-accent-foreground: 45 30% 92%;
-  --sidebar-ring: 0 65% 55%;
+  --sidebar: 30 10% 13%;
+  --sidebar-foreground: 45 25% 90%;
+  --sidebar-border: 30 8% 20%;
+  --sidebar-primary: 0 45% 42%;
+  --sidebar-primary-foreground: 45 30% 95%;
+  --sidebar-accent: 30 8% 18%;
+  --sidebar-accent-foreground: 45 25% 90%;
+  --sidebar-ring: 0 45% 42%;
 
-  --popover: 0 20% 12%;
-  --popover-foreground: 45 30% 92%;
-  --popover-border: 0 15% 20%;
+  --popover: 30 10% 13%;
+  --popover-foreground: 45 25% 90%;
+  --popover-border: 30 8% 20%;
 
-  /* Warm red primary for dark */
-  --primary: 0 65% 55%;
-  --primary-foreground: 0 18% 9%;
+  /* Muted maroon primary — same hue as light, slightly lifted for legibility */
+  --primary: 0 45% 42%;
+  --primary-foreground: 45 30% 95%;
 
-  --secondary: 0 15% 20%;
-  --secondary-foreground: 45 30% 92%;
+  --secondary: 30 8% 18%;
+  --secondary-foreground: 45 25% 90%;
 
-  --muted: 0 18% 16%;
-  --muted-foreground: 45 15% 65%;
+  --muted: 30 8% 16%;
+  --muted-foreground: 35 12% 62%;
 
-  --accent: 0 15% 20%;
-  --accent-foreground: 45 30% 92%;
+  --accent: 30 10% 20%;
+  --accent-foreground: 45 25% 90%;
 
-  --destructive: 0 62.8% 40%;
-  --destructive-foreground: 45 30% 92%;
+  --destructive: 0 55% 40%;
+  --destructive-foreground: 45 25% 90%;
 
-  --input: 0 15% 20%;
-  --ring: 0 65% 55%;
+  --input: 30 8% 20%;
+  --ring: 0 45% 42%;
 
-  --chart-1: 0 65% 55%;
-  --chart-2: 38 70% 60%;
-  --chart-3: 45 30% 75%;
-  --chart-4: 0 40% 50%;
-  --chart-5: 25 30% 60%;
+  --chart-1: 0 45% 50%;
+  --chart-2: 25 35% 55%;
+  --chart-3: 38 30% 65%;
+  --chart-4: 0 30% 40%;
+  --chart-5: 30 15% 50%;
 }
 
 @layer base {

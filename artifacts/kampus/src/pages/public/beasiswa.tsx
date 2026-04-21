@@ -80,7 +80,7 @@ export default function Beasiswa() {
                   <img src={item.image || images[index % images.length] || fallbackImages.scholarships[index % fallbackImages.scholarships.length]} alt={item.nama} className="h-44 w-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <div className="absolute bottom-3 left-4">
-                    <Medal size={22} weight="duotone" className="text-yellow-300" />
+                    <Medal size={22} weight="duotone" className="text-primary-foreground" />
                   </div>
                 </div>
                 <CardHeader className="pb-2"><CardTitle className="text-base">{item.nama}</CardTitle></CardHeader>

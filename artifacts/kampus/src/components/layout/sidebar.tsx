@@ -13,7 +13,7 @@ const roleConfig = {
   mahasiswa: {
     label: "Mahasiswa",
     icon: Backpack,
-    color: "bg-blue-500/10 text-blue-600",
+    color: "bg-primary/10 text-primary",
     links: [
       { name: "Dashboard", href: "/dashboard/mahasiswa", icon: SquaresFour },
       { name: "Jadwal Kuliah", href: "/dashboard/mahasiswa/jadwal", icon: CalendarBlank },
@@ -26,7 +26,7 @@ const roleConfig = {
   dosen: {
     label: "Dosen",
     icon: ChalkboardTeacher,
-    color: "bg-emerald-500/10 text-emerald-600",
+    color: "bg-primary/10 text-primary",
     links: [
       { name: "Dashboard", href: "/dashboard/dosen", icon: SquaresFour },
       { name: "Jadwal Mengajar", href: "/dashboard/dosen/jadwal", icon: CalendarBlank },
@@ -39,7 +39,7 @@ const roleConfig = {
   admin: {
     label: "Administrator",
     icon: UserGear,
-    color: "bg-orange-500/10 text-orange-600",
+    color: "bg-primary/10 text-primary",
     links: [
       { name: "Dashboard", href: "/dashboard/admin", icon: SquaresFour },
       { name: "Mahasiswa", href: "/dashboard/admin/mahasiswa", icon: Users },
@@ -54,7 +54,7 @@ const roleConfig = {
   rektor: {
     label: "Rektor",
     icon: Crown,
-    color: "bg-purple-500/10 text-purple-600",
+    color: "bg-primary/10 text-primary",
     links: [
       { name: "Executive Summary", href: "/dashboard/rektor", icon: ChartPie },
       { name: "Laporan Akademik", href: "/dashboard/rektor/akademik", icon: GraduationCap },

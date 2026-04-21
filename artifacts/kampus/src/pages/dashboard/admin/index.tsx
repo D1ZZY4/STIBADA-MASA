@@ -37,12 +37,12 @@ export default function AdminDashboard() {
   ];
 
   const quickLinks = [
-    { label: "Mahasiswa", href: "/dashboard/admin/mahasiswa", icon: Users, color: "text-blue-600 dark:text-blue-400 bg-blue-500/10" },
-    { label: "Dosen", href: "/dashboard/admin/dosen", icon: ChalkboardTeacher, color: "text-emerald-600 dark:text-emerald-400 dark:text-emerald-400 bg-emerald-500/10" },
-    { label: "KRS", href: "/dashboard/admin/krs", icon: ClipboardText, color: "text-orange-600 dark:text-orange-400 bg-orange-500/10" },
-    { label: "Konten", href: "/dashboard/admin/content", icon: Globe, color: "text-purple-600 dark:text-purple-400 bg-purple-500/10" },
-    { label: "Nilai", href: "/dashboard/admin/mata-kuliah", icon: GraduationCap, color: "text-rose-600 dark:text-rose-400 bg-rose-500/10" },
-    { label: "Sistem", href: "/dashboard/admin/sistem", icon: Gear, color: "text-slate-600 dark:text-slate-400 bg-slate-500/10" },
+    { label: "Mahasiswa", href: "/dashboard/admin/mahasiswa", icon: Users, color: "text-primary bg-primary/10" },
+    { label: "Dosen", href: "/dashboard/admin/dosen", icon: ChalkboardTeacher, color: "text-primary bg-primary/10" },
+    { label: "KRS", href: "/dashboard/admin/krs", icon: ClipboardText, color: "text-primary bg-primary/10" },
+    { label: "Konten", href: "/dashboard/admin/content", icon: Globe, color: "text-muted-foreground bg-primary/10" },
+    { label: "Nilai", href: "/dashboard/admin/mata-kuliah", icon: GraduationCap, color: "text-primary bg-primary/10" },
+    { label: "Sistem", href: "/dashboard/admin/sistem", icon: Gear, color: "text-muted-foreground bg-muted" },
   ];
 
   return (
@@ -53,7 +53,7 @@ export default function AdminDashboard() {
           <p className="text-sm text-muted-foreground">{today} · {user?.nama}</p>
         </div>
         <Badge variant="outline" className="w-fit rounded-full text-xs gap-1.5 px-3 py-1">
-          <div className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+          <div className="h-1.5 w-1.5 rounded-full bg-primary" />
           Administrator
         </Badge>
       </div>
@@ -117,7 +117,7 @@ export default function AdminDashboard() {
                   <p className="text-sm font-semibold truncate">{k.mahasiswaNama}</p>
                   <p className="text-xs text-muted-foreground truncate">{k.mataKuliahNama}</p>
                 </div>
-                <Badge className="shrink-0 rounded-full text-xs bg-yellow-500/10 text-yellow-700 border-0">{k.status}</Badge>
+                <Badge className="shrink-0 rounded-full text-xs bg-muted text-muted-foreground border-0">{k.status}</Badge>
               </div>
             )) : (
               <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed p-8 text-center">

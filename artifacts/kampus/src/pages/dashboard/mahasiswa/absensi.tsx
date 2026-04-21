@@ -5,10 +5,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 
 function getStatusColor(status: string) {
-  if (status === "hadir") return "text-emerald-600 dark:text-emerald-400 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-900/20";
-  if (status === "izin") return "text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-900/20";
-  if (status === "sakit") return "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20";
-  return "text-red-600 dark:text-red-400 bg-red-500/10 dark:bg-red-900/20";
+  if (status === "hadir") return "text-primary bg-primary/10";
+  if (status === "izin") return "text-muted-foreground bg-muted";
+  if (status === "sakit") return "text-muted-foreground bg-muted";
+  return "text-destructive dark:text-red-400 bg-red-500/10 dark:bg-red-900/20";
 }
 
 export default function MahasiswaAbsensi() {
@@ -28,9 +28,9 @@ export default function MahasiswaAbsensi() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {[
           { label: "Total Pertemuan", value: data?.totalPertemuan, color: "text-foreground" },
-          { label: "Hadir", value: data?.hadir, color: "text-emerald-600 dark:text-emerald-400" },
-          { label: "Izin / Sakit", value: (data?.izin ?? 0) + (data?.sakit ?? 0), color: "text-yellow-600" },
-          { label: "Alpha", value: data?.alpha, color: "text-red-600" },
+          { label: "Hadir", value: data?.hadir, color: "text-primary" },
+          { label: "Izin / Sakit", value: (data?.izin ?? 0) + (data?.sakit ?? 0), color: "text-muted-foreground" },
+          { label: "Alpha", value: data?.alpha, color: "text-destructive" },
         ].map((item, i) => (
           <Card key={i}>
             <CardHeader className="pb-2">
@@ -59,13 +59,13 @@ export default function MahasiswaAbsensi() {
             <>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Persentase Kehadiran</span>
-                <span className={`text-lg font-bold ${(data?.persentaseKehadiran ?? 0) >= 75 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600"}`}>
+                <span className={`text-lg font-bold ${(data?.persentaseKehadiran ?? 0) >= 75 ? "text-primary" : "text-destructive"}`}>
                   {data?.persentaseKehadiran ?? 0}%
                 </span>
               </div>
               <Progress value={data?.persentaseKehadiran ?? 0} className="h-3" />
               {(data?.persentaseKehadiran ?? 0) < 75 && (
-                <p className="text-sm text-red-600">Peringatan: Kehadiran di bawah 75% minimum</p>
+                <p className="text-sm text-destructive">Peringatan: Kehadiran di bawah 75% minimum</p>
               )}
             </>
           )}
@@ -89,7 +89,7 @@ export default function MahasiswaAbsensi() {
                 <div key={i} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">{mk.mataKuliah}</span>
-                    <span className={`text-sm font-semibold ${mk.persentase >= 75 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600"}`}>
+                    <span className={`text-sm font-semibold ${mk.persentase >= 75 ? "text-primary" : "text-destructive"}`}>
                       {mk.hadir}/{mk.total} ({mk.persentase}%)
                     </span>
                   </div>

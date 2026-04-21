@@ -52,7 +52,7 @@ export default function MahasiswaKrs() {
             <CardTitle className="text-sm font-medium text-muted-foreground">Status Persetujuan</CardTitle>
           </CardHeader>
           <CardContent>
-            <Badge variant="outline" className="text-lg py-1 bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400">
+            <Badge variant="outline" className="text-lg py-1 bg-primary/10 text-primary border-primary/20">
               DISETUJUI DOSEN WALI
             </Badge>
           </CardContent>
@@ -98,8 +98,8 @@ export default function MahasiswaKrs() {
                       <TableCell className="text-center">{krs.sks}</TableCell>
                       <TableCell>
                         <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                          krs.status === 'disetujui' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                          krs.status === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                          krs.status === 'disetujui' ? 'bg-primary/10 text-primary' :
+                          krs.status === 'pending' ? 'bg-muted text-muted-foreground' :
                           'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
                         }`}>
                           {krs.status.toUpperCase()}

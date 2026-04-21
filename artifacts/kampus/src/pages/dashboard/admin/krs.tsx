@@ -8,9 +8,9 @@ import { ClipboardText, XCircle, CheckCircle } from "@phosphor-icons/react";
 import { toast } from "sonner";
 
 const statusClass: Record<string, string> = {
-  disetujui: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  pending: "bg-amber-100 text-amber-800 border-amber-200",
-  ditolak: "bg-rose-100 text-rose-800 border-rose-200",
+  disetujui: "bg-primary/10 text-primary border-primary/20",
+  pending: "bg-muted text-muted-foreground border-border",
+  ditolak: "bg-destructive/10 text-destructive border-destructive/20",
 };
 
 export default function AdminKrs() {

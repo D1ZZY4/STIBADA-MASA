@@ -79,7 +79,7 @@ export default function AdminJadwal() {
                     <TableCell>{j.ruangan}</TableCell>
                     <TableCell>{j.kelas}</TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-600" onClick={() => { if (confirm("Hapus jadwal ini?")) remove({ id: j.id }); }}>
+                      <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive" onClick={() => { if (confirm("Hapus jadwal ini?")) remove({ id: j.id }); }}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </TableCell>

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import {
-  SignIn, List, X, Envelope,
-  Phone, MapPin, ArrowRight, SquaresFour, SignOut, User as UserIcon,
+  SignIn, List, X, Envelope, Phone, MapPin, ArrowRight,
+  SquaresFour, SignOut, InstagramLogo, YoutubeLogo, FacebookLogo, WhatsappLogo,
+  BookOpen, FileText, Books, Newspaper,
 } from "@phosphor-icons/react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,20 @@ const navLinks = [
   { href: "/informasi-pmb", label: "Info PMB" },
 ];
 
+const layananLinks = [
+  { label: "SIAKAD", href: "/login", icon: BookOpen },
+  { label: "Pendaftaran Online", href: "/pendaftaran", icon: FileText },
+  { label: "Perpustakaan Online", href: "#", icon: Books },
+  { label: "E-Journal", href: "#", icon: Newspaper },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/stibada.masa/", icon: InstagramLogo },
+  { label: "YouTube", href: "https://www.youtube.com/@stibadamasa8935", icon: YoutubeLogo },
+  { label: "Facebook", href: "https://facebook.com/stibadamasa", icon: FacebookLogo },
+  { label: "WhatsApp", href: "https://api.whatsapp.com/send/?phone=6281234502771&text&type=phone_number&app_absent=0", icon: WhatsappLogo },
+];
+
 function ThemeToggle({ size = 18 }: { size?: number }) {
   const { theme, setTheme } = useTheme();
   return (
@@ -34,8 +49,8 @@ function ThemeToggle({ size = 18 }: { size?: number }) {
       className="flex h-9 w-9 items-center justify-center rounded-xl border border-border/60 bg-background/70 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
     >
       {theme === "light"
-        ? <Moon size={size} weight="duotone" />
-        : <Sun size={size} weight="duotone" />}
+        ? <Moon size={size} />
+        : <Sun size={size} />}
     </button>
   );
 }
@@ -104,9 +119,7 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
           : "border-transparent bg-background/80 backdrop-blur-md"
       }`}
     >
-      {/* TOP ROW */}
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="STIBADA MASA Beranda">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 shrink-0">
             <img src="/logo-stibada.png" alt="" className="h-7 w-7 object-contain" />
@@ -117,7 +130,6 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
           </div>
         </Link>
 
-        {/* DESKTOP NAV — lg+ */}
         <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navigasi utama">
           {navLinks.map((link) => (
             <Link
@@ -134,16 +146,11 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
           ))}
         </nav>
 
-        {/* Right actions */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Theme toggle — desktop */}
           <ThemeToggle size={16} />
-
           <div className="hidden lg:block">
             <AuthAction />
           </div>
-
-          {/* Hamburger — mobile/tablet */}
           <button
             onClick={() => setOpen(!open)}
             aria-label={open ? "Tutup menu" : "Buka menu"}
@@ -158,7 +165,6 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
         </div>
       </div>
 
-      {/* TABLET NAV BAR — md to lg */}
       <div className="hidden border-t border-border/40 bg-background/60 md:block lg:hidden">
         <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-4 py-2 scrollbar-none">
           {navLinks.map((link) => (
@@ -180,7 +186,6 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
         </div>
       </div>
 
-      {/* MOBILE DROPDOWN — below md */}
       {open && (
         <div className="border-t border-border/40 bg-background px-4 pb-5 md:hidden">
           <nav className="flex flex-col gap-1 pt-3">
@@ -224,47 +229,84 @@ function PublicNavbar({ settings }: { settings: SiteSettings }) {
 
 function PublicFooter({ settings, content }: { settings: SiteSettings; content: PublicContentItem[] }) {
   return (
-    <footer className="border-t border-border/40 bg-[#1e3630] px-4 pt-14 pb-6 text-white dark:bg-[#0f1f1b]">
+    <footer className="border-t border-border/60 bg-card/50 px-4 pt-14 pb-6 text-foreground">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 pb-10 border-b border-white/10 md:grid-cols-4">
-          <div className="md:col-span-2 space-y-4">
+        <div className="grid gap-10 pb-10 border-b border-border/60 md:grid-cols-12">
+          <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
                 <img src="/logo-stibada.png" alt="Logo STIBADA MASA" className="h-8 w-8 object-contain" />
               </div>
               <div>
                 <p className="text-base font-bold leading-tight">{settings.brandName || "STIBADA MASA"}</p>
-                <p className="text-xs text-white/55 leading-snug mt-0.5">{settings.tagline || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah"}<br />Masjid Agung Sunan Ampel</p>
+                <p className="text-xs text-muted-foreground leading-snug mt-0.5">{settings.tagline || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah"}</p>
               </div>
             </div>
-            <p className="text-sm leading-6 text-white/55 max-w-sm">{contentBody(content, "layout.footer", "Platform akademik modern untuk layanan belajar-mengajar, administrasi, komunikasi, dan penerimaan mahasiswa baru STIBADA MASA Surabaya.")}</p>
-          </div>
-
-          <div className="space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/40">Kontak</p>
-            <ul className="space-y-2.5 text-sm">
-              <li className="flex items-start gap-2 text-white/60"><Envelope size={14} weight="duotone" className="mt-0.5 shrink-0" />{settings.contactEmail || "pmb@stibadamasa.ac.id"}</li>
-              <li className="flex items-start gap-2 text-white/60"><Phone size={14} weight="duotone" className="mt-0.5 shrink-0" />{settings.contactPhone || "Senin–Jumat, 08.00–16.00 WIB"}</li>
-              <li className="flex items-start gap-2 text-white/60"><MapPin size={14} weight="duotone" className="mt-0.5 shrink-0" />{settings.address || "Jl. Ampel Suci No.1, Ampel, Semampir, Surabaya"}</li>
+            <p className="text-sm leading-6 text-muted-foreground max-w-md">{contentBody(content, "layout.footer", "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah Masjid Agung Sunan Ampel Surabaya — pusat studi Bahasa Arab berbasis nilai luhur Sunan Ampel.")}</p>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2 text-muted-foreground">
+                <MapPin size={14} weight="duotone" className="mt-0.5 shrink-0 text-primary" />
+                <span>{settings.address || "Jl. Ampel Masjid No.53, Ampel, Semampir, Surabaya"}</span>
+              </li>
+              <li className="flex items-center gap-2 text-muted-foreground">
+                <Phone size={14} weight="duotone" className="shrink-0 text-primary" />
+                <span>081234502771</span>
+              </li>
+              <li className="flex items-center gap-2 text-muted-foreground">
+                <Envelope size={14} weight="duotone" className="shrink-0 text-primary" />
+                <span>{settings.contactEmail || "pmb@stibada.ac.id"}</span>
+              </li>
             </ul>
           </div>
 
-          <div className="space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/40">Navigasi</p>
-            <ul className="space-y-2 text-sm">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">{link.label}</Link>
+          <div className="md:col-span-3 space-y-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">Layanan</p>
+            <ul className="space-y-2.5 text-sm">
+              {layananLinks.map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} className="group flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
+                    <l.icon size={14} weight="duotone" className="text-primary/70 group-hover:text-primary" />
+                    {l.label}
+                  </Link>
                 </li>
               ))}
-              <li><Link href="/login" className="text-white/60 hover:text-white transition-colors">Login Portal</Link></li>
             </ul>
+          </div>
+
+          <div className="md:col-span-2 space-y-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">Navigasi</p>
+            <ul className="space-y-2 text-sm">
+              {navLinks.slice(0, 5).map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="md:col-span-2 space-y-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">Sosial Media</p>
+            <div className="grid grid-cols-4 gap-2 md:grid-cols-2">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-background text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground hover:border-primary"
+                >
+                  <s.icon size={18} weight="duotone" />
+                </a>
+              ))}
+            </div>
+            <p className="text-[11px] text-muted-foreground/70 leading-relaxed">@stibada.masa</p>
           </div>
         </div>
 
-        <div className="pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-white/30">
+        <div className="pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground/70">
           <p>© {new Date().getFullYear()} STIBADA MASA. Hak Cipta Dilindungi.</p>
-          <p>{settings.footerNote || "Sekolah Tinggi Ilmu Bahasa Arab dan Dakwah — Masjid Agung Sunan Ampel, Surabaya"}</p>
+          <p>{settings.footerNote || "Terakreditasi BAN-PT (2022–2027) · Terintegrasi PMB & SIAKAD"}</p>
         </div>
       </div>
     </footer>

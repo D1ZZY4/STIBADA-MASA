@@ -100,7 +100,7 @@ export default function AdminMataKuliah() {
                         <Button variant="ghost" size="sm" onClick={() => { setEditId(mk.id); setForm({ kode: mk.kode, nama: mk.nama, sks: String(mk.sks), semester: String(mk.semester), prodi: mk.prodi ?? "" }); setOpenDialog(true); }}>
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-600" onClick={() => { if (confirm("Hapus mata kuliah ini?")) remove({ id: mk.id }); }}>
+                        <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive" onClick={() => { if (confirm("Hapus mata kuliah ini?")) remove({ id: mk.id }); }}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>

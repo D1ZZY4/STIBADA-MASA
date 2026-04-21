@@ -91,7 +91,7 @@ export default function AdminMahasiswa() {
                       <TableCell>
                         <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
                           m.status === 'aktif' ? 'bg-primary/10 text-primary' :
-                          m.status === 'lulus' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
+                          m.status === 'lulus' ? 'bg-primary/10 text-primary' :
                           'bg-muted text-muted-foreground'
                         }`}>
                           {m.status.toUpperCase()}
