@@ -4,12 +4,35 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+
+    "dev": "tsx scripts/src/dev.ts",
+    "start:all": "tsx scripts/src/dev.ts",
+    "start:frontend": "PORT=${PORT:-5173} BASE_PATH=${BASE_PATH:-/} pnpm --filter @workspace/kampus run dev",
+    "start:backend": "PORT=8080 pnpm --filter @workspace/api-server run dev",
+
+    "screenshot": "node scripts/screenshot.mjs",
+    "screenshot:home": "node scripts/screenshot.mjs home",
+    "screenshot:pendaftaran": "node scripts/screenshot.mjs pendaftaran",
+    "screenshot:program-studi": "node scripts/screenshot.mjs program-studi",
+    "screenshot:beasiswa": "node scripts/screenshot.mjs beasiswa",
+    "screenshot:galeri": "node scripts/screenshot.mjs galeri",
+    "screenshot:pengumuman": "node scripts/screenshot.mjs pengumuman",
+    "screenshot:informasi-pmb": "node scripts/screenshot.mjs informasi-pmb",
+    "screenshot:dashboard": "node scripts/screenshot.mjs dashboard",
+    "screenshot:admin": "node scripts/screenshot.mjs admin",
+    "screenshot:dosen": "node scripts/screenshot.mjs dosen",
+    "screenshot:rektor": "node scripts/screenshot.mjs rektor",
+
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
   "private": true,
   "devDependencies": {
+    "concurrently": "^9.1.2",
+    "playwright": "^1.59.1",
+    "puppeteer": "^24.41.0",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.2",
     "prettier": "^3.8.1"
   }

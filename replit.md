@@ -117,11 +117,42 @@ Set `MONGODB_URI` env var to use a real MongoDB instance.
 
 ## Key Commands
 
-```
-pnpm --filter @workspace/kampus run dev       # Frontend
-pnpm --filter @workspace/api-server run dev   # Backend
+```bash
+# Development
+pnpm dev                               # Jalankan frontend + backend sekaligus
+pnpm start:all                         # Alias untuk pnpm dev
+pnpm start:frontend                    # Hanya frontend (PORT=5173)
+pnpm start:backend                     # Hanya backend (PORT=8080)
+
+# Per-package
+pnpm --filter @workspace/kampus run dev       # Frontend langsung
+pnpm --filter @workspace/api-server run dev   # Backend langsung
 pnpm --filter @workspace/api-spec run codegen # Regenerate API client
+
+# Screenshot (simpan ke screenshots/<page>/<page>-DD.MM.YYYY-HH.MM-WxH-mode.png)
+pnpm screenshot home                         # Desktop default (1280×720)
+pnpm screenshot home mobile                  # Mobile iPhone 15 (390×844)
+pnpm screenshot home tablet dark             # Tablet + dark mode
+pnpm screenshot home iphone-17-pro-max       # Device preset spesifik
+pnpm screenshot home 1440 900                # Custom dimensi
+pnpm screenshot:home                         # Shortcut home desktop
+pnpm screenshot:dashboard                    # Shortcut dashboard desktop
+# Page aliases: home, pendaftaran, program-studi, beasiswa, galeri,
+#               pengumuman, informasi-pmb, dashboard, admin, dosen, rektor,
+#               krs, nilai, absensi, diskusi, jadwal
+# Device presets: desktop, desktop-hd, laptop, laptop-lg, tablet, ipad,
+#                 ipad-pro, mobile, iphone-se, iphone-15, iphone-15-pro-max,
+#                 iphone-17, iphone-17-pro, iphone-17-pro-max,
+#                 pixel-9, galaxy-s25, android, surface-pro, 4k
 ```
+
+## Screenshot Tool
+
+- Script: `scripts/screenshot.mjs`
+- Chromium: Playwright dengan NixOS pre-installed browser di `/nix/store/...-playwright-browsers-1.55.0-with-cjk/`
+- Auto-detect Replit vs local (gunakan `localhost:80` vs `localhost:PORT`)
+- Support dark/light mode via `colorScheme` context + `document.documentElement.classList.add('dark')`
+- Output: `screenshots/<page>/<page>-DD.MM.YYYY-HH.MM-WxH-mode.png`
 
 ## Database (MongoDB Atlas)
 
