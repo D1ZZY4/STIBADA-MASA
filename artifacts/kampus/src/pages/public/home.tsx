@@ -133,7 +133,7 @@ export default function Beranda() {
               alt="Kampus STIBADA MASA"
               className="relative h-[440px] w-full rounded-[2rem] object-cover shadow-2xl"
             />
-            <div className="absolute bottom-4 left-4 right-4 grid grid-cols-4 gap-2 rounded-2xl border border-white/30 bg-card dark:bg-black/60 dark:border-white/10 p-3 shadow-xl backdrop-blur">
+            <div className="absolute bottom-4 left-4 right-4 grid grid-cols-4 gap-2 rounded-2xl border border-white/40 bg-white/55 dark:bg-black/50 dark:border-white/10 p-3 shadow-xl backdrop-blur-md">
               {[["Mahasiswa", "Jadwal & KRS"], ["Dosen", "Nilai & Absensi"], ["Admin", "Kelola Sistem"], ["Rektor", "Statistik"]].map(([t, d]) => (
                 <div key={t} className="text-center">
                   <p className="font-bold text-xs">{t}</p>
@@ -164,7 +164,7 @@ export default function Beranda() {
                 className="h-full min-h-[380px] w-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-background/85 dark:bg-background/90 p-5 shadow-lg backdrop-blur border border-border/30">
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white/55 dark:bg-black/50 p-5 shadow-lg backdrop-blur-md border border-white/40 dark:border-white/10">
                 <p className="text-base font-bold">STIBADA MASA</p>
                 <p className="mt-1 text-xs text-muted-foreground leading-5">{profileBody}</p>
               </div>
