@@ -47,8 +47,8 @@ function shutdown(signal: NodeJS.Signals) {
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
-start("api", "pnpm --filter @workspace/api-server run dev", { PORT: "8080" });
+start("api", "pnpm --filter @workspace/api-server run dev", { PORT: "3001" });
 start("web", "pnpm --filter @workspace/kampus run dev", {
-  PORT: process.env.PORT || "5173",
+  PORT: process.env.PORT || "8080",
   BASE_PATH: process.env.BASE_PATH || "/",
 });
